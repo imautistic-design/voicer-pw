@@ -1,0 +1,256 @@
+<!doctype html>
+<html lang="lt">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="theme-color" content="#f7f8fa">
+	<title>Voicer — bendravimo kortelės</title>
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="style.css">
+</head>
+<body>
+	<main class="app-shell">
+		<header class="top-area" aria-label="Bendravimo įrankiai">
+			<label class="search-box">
+				<span class="sr-only">Ieškoti žodyno kortelių</span>
+				<input type="search" placeholder="Ką norėtum pasakyti?">
+				<svg class="search-icon" viewBox="0 0 24 24" aria-hidden="true">
+					<circle cx="10.8" cy="10.8" r="6.3" />
+					<path d="m15.5 15.5 4.2 4.2" />
+				</svg>
+			</label>
+
+			<div class="sticky-message-panel">
+				<section class="composer" aria-label="Sakinio redaktorius">
+					<div class="composer-copy">
+						<p class="greeting">Labas, <span aria-hidden="true">👋</span></p>
+						<p class="composer-hint">Ką norėtum pasakyti?</p>
+					</div>
+				</section>
+				<details class="quick-phrase-dropdown">
+					<summary>
+						<span>VEIKSMAI</span>
+						<span class="quick-phrase-chevron" aria-hidden="true">›</span>
+					</summary>
+					<div class="quick-phrases" aria-label="Greitos frazės">
+				<button class="phrase-chip" type="button"><img src="ikonos/NORIU.svg" alt=""> NORIU <b aria-hidden="true"><img src="ikonos/Plus.svg" alt=""></b></button>
+				<button class="phrase-chip" type="button"><img src="ikonos/padėk.svg" alt=""> PADĖK <b aria-hidden="true"><img src="ikonos/Plus.svg" alt=""></b></button>
+				<button class="phrase-chip" type="button"><img src="ikonos/taip.svg" alt=""> TAIP <b aria-hidden="true"><img src="ikonos/Plus.svg" alt=""></b></button>
+				<button class="phrase-chip" type="button"><img src="ikonos/ne.svg" alt=""> NE <b aria-hidden="true"><img src="ikonos/Plus.svg" alt=""></b></button>
+				<button class="phrase-chip" type="button"><img src="ikonos/eiti.svg" alt=""> EITI <b aria-hidden="true"><img src="ikonos/Plus.svg" alt=""></b></button>
+				<button class="phrase-chip" type="button"><img src="ikonos/Car.svg" alt=""> VAŽIUOTI <b aria-hidden="true"><img src="ikonos/Plus.svg" alt=""></b></button>
+				<button class="phrase-chip" type="button"><img src="ikonos/valgyti.svg" alt=""> VALGYTI <b aria-hidden="true"><img src="ikonos/Plus.svg" alt=""></b></button>
+				<button class="phrase-chip" type="button"><img src="ikonos/gerti.svg" alt=""> GERTI <b aria-hidden="true"><img src="ikonos/Plus.svg" alt=""></b></button>
+					</div>
+				</details>
+			</div>
+		</header>
+
+		<section class="categories" aria-labelledby="categories-title">
+			<h1 id="categories-title">Kategorijos</h1>
+			<div class="category-list">
+				<button class="category-row" type="button" data-open-emotions><span class="category-icon"><img src="kategoriju-ikonos/EMOCIJOS.svg" alt=""></span><span>Emocijos</span><span class="chevron">›</span></button>
+				<button class="category-row" type="button"><span class="category-icon"><img src="kategoriju-ikonos/VALGYTI.svg" alt=""></span><span>Valgyti</span><span class="chevron">›</span></button>
+				<button class="category-row" type="button"><span class="category-icon"><img src="kategoriju-ikonos/GERTI.svg" alt=""></span><span>Gerti</span><span class="chevron">›</span></button>
+				<button class="category-row" type="button"><span class="category-icon"><img src="kategoriju-ikonos/TUALETAS.svg" alt=""></span><span>Tualetas</span><span class="chevron">›</span></button>
+				<button class="category-row" type="button"><span class="category-icon"><img src="kategoriju-ikonos/BENDRAUKIME.svg" alt=""></span><span>Bendravimas</span><span class="chevron">›</span></button>
+				<button class="category-row" type="button"><span class="category-icon"><img src="kategoriju-ikonos/SKAUDA.svg" alt=""></span><span>Skauda</span><span class="chevron">›</span></button>
+				<button class="category-row" type="button"><span class="category-icon"><img src="kategoriju-ikonos/ŽMONĖS.svg" alt=""></span><span>Žmonės</span><span class="chevron">›</span></button>
+				<button class="category-row" type="button"><span class="category-icon"><img src="kategoriju-ikonos/VEIKLOS.svg" alt=""></span><span>Veiklos</span><span class="chevron">›</span></button>
+				<button class="category-row" type="button"><span class="category-icon"><img src="kategoriju-ikonos/VIETOS.svg" alt=""></span><span>Vietos</span><span class="chevron">›</span></button>
+				<button class="category-row" type="button"><span class="category-icon"><img src="kategoriju-ikonos/TRANSPORTAS.svg" alt=""></span><span>Transportas</span><span class="chevron">›</span></button>
+				<button class="category-row" type="button"><span class="category-icon"><img src="kategoriju-ikonos/GAMINTI.svg" alt=""></span><span>Gaminti</span><span class="chevron">›</span></button>
+				<button class="category-row" type="button"><span class="category-icon"><img src="kategoriju-ikonos/SPORTAS.svg" alt=""></span><span>Sportas</span><span class="chevron">›</span></button>
+				<button class="category-row" type="button"><span class="category-icon"><img src="kategoriju-ikonos/DAIKTAI.svg" alt=""></span><span>Daiktai</span><span class="chevron">›</span></button>
+				<button class="category-row" type="button"><span class="category-icon"><img src="kategoriju-ikonos/LAIKAS.svg" alt=""></span><span>Laikas</span><span class="chevron">›</span></button>
+				<button class="category-row" type="button"><span class="category-icon"><img src="kategoriju-ikonos/SKAIČIAI.svg" alt=""></span><span>Skaičiai</span><span class="chevron">›</span></button>
+				<button class="category-row" type="button"><span class="category-icon"><img src="kategoriju-ikonos/SPALVOS.svg" alt=""></span><span>Spalvos</span><span class="chevron">›</span></button>
+			</div>
+
+			<div class="emotion-view" id="emotion-view" hidden>
+				<button class="emotion-back" type="button" data-back-categories>
+					<span class="emotion-back-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M19 12H5m6-6-6 6 6 6" /></svg></span> Atgal
+				</button>
+				<div class="emotion-heading">
+					<img src="kategoriju-ikonos/EMOCIJOS.svg" alt="">
+					<h2 id="emotion-title">Emocijos</h2>
+				</div>
+				<div class="food-subgroups" id="food-subgroups" hidden aria-label="Valgyti pogrupiai">
+					<button class="subcategory-row" type="button">
+						<span class="subcategory-icon"><img src="IKONOS POGRUPIAI/PATIEKLAI.svg" alt=""></span><span>Patiekalai</span><span class="chevron">›</span>
+					</button>
+					<button class="subcategory-row" type="button">
+						<span class="subcategory-icon"><img src="IKONOS POGRUPIAI/KEPINIAI.svg" alt=""></span><span>Kepiniai</span><span class="chevron">›</span>
+					</button>
+					<button class="subcategory-row" type="button">
+						<span class="subcategory-icon"><img src="IKONOS POGRUPIAI/UŽKANDŽIAI.svg" alt=""></span><span>Užkandžiai</span><span class="chevron">›</span>
+					</button>
+					<button class="subcategory-row" type="button">
+						<span class="subcategory-icon"><img src="IKONOS POGRUPIAI/SALDUMYNAI.svg" alt=""></span><span>Saldumynai</span><span class="chevron">›</span>
+					</button>
+				</div>
+				<div class="emotion-grid" aria-label="Emocijų kortelės">
+					<article class="emotion-card"><div class="emotion-card-tools"><button class="emotion-audio" type="button" aria-label="Leisti garsą: panika"><span aria-hidden="true">◖))</span> Garsas</button><span class="emotion-favorite" aria-hidden="true">♥</span></div><div class="emotion-photo-placeholder" aria-hidden="true"></div><p>Panika</p></article>
+					<article class="emotion-card"><div class="emotion-card-tools"><button class="emotion-audio" type="button" aria-label="Leisti garsą: piktas"><span aria-hidden="true">◖))</span> Garsas</button><span class="emotion-favorite" aria-hidden="true">♥</span></div><div class="emotion-photo-placeholder" aria-hidden="true"></div><p>Piktas</p></article>
+					<article class="emotion-card"><div class="emotion-card-tools"><button class="emotion-audio" type="button" aria-label="Leisti garsą: liūdna"><span aria-hidden="true">◖))</span> Garsas</button><span class="emotion-favorite" aria-hidden="true">♥</span></div><div class="emotion-photo-placeholder" aria-hidden="true"></div><p>Liūdna</p></article>
+					<article class="emotion-card"><div class="emotion-card-tools"><button class="emotion-audio" type="button" aria-label="Leisti garsą: verkiu"><span aria-hidden="true">◖))</span> Garsas</button><span class="emotion-favorite" aria-hidden="true">♥</span></div><div class="emotion-photo-placeholder" aria-hidden="true"></div><p>Verkiu</p></article>
+					<article class="emotion-card"><div class="emotion-card-tools"><button class="emotion-audio" type="button" aria-label="Leisti garsą: irzlus"><span aria-hidden="true">◖))</span> Garsas</button><span class="emotion-favorite" aria-hidden="true">♥</span></div><div class="emotion-photo-placeholder" aria-hidden="true"></div><p>Irzlus</p></article>
+					<article class="emotion-card"><div class="emotion-card-tools"><button class="emotion-audio" type="button" aria-label="Leisti garsą: pavargęs"><span aria-hidden="true">◖))</span> Garsas</button><span class="emotion-favorite" aria-hidden="true">♥</span></div><div class="emotion-photo-placeholder" aria-hidden="true"></div><p>Pavargęs</p></article>
+					<article class="emotion-card"><div class="emotion-card-tools"><button class="emotion-audio" type="button" aria-label="Leisti garsą: nuobodžiuosi"><span aria-hidden="true">◖))</span> Garsas</button><span class="emotion-favorite" aria-hidden="true">♥</span></div><div class="emotion-photo-placeholder" aria-hidden="true"></div><p>Nuobodžiuosi</p></article>
+					<article class="emotion-card"><div class="emotion-card-tools"><button class="emotion-audio" type="button" aria-label="Leisti garsą: nerimas"><span aria-hidden="true">◖))</span> Garsas</button><span class="emotion-favorite" aria-hidden="true">♥</span></div><div class="emotion-photo-placeholder" aria-hidden="true"></div><p>Nerimas</p></article>
+					<article class="emotion-card"><div class="emotion-card-tools"><button class="emotion-audio" type="button" aria-label="Leisti garsą: ramybė"><span aria-hidden="true">◖))</span> Garsas</button><span class="emotion-favorite" aria-hidden="true">♥</span></div><div class="emotion-photo-placeholder" aria-hidden="true"></div><p>Ramybė</p></article>
+					<article class="emotion-card"><div class="emotion-card-tools"><button class="emotion-audio" type="button" aria-label="Leisti garsą: laimė"><span aria-hidden="true">◖))</span> Garsas</button><span class="emotion-favorite" aria-hidden="true">♥</span></div><div class="emotion-photo-placeholder" aria-hidden="true"></div><p>Laimė</p></article>
+					<article class="emotion-card"><div class="emotion-card-tools"><button class="emotion-audio" type="button" aria-label="Leisti garsą: patinka"><span aria-hidden="true">◖))</span> Garsas</button><span class="emotion-favorite" aria-hidden="true">♥</span></div><div class="emotion-photo-placeholder" aria-hidden="true"></div><p>Patinka</p></article>
+					<article class="emotion-card"><div class="emotion-card-tools"><button class="emotion-audio" type="button" aria-label="Leisti garsą: įsimylėjęs"><span aria-hidden="true">◖))</span> Garsas</button><span class="emotion-favorite" aria-hidden="true">♥</span></div><div class="emotion-photo-placeholder" aria-hidden="true"></div><p>Įsimylėjęs</p></article>
+				</div>
+			</div>
+		</section>
+
+		<nav class="bottom-nav" aria-label="Pagrindinė navigacija">
+			<button class="nav-item" type="button">
+				<span class="nav-icon" aria-hidden="true"><img src="NAVIGACIJOA IKONOS/emocijjos.svg" alt=""></span>
+				<span>Mano<br>kortelė</span>
+			</button>
+			<button class="nav-item nav-create is-active" type="button" aria-current="page">
+				<span class="nav-icon" aria-hidden="true">＋</span>
+				<span>Sukurti<br>kortelę</span>
+			</button>
+			<button class="nav-item" type="button">
+				<span class="nav-icon" aria-hidden="true"><img src="NAVIGACIJOA IKONOS/megstamiausi.svg" alt=""></span>
+				<span>Mėgstamos<br>kortelės</span>
+			</button>
+		</nav>
+	</main>
+	<script>
+		const categoriesTitle = document.querySelector("#categories-title");
+		const categoryList = document.querySelector(".category-list");
+		const emotionView = document.querySelector("#emotion-view");
+		const categoriesPanel = document.querySelector(".categories");
+		const emotionHeading = document.querySelector(".emotion-heading h2");
+		const emotionHeadingIcon = document.querySelector(".emotion-heading img");
+		const emotionGrid = document.querySelector(".emotion-grid");
+		const foodSubgroups = document.querySelector("#food-subgroups");
+		const originalEmotionCards = emotionGrid.innerHTML;
+		const appShell = document.querySelector(".app-shell");
+		let currentCategoryName = "";
+		let currentFoodSubgroup = false;
+		const gertiCards = [
+			"Vanduo", "Sultys", "Vanduo su citrina", "Gazuotas vanduo",
+			"Limonadas", "Kokteilis", "Kava", "Arbata", "Kakava", "Pienas"
+		];
+		const tualetasCards = [
+			"Tualetas", "Tualetinis popierius", "Tualeto šepetys", "Oro gaiviklis",
+			"Nuleisti vandenį", "Plauti rankas", "Skystas muilas", "Rankšluostis"
+		];
+		const bendravimasCards = [
+			"Labas", "Taip", "Ne", "Stop", "Apsikabinkim", "Viso gero",
+			"Atsiprašau", "Ačiū"
+		];
+		const skaudaCards = [
+			"Dantys", "Gerklė", "Pilvas", "Galva", "Koja", "Nugara", "Ausis", "Ranka"
+		];
+
+		function renderWordCards(words) {
+			return words.map((word) => `
+				<article class="emotion-card emotion-card-placeholder">
+					<div class="emotion-card-tools">
+						<button class="emotion-audio" type="button" aria-label="Leisti garsą: ${word.toLowerCase()}">
+							<span aria-hidden="true">◖))</span> Garsas
+						</button>
+						<span class="emotion-favorite" aria-hidden="true">♥</span>
+					</div>
+					<div class="emotion-photo-placeholder" aria-hidden="true"></div>
+					<p>${word}</p>
+				</article>
+			`).join("");
+		}
+
+		function showCategory(categoryRow) {
+			const categoryName = categoryRow.querySelectorAll(":scope > span")[1].textContent.trim();
+			const categoryIcon = categoryRow.querySelector(".category-icon img");
+
+			currentCategoryName = categoryName;
+			currentFoodSubgroup = false;
+			emotionHeading.textContent = categoryName;
+			emotionHeadingIcon.src = categoryIcon.src;
+			foodSubgroups.hidden = categoryName !== "Valgyti";
+			emotionGrid.hidden = categoryName === "Valgyti";
+			if (categoryName === "Emocijos") {
+				emotionGrid.innerHTML = originalEmotionCards;
+			} else if (categoryName === "Gerti") {
+				emotionGrid.innerHTML = renderWordCards(gertiCards);
+			} else if (categoryName === "Tualetas") {
+				emotionGrid.innerHTML = renderWordCards(tualetasCards);
+			} else if (categoryName === "Bendravimas") {
+				emotionGrid.innerHTML = renderWordCards(bendravimasCards);
+			} else if (categoryName === "Skauda") {
+				emotionGrid.innerHTML = renderWordCards(skaudaCards);
+			} else if (categoryName !== "Valgyti") {
+				emotionGrid.innerHTML = renderWordCards(Array.from({ length: 12 }, () => "Žodis"));
+			}
+			emotionGrid.setAttribute("aria-label", `${categoryName} kortelės`);
+
+			categoriesTitle.hidden = true;
+			categoryList.hidden = true;
+			emotionView.hidden = false;
+			appShell.classList.add("is-emotion-view");
+			categoriesPanel.setAttribute("aria-labelledby", "emotion-title");
+			window.scrollTo({ top: 0, behavior: "smooth" });
+		}
+
+		document.querySelectorAll(".category-row").forEach((categoryRow) => {
+			categoryRow.addEventListener("click", () => showCategory(categoryRow));
+		});
+
+		foodSubgroups.querySelectorAll(".subcategory-row").forEach((subcategoryRow) => {
+			subcategoryRow.addEventListener("click", () => {
+				currentFoodSubgroup = true;
+				const subgroupName = subcategoryRow.querySelectorAll(":scope > span")[1].textContent.trim();
+				const subgroupCards = {
+					"Patiekalai": [
+						"Kepti kiaušiniai", "Virti kiaušiniai", "Omletas", "Salotos",
+						"Kepsnys", "Burgeris", "Dešrelės", "Maltinukas",
+						"Sriuba", "Lazanija", "Spagečiai", "Pica", "Blynai", "Lietiniai"
+					],
+					"Kepiniai": [
+						"Juoda duona", "Duonelė", "Sumuštinių duona", "Ilgas batonas",
+						"Kruasanas", "Bandelė", "Tortas", "Keksiukas"
+					],
+					"Saldumynai": [
+						"Bandelė", "Ledai", "Saldainis", "Guminukai",
+						"Sausainis", "Vaflis", "Šokoladas", "Čiulpinukas"
+					],
+					"Užkandžiai": [
+						"Trapučiai", "Riešutai", "Džiovinti vaisiai",
+						"Popkornai", "Traškučiai", "Lazdelės"
+					]
+				};
+				const words = subgroupCards[subgroupName] || Array.from({ length: 12 }, () => "Žodis");
+				emotionHeading.textContent = subgroupName;
+				foodSubgroups.hidden = true;
+				emotionGrid.hidden = false;
+				emotionGrid.innerHTML = renderWordCards(words);
+				emotionGrid.setAttribute("aria-label", `${emotionHeading.textContent} kortelės`);
+			});
+		});
+
+		document.querySelector("[data-back-categories]").addEventListener("click", () => {
+			if (currentCategoryName === "Valgyti" && currentFoodSubgroup) {
+				currentFoodSubgroup = false;
+				emotionHeading.textContent = currentCategoryName;
+				foodSubgroups.hidden = false;
+				emotionGrid.hidden = true;
+				return;
+			}
+
+			emotionView.hidden = true;
+			categoriesTitle.hidden = false;
+			categoryList.hidden = false;
+			appShell.classList.remove("is-emotion-view");
+			categoriesPanel.setAttribute("aria-labelledby", "categories-title");
+		});
+	</script>
+</body>
+</html>
