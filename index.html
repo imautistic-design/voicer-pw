@@ -13,14 +13,19 @@
 <body>
 	<main class="app-shell">
 		<header class="top-area" aria-label="Bendravimo įrankiai">
-			<label class="search-box">
-				<span class="sr-only">Ieškoti žodyno kortelių</span>
-				<input type="search" placeholder="Ką norėtum pasakyti?">
-				<svg class="search-icon" viewBox="0 0 24 24" aria-hidden="true">
-					<circle cx="10.8" cy="10.8" r="6.3" />
-					<path d="m15.5 15.5 4.2 4.2" />
-				</svg>
-			</label>
+			<div class="desktop-search-row">
+				<button class="desktop-home" id="desktop-home" type="button" aria-label="Pagrindinis">
+					<img src="NAVIGACIJOA IKONOS/PRADŽIA.svg" alt="">
+				</button>
+				<label class="search-box">
+					<span class="sr-only">Ieškoti žodyno kortelių</span>
+					<input type="search" placeholder="Ieškoti žodžio...">
+					<svg class="search-icon" viewBox="0 0 24 24" aria-hidden="true">
+						<circle cx="10.8" cy="10.8" r="6.3" />
+						<path d="m15.5 15.5 4.2 4.2" />
+					</svg>
+				</label>
+			</div>
 
 			<div class="sticky-message-panel">
 				<section class="composer" aria-label="Sakinio redaktorius">
@@ -28,6 +33,7 @@
 						<p class="greeting">Labas, <span aria-hidden="true">👋</span></p>
 						<p class="composer-hint">Ką norėtum pasakyti?</p>
 					</div>
+					<div class="selected-words" id="selected-words" role="list" aria-label="Pasirinktos kortelės" hidden></div>
 				</section>
 				<details class="quick-phrase-dropdown">
 					<summary>
@@ -35,11 +41,11 @@
 						<span class="quick-phrase-chevron" aria-hidden="true">›</span>
 					</summary>
 					<div class="quick-phrases" aria-label="Greitos frazės">
-				<button class="phrase-chip" type="button"><img src="ikonos/NORIU.svg" alt=""> <span class="phrase-chip-label">NORIU</span> <b aria-hidden="true"><img src="ikonos/Plus.svg" alt=""></b></button>
-				<button class="phrase-chip" type="button"><img src="ikonos/padėk.svg" alt=""> <span class="phrase-chip-label">PADĖK</span> <b aria-hidden="true"><img src="ikonos/Plus.svg" alt=""></b></button>
-				<button class="phrase-chip" type="button"><img src="ikonos/taip.svg" alt=""> <span class="phrase-chip-label">TAIP</span> <b aria-hidden="true"><img src="ikonos/Plus.svg" alt=""></b></button>
-				<button class="phrase-chip" type="button"><img src="ikonos/ne.svg" alt=""> <span class="phrase-chip-label">NE</span> <b aria-hidden="true"><img src="ikonos/Plus.svg" alt=""></b></button>
-				<button class="phrase-chip" type="button"><img src="ikonos/eiti.svg" alt=""> <span class="phrase-chip-label">EITI</span> <b aria-hidden="true"><img src="ikonos/Plus.svg" alt=""></b></button>
+				<button class="phrase-chip" type="button" data-audio-src="garsai/noriu.mp3"><img src="ikonos/NORIU.svg" alt=""> <span class="phrase-chip-label">NORIU</span> <b aria-hidden="true"><img src="ikonos/Plus.svg" alt=""></b></button>
+				<button class="phrase-chip" type="button" data-audio-src="garsai/padėk.mp3"><img src="ikonos/padėk.svg" alt=""> <span class="phrase-chip-label">PADĖK</span> <b aria-hidden="true"><img src="ikonos/Plus.svg" alt=""></b></button>
+				<button class="phrase-chip" type="button" data-audio-src="garsai/taip.mp3"><img src="ikonos/taip.svg" alt=""> <span class="phrase-chip-label">TAIP</span> <b aria-hidden="true"><img src="ikonos/Plus.svg" alt=""></b></button>
+				<button class="phrase-chip" type="button" data-audio-src="garsai/ne.mp3"><img src="ikonos/ne.svg" alt=""> <span class="phrase-chip-label">NE</span> <b aria-hidden="true"><img src="ikonos/Plus.svg" alt=""></b></button>
+				<button class="phrase-chip" type="button" data-audio-src="garsai/eiti.mp3"><img src="ikonos/eiti.svg" alt=""> <span class="phrase-chip-label">EITI</span> <b aria-hidden="true"><img src="ikonos/Plus.svg" alt=""></b></button>
 				<button class="phrase-chip" type="button"><img src="ikonos/Car.svg" alt=""> <span class="phrase-chip-label">VAŽIUOTI</span> <b aria-hidden="true"><img src="ikonos/Plus.svg" alt=""></b></button>
 				<button class="phrase-chip" type="button"><img src="ikonos/valgyti.svg" alt=""> <span class="phrase-chip-label">VALGYTI</span> <b aria-hidden="true"><img src="ikonos/Plus.svg" alt=""></b></button>
 				<button class="phrase-chip" type="button"><img src="ikonos/gerti.svg" alt=""> <span class="phrase-chip-label">GERTI</span> <b aria-hidden="true"><img src="ikonos/Plus.svg" alt=""></b></button>
@@ -51,6 +57,7 @@
 		<section class="categories" aria-labelledby="categories-title">
 			<h1 id="categories-title">Kategorijos</h1>
 			<div class="category-list">
+				<button class="category-row" type="button" data-local-cards><span class="category-icon"><img src="NAVIGACIJOA IKONOS/megstamiausi.svg" alt=""></span><span>Mano kortelės</span><span class="chevron">›</span></button>
 				<button class="category-row" type="button" data-open-emotions><span class="category-icon"><img src="kategoriju-ikonos/EMOCIJOS.svg" alt=""></span><span>Emocijos</span><span class="chevron">›</span></button>
 				<button class="category-row" type="button"><span class="category-icon"><img src="kategoriju-ikonos/VALGYTI.svg" alt=""></span><span>Valgyti</span><span class="chevron">›</span></button>
 				<button class="category-row" type="button"><span class="category-icon"><img src="kategoriju-ikonos/GERTI.svg" alt=""></span><span>Gerti</span><span class="chevron">›</span></button>
@@ -70,8 +77,9 @@
 			</div>
 
 			<div class="emotion-view" id="emotion-view" hidden>
-				<button class="emotion-back" type="button" data-back-categories>
-					<span class="emotion-back-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M19 12H5m6-6-6 6 6 6" /></svg></span> Atgal
+				<button class="emotion-back" id="emotion-back" type="button" aria-label="Atgal">
+					<span class="emotion-back-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M19 12H5m6-6-6 6 6 6" /></svg></span>
+					<span class="sr-only">Atgal</span>
 				</button>
 				<div class="emotion-heading">
 					<img src="kategoriju-ikonos/EMOCIJOS.svg" alt="">
@@ -392,7 +400,7 @@
 					<article class="emotion-card"><div class="emotion-card-tools"><button class="emotion-audio" type="button" aria-label="Leisti garsą: verkiu"><span aria-hidden="true">◖))</span> Garsas</button><span class="emotion-favorite" aria-hidden="true">♥</span></div><div class="emotion-photo-placeholder" aria-hidden="true"></div><p>Verkiu</p></article>
 					<article class="emotion-card"><div class="emotion-card-tools"><button class="emotion-audio" type="button" aria-label="Leisti garsą: irzlus"><span aria-hidden="true">◖))</span> Garsas</button><span class="emotion-favorite" aria-hidden="true">♥</span></div><div class="emotion-photo-placeholder" aria-hidden="true"></div><p>Irzlus</p></article>
 					<article class="emotion-card"><div class="emotion-card-tools"><button class="emotion-audio" type="button" aria-label="Leisti garsą: pavargęs"><span aria-hidden="true">◖))</span> Garsas</button><span class="emotion-favorite" aria-hidden="true">♥</span></div><div class="emotion-photo-placeholder" aria-hidden="true"></div><p>Pavargęs</p></article>
-					<article class="emotion-card"><div class="emotion-card-tools"><button class="emotion-audio" type="button" aria-label="Leisti garsą: nuobodžiuosi"><span aria-hidden="true">◖))</span> Garsas</button><span class="emotion-favorite" aria-hidden="true">♥</span></div><div class="emotion-photo-placeholder" aria-hidden="true"></div><p>Nuobodžiuosi</p></article>
+					<article class="emotion-card"><div class="emotion-card-tools"><button class="emotion-audio" type="button" aria-label="Leisti garsą: nuobodu"><span aria-hidden="true">◖))</span> Garsas</button><span class="emotion-favorite" aria-hidden="true">♥</span></div><div class="emotion-photo-placeholder" aria-hidden="true"></div><p>Nuobodu</p></article>
 					<article class="emotion-card"><div class="emotion-card-tools"><button class="emotion-audio" type="button" aria-label="Leisti garsą: nerimas"><span aria-hidden="true">◖))</span> Garsas</button><span class="emotion-favorite" aria-hidden="true">♥</span></div><div class="emotion-photo-placeholder" aria-hidden="true"></div><p>Nerimas</p></article>
 					<article class="emotion-card"><div class="emotion-card-tools"><button class="emotion-audio" type="button" aria-label="Leisti garsą: ramybė"><span aria-hidden="true">◖))</span> Garsas</button><span class="emotion-favorite" aria-hidden="true">♥</span></div><div class="emotion-photo-placeholder" aria-hidden="true"></div><p>Ramybė</p></article>
 					<article class="emotion-card"><div class="emotion-card-tools"><button class="emotion-audio" type="button" aria-label="Leisti garsą: laimė"><span aria-hidden="true">◖))</span> Garsas</button><span class="emotion-favorite" aria-hidden="true">♥</span></div><div class="emotion-photo-placeholder" aria-hidden="true"></div><p>Laimė</p></article>
@@ -403,19 +411,62 @@
 		</section>
 
 		<nav class="bottom-nav" aria-label="Pagrindinė navigacija">
-			<button class="nav-item" type="button">
-				<span class="nav-icon" aria-hidden="true"><img src="NAVIGACIJOA IKONOS/emocijjos.svg" alt=""></span>
-				<span>Mano<br>kortelė</span>
+			<section class="sentence-bar" id="sentence-bar" aria-label="Sakinys" aria-live="polite" hidden>
+				<p class="sentence-text" id="sentence-text"></p>
+				<button class="sentence-speak" id="sentence-speak" type="button" aria-label="Ištarti sakinį">
+					<img src="NAVIGACIJOA IKONOS/SpeakerSimpleHigh.svg" alt="">
+				</button>
+			</section>
+			<button class="nav-item nav-back" id="nav-back" type="button" aria-label="Atgal">
+				<span class="nav-back-icon" aria-hidden="true"><img src="NAVIGACIJOA IKONOS/ATGAL.svg" alt=""></span>
+				<span>Atgal</span>
 			</button>
-			<button class="nav-item nav-create is-active" type="button" aria-current="page">
+			<button class="nav-item nav-create is-active" id="create-card-button" type="button" aria-current="page">
 				<span class="nav-icon" aria-hidden="true">＋</span>
-				<span>Sukurti<br>kortelę</span>
+				<span class="create-label-mobile">Sukurti<br>kortelę</span>
+				<span class="create-label-desktop">Susikurti kortelę</span>
 			</button>
-			<button class="nav-item" type="button">
-				<span class="nav-icon" aria-hidden="true"><img src="NAVIGACIJOA IKONOS/megstamiausi.svg" alt=""></span>
-				<span>Mėgstamos<br>kortelės</span>
+			<button class="nav-item nav-home" id="nav-home" type="button" aria-label="Pagrindinis">
+				<span class="nav-home-icon" aria-hidden="true"><img src="NAVIGACIJOA IKONOS/PRADŽIA.svg" alt=""></span>
+				<span>Pagrindinis</span>
 			</button>
 		</nav>
+
+		<dialog class="card-dialog" id="personal-card-dialog" aria-labelledby="personal-card-title-heading">
+			<form class="card-dialog-form" id="personal-card-form">
+				<header class="card-dialog-header">
+					<div>
+						<h2 id="personal-card-title-heading">Mano kortelė</h2>
+						<p>Išsaugoma tik šiame telefone</p>
+					</div>
+					<button class="card-dialog-close" id="close-personal-card-dialog" type="button" aria-label="Uždaryti">×</button>
+				</header>
+				<label class="card-form-field" for="personal-card-name">Kortelės pavadinimas
+					<input id="personal-card-name" name="name" type="text" maxlength="60" autocomplete="off" required>
+				</label>
+				<div class="card-photo-field">
+					<span class="card-form-label">Nuotrauka</span>
+					<div class="card-photo-controls">
+						<div class="card-photo-preview" id="personal-card-photo-preview" aria-label="Nuotraukos peržiūra"></div>
+						<label class="card-photo-select" for="personal-card-photo">Pasirinkti nuotrauką</label>
+						<input class="sr-only" id="personal-card-photo" name="photo" type="file" accept="image/*">
+					</div>
+				</div>
+				<div class="card-audio-field">
+					<span class="card-form-label">Garso įrašas</span>
+					<div class="card-audio-controls">
+						<label class="card-photo-select" for="personal-card-audio">Pasirinkti įrašą</label>
+						<input class="sr-only" id="personal-card-audio" name="audio" type="file" accept=".mp3,.mp4,audio/*,video/mp4">
+						<video class="card-audio-preview" id="personal-card-audio-preview" controls playsinline hidden></video>
+					</div>
+				</div>
+			<p class="card-form-status" id="personal-card-status" role="status" aria-live="polite"></p>
+			<div class="card-dialog-actions">
+				<button class="card-cancel-button" id="cancel-personal-card" type="button">Atšaukti</button>
+				<button class="card-save-button" type="submit">Pridėti kortelę</button>
+			</div>
+			</form>
+		</dialog>
 	</main>
 	<script>
 		const categoriesTitle = document.querySelector("#categories-title");
@@ -425,6 +476,27 @@
 		const emotionHeading = document.querySelector(".emotion-heading h2");
 		const emotionHeadingIcon = document.querySelector(".emotion-heading img");
 		const emotionGrid = document.querySelector(".emotion-grid");
+		const composerCopy = document.querySelector(".composer-copy");
+		const selectedWordsTray = document.querySelector("#selected-words");
+		const sentenceBar = document.querySelector("#sentence-bar");
+		const sentenceText = document.querySelector("#sentence-text");
+		const bottomNav = document.querySelector(".bottom-nav");
+		const stickyMessagePanel = document.querySelector(".sticky-message-panel");
+		const quickPhraseDropdown = document.querySelector(".quick-phrase-dropdown");
+		const desktopLayout = window.matchMedia("(min-width: 760px)");
+
+		function moveSentenceBar() {
+			if (desktopLayout.matches) {
+				stickyMessagePanel.insertBefore(sentenceBar, quickPhraseDropdown);
+			} else {
+				bottomNav.insertBefore(sentenceBar, bottomNav.firstElementChild);
+			}
+		}
+
+		moveSentenceBar();
+		desktopLayout.addEventListener("change", moveSentenceBar);
+		window.addEventListener("resize", moveSentenceBar);
+
 		const foodSubgroups = document.querySelector("#food-subgroups");
 		const activitiesSubgroups = document.querySelector("#activities-subgroups");
 		const locationsSubgroups = document.querySelector("#locations-subgroups");
@@ -461,6 +533,418 @@
 		let currentCategoryName = "";
 		let currentSubgroup = false;
 		let currentIngredientList = false;
+		let selectedWords = [];
+		let nextSelectedWordId = 0;
+		let personalCards = [];
+		let personalCardStorageError = null;
+		let personalCardDatabasePromise;
+		let personalCardPreviewUrl = "";
+		const personalCardDialog = document.querySelector("#personal-card-dialog");
+		const personalCardForm = document.querySelector("#personal-card-form");
+		const personalCardName = document.querySelector("#personal-card-name");
+		const personalCardPhoto = document.querySelector("#personal-card-photo");
+		const personalCardAudio = document.querySelector("#personal-card-audio");
+		const personalCardAudioPreview = document.querySelector("#personal-card-audio-preview");
+		const personalCardPhotoPreview = document.querySelector("#personal-card-photo-preview");
+		const personalCardStatus = document.querySelector("#personal-card-status");
+		const customCardObjectUrls = new Map();
+		const selectedWordObjectUrls = new Map();
+		let personalCardAudioPreviewUrl = "";
+		let activeAudioPlayer = null;
+		let activeAudioUrl = "";
+		const emotionAudioFiles = new Map([
+			["panika", "emocijų garsai/panika.mp3"],
+			["piktas", "emocijų garsai/piktas.mp3"],
+			["liūdna", "emocijų garsai/LIŪDNA.mp3"],
+			["verkiu", "emocijų garsai/VERKIU.mp3"],
+			["irzlus", "emocijų garsai/irzlus.mp3"],
+			["pavargęs", "emocijų garsai/pavargęs.mp3"],
+			["nuobodu", "emocijų garsai/nuobodu.mp3"],
+			["nerimas", "emocijų garsai/nerimas.mp3"],
+			["ramybė", "emocijų garsai/ramybė.mp3"],
+			["laimė", "emocijų garsai/laimė.mp3"],
+			["patinka", "emocijų garsai/patinka.mp3"],
+			["įsimylėjęs", "emocijų garsai/įsimylėjęs.mp3"]
+		]);
+		const dishAudioFiles = new Map([
+			["kepti kiaušiniai", "patiekalu garsai/kepti kiaušiniai.mp3"],
+			["virti kiaušiniai", "patiekalu garsai/virti kiaušiniai.mp3"],
+			["omletas", "patiekalu garsai/omletas.mp3"],
+			["salotos", "patiekalu garsai/salotos.mp3"],
+			["kepsnys", "patiekalu garsai/kepsnys.mp3"],
+			["burgeris", "patiekalu garsai/burgeris.mp3"],
+			["dešrelės", "patiekalu garsai/dešrelės.mp3"],
+			["maltinukas", "patiekalu garsai/maltinukas.mp3"],
+			["sriuba", "patiekalu garsai/sriuba.mp3"],
+			["lazanija", "patiekalu garsai/lazanija.mp3"],
+			["spagečiai", "patiekalu garsai/spagečiai.mp3"],
+			["pica", "patiekalu garsai/pica.mp3"],
+			["blynai", "patiekalu garsai/blynai.mp3"],
+			["lietiniai", "patiekalu garsai/lietiniai.mp3"]
+		]);
+
+		function openPersonalCardDatabase() {
+			if (!("indexedDB" in window)) {
+				return Promise.reject(new Error("Vietinė saugykla šiame įrenginyje nepasiekiama."));
+			}
+			if (!personalCardDatabasePromise) {
+				personalCardDatabasePromise = new Promise((resolve, reject) => {
+					const request = window.indexedDB.open("voicer-personal-cards", 1);
+					request.onupgradeneeded = () => {
+						if (!request.result.objectStoreNames.contains("cards")) {
+							request.result.createObjectStore("cards", { keyPath: "id" });
+						}
+					};
+					request.onsuccess = () => resolve(request.result);
+					request.onerror = () => reject(request.error || new Error("Nepavyko atverti vietinės saugyklos."));
+				});
+			}
+			return personalCardDatabasePromise;
+		}
+
+		async function loadPersonalCards() {
+			const database = await openPersonalCardDatabase();
+			return new Promise((resolve, reject) => {
+				const request = database.transaction("cards", "readonly").objectStore("cards").getAll();
+				request.onsuccess = () => resolve(request.result.sort((left, right) => right.createdAt - left.createdAt));
+				request.onerror = () => reject(request.error || new Error("Nepavyko įkelti kortelių."));
+			});
+		}
+
+		async function savePersonalCard(card) {
+			const database = await openPersonalCardDatabase();
+			return new Promise((resolve, reject) => {
+				const transaction = database.transaction("cards", "readwrite");
+				transaction.objectStore("cards").put(card);
+				transaction.oncomplete = () => resolve();
+				transaction.onerror = () => reject(transaction.error || new Error("Nepavyko išsaugoti kortelės."));
+				transaction.onabort = () => reject(transaction.error || new Error("Kortelės išsaugoti nepavyko."));
+			});
+		}
+
+		const personalCardsReady = loadPersonalCards().then((cards) => {
+			personalCards = cards;
+			return cards;
+		}).catch((error) => {
+			personalCardStorageError = error;
+			return [];
+		});
+
+		function renderPersonalCards() {
+			customCardObjectUrls.forEach((url) => URL.revokeObjectURL(url));
+			customCardObjectUrls.clear();
+			if (personalCards.length === 0) {
+				const emptyMessage = document.createElement("p");
+				emptyMessage.className = "personal-cards-empty";
+				emptyMessage.textContent = personalCardStorageError ? "Vietinė saugykla nepasiekiama." : "Kortelių dar nėra.";
+				emotionGrid.replaceChildren(emptyMessage);
+			} else {
+				const cards = personalCards.map((personalCard) => {
+					const card = document.createElement("article");
+					card.className = "emotion-card personal-emotion-card";
+					card.dataset.personalCardId = personalCard.id;
+
+					const tools = document.createElement("div");
+					tools.className = "emotion-card-tools";
+
+					const audioButton = document.createElement("button");
+					audioButton.className = "emotion-audio";
+					audioButton.type = "button";
+					audioButton.setAttribute("aria-label", `Leisti garsą: ${personalCard.name.toLocaleLowerCase("lt-LT")}`);
+					audioButton.innerHTML = '<span aria-hidden="true">◖))</span> Garsas';
+					tools.append(audioButton);
+
+					const photo = document.createElement("div");
+					photo.className = "emotion-photo-placeholder personal-card-photo";
+					if (personalCard.photo instanceof Blob) {
+						const image = document.createElement("img");
+						image.src = URL.createObjectURL(personalCard.photo);
+						image.alt = "";
+						customCardObjectUrls.set(personalCard.id, image.src);
+						photo.append(image);
+					}
+
+					const label = document.createElement("p");
+					label.textContent = personalCard.name;
+					card.append(tools, photo, label);
+					return card;
+				});
+				emotionGrid.replaceChildren(...cards);
+			}
+			emotionGrid.hidden = false;
+			emotionGrid.setAttribute("aria-label", "Mano kortelės");
+		}
+
+		function showPhotoPreview(file) {
+			if (personalCardPreviewUrl) {
+				URL.revokeObjectURL(personalCardPreviewUrl);
+				personalCardPreviewUrl = "";
+			}
+			personalCardPhotoPreview.replaceChildren();
+			if (file) {
+				personalCardPreviewUrl = URL.createObjectURL(file);
+				const image = document.createElement("img");
+				image.src = personalCardPreviewUrl;
+				image.alt = "";
+				personalCardPhotoPreview.append(image);
+			}
+		}
+
+		function showAudioPreview(file) {
+			if (personalCardAudioPreviewUrl) {
+				URL.revokeObjectURL(personalCardAudioPreviewUrl);
+				personalCardAudioPreviewUrl = "";
+			}
+			personalCardAudioPreview.pause();
+			personalCardAudioPreview.removeAttribute("src");
+			personalCardAudioPreview.hidden = !file;
+			if (file) {
+				personalCardAudioPreviewUrl = URL.createObjectURL(file);
+				personalCardAudioPreview.src = personalCardAudioPreviewUrl;
+			}
+		}
+		const genitiveOverrides = new Map([
+			["vanduo", "vandens"],
+			["vanduo su citrina", "vandens su citrina"],
+			["sultys", "sulčių"],
+			["žuvis", "žuvies"],
+			["akis", "akies"],
+			["ausis", "ausies"],
+			["naktis", "nakties"],
+			["širdis", "širdies"],
+			["dantis", "danties"],
+			["durys", "durų"],
+			["pietūs", "pietų"]
+		]);
+
+		function toGenitive(word) {
+			const normalizedWord = word.toLocaleLowerCase("lt-LT");
+			if (genitiveOverrides.has(normalizedWord)) {
+				return genitiveOverrides.get(normalizedWord);
+			}
+
+			if (normalizedWord.endsWith("iai")) {
+				return `${normalizedWord.slice(0, -3)}ių`;
+			}
+			if (normalizedWord.endsWith("ai")) {
+				return `${normalizedWord.slice(0, -2)}ų`;
+			}
+			if (normalizedWord.endsWith("ės")) {
+				return `${normalizedWord.slice(0, -2)}ių`;
+			}
+			if (normalizedWord.endsWith("os")) {
+				return `${normalizedWord.slice(0, -2)}ų`;
+			}
+			if (normalizedWord.endsWith("ys")) {
+				return `${normalizedWord.slice(0, -2)}io`;
+			}
+			if (normalizedWord.endsWith("as")) {
+				return `${normalizedWord.slice(0, -2)}o`;
+			}
+			if (normalizedWord.endsWith("is")) {
+				return `${normalizedWord.slice(0, -2)}io`;
+			}
+			if (normalizedWord.endsWith("ė")) {
+				return `${normalizedWord.slice(0, -1)}ės`;
+			}
+			if (normalizedWord.endsWith("a")) {
+				return `${normalizedWord.slice(0, -1)}os`;
+			}
+			if (normalizedWord.endsWith("us")) {
+				return `${normalizedWord.slice(0, -2)}aus`;
+			}
+			return word;
+		}
+
+		function composeSentenceWords() {
+			return selectedWords.map(({ word }, index) => {
+				const previousWord = selectedWords[index - 1]?.word.toLocaleLowerCase("lt-LT");
+				return previousWord === "noriu" ? toGenitive(word) : word.toLocaleLowerCase("lt-LT");
+			});
+		}
+
+		function composeSentence() {
+			const sentence = composeSentenceWords().join(" ").trim();
+			if (!sentence) {
+				return "";
+			}
+			const punctuatedSentence = sentence.replace(/[.!?]+$/, "");
+			return `${punctuatedSentence.charAt(0).toLocaleUpperCase("lt-LT")}${punctuatedSentence.slice(1)}.`;
+		}
+
+		function renderSelectedWords() {
+			selectedWordObjectUrls.forEach((url) => URL.revokeObjectURL(url));
+			selectedWordObjectUrls.clear();
+			selectedWordsTray.replaceChildren(...selectedWords.map(({ id, word, photo: selectedPhoto }) => {
+				const card = document.createElement("div");
+				card.className = "selected-word";
+				card.setAttribute("role", "listitem");
+
+				const photo = document.createElement("div");
+				photo.className = "selected-word-photo";
+				photo.setAttribute("aria-hidden", "true");
+				if (selectedPhoto instanceof Blob) {
+					const imageUrl = URL.createObjectURL(selectedPhoto);
+					selectedWordObjectUrls.set(id, imageUrl);
+					const image = document.createElement("img");
+					image.src = imageUrl;
+					image.alt = "";
+					photo.append(image);
+				}
+
+				const label = document.createElement("p");
+				label.className = "selected-word-label";
+				label.textContent = word;
+
+				const removeButton = document.createElement("button");
+				removeButton.className = "selected-word-remove";
+				removeButton.type = "button";
+				removeButton.setAttribute("aria-label", `Pašalinti ${word}`);
+				removeButton.dataset.removeSelectedWord = String(id);
+				removeButton.innerHTML = '<span aria-hidden="true">×</span>';
+
+				card.append(photo, label, removeButton);
+				return card;
+			}));
+
+			const hasWords = selectedWords.length > 0;
+			selectedWordsTray.hidden = !hasWords;
+			composerCopy.hidden = hasWords;
+			sentenceBar.hidden = !hasWords;
+			appShell.classList.toggle("has-sentence", hasWords);
+			sentenceText.textContent = composeSentence().toLocaleUpperCase("lt-LT");
+		}
+
+		function addSelectedWord(word, photo = null, audio = null) {
+			const cleanWord = String(word || "").trim();
+			if (!cleanWord) {
+				return;
+			}
+			selectedWords.push({ id: ++nextSelectedWordId, word: cleanWord, photo, audio });
+			renderSelectedWords();
+		}
+
+		function stopAudioPlayback() {
+			if ("speechSynthesis" in window) {
+				window.speechSynthesis.cancel();
+			}
+			if (activeAudioPlayer) {
+				activeAudioPlayer.pause();
+				activeAudioPlayer.removeAttribute("src");
+				activeAudioPlayer.load();
+				activeAudioPlayer.remove();
+				activeAudioPlayer = null;
+			}
+			if (activeAudioUrl) {
+				URL.revokeObjectURL(activeAudioUrl);
+				activeAudioUrl = "";
+			}
+		}
+
+		function playAudioBlob(audioBlob) {
+			stopAudioPlayback();
+			return new Promise((resolve, reject) => {
+				const audioUrl = URL.createObjectURL(audioBlob);
+				const player = audioBlob.type.startsWith("video/") ? document.createElement("video") : new Audio();
+				let finished = false;
+				activeAudioPlayer = player;
+				activeAudioUrl = audioUrl;
+				player.src = audioUrl;
+				if (player instanceof HTMLVideoElement) {
+					player.playsInline = true;
+					player.setAttribute("aria-hidden", "true");
+					player.tabIndex = -1;
+					player.style.position = "fixed";
+					player.style.width = "1px";
+					player.style.height = "1px";
+					player.style.opacity = "0";
+					document.body.append(player);
+				}
+
+				const finish = (error) => {
+					if (finished) {
+						return;
+					}
+					finished = true;
+					URL.revokeObjectURL(audioUrl);
+					if (activeAudioPlayer === player) {
+						activeAudioPlayer = null;
+						activeAudioUrl = "";
+					}
+					player.remove();
+					if (error) {
+						reject(error);
+					} else {
+						resolve();
+					}
+				};
+
+				player.addEventListener("ended", () => finish(), { once: true });
+				player.addEventListener("error", () => finish(new Error("Nepavyko paleisti MP3 įrašo.")), { once: true });
+				player.play().catch(finish);
+			});
+		}
+
+		async function loadAudioSource(audioSource) {
+			if (!audioSource) {
+				return null;
+			}
+			try {
+				const response = await fetch(audioSource);
+				return response.ok ? await response.blob() : null;
+			} catch {
+				return null;
+			}
+		}
+
+		function loadPhraseAudio(phraseButton) {
+			return loadAudioSource(phraseButton.dataset.audioSrc);
+		}
+
+		async function speakSentence() {
+			const sentenceWords = composeSentenceWords();
+			const canPlayRecordings = selectedWords.length > 0 && selectedWords.every(({ audio, word }, index) =>
+				audio instanceof Blob && sentenceWords[index] === word.toLocaleLowerCase("lt-LT")
+			);
+
+			if (canPlayRecordings) {
+				try {
+					for (const { audio } of selectedWords) {
+						await playAudioBlob(audio);
+					}
+					return;
+				} catch (error) {
+					speakText(composeSentence());
+					return;
+				}
+			}
+			speakText(composeSentence());
+		}
+
+		function speakText(text) {
+			if (!text || !("speechSynthesis" in window) || !("SpeechSynthesisUtterance" in window)) {
+				return;
+			}
+			stopAudioPlayback();
+			const utterance = new SpeechSynthesisUtterance(text);
+			utterance.lang = "lt-LT";
+			window.speechSynthesis.speak(utterance);
+		}
+
+		function prepareEmotionCards() {
+			emotionGrid.querySelectorAll(".emotion-card").forEach((card) => {
+				const word = card.querySelector("p")?.textContent.trim();
+				if (word) {
+					card.setAttribute("role", "group");
+					card.setAttribute("tabindex", "0");
+					card.setAttribute("aria-label", `${word}, pridėti prie sakinio`);
+				}
+			});
+		}
+
+		const emotionCardObserver = new MutationObserver(prepareEmotionCards);
+		emotionCardObserver.observe(emotionGrid, { childList: true, subtree: true });
+		prepareEmotionCards();
 		const gertiCards = [
 			"Vanduo", "Sultys", "Vanduo su citrina", "Gazuotas vanduo",
 			"Limonadas", "Kokteilis", "Kava", "Arbata", "Kakava", "Pienas"
@@ -476,8 +960,47 @@
 		const skaudaCards = [
 			"Dantys", "Gerklė", "Pilvas", "Galva", "Koja", "Nugara", "Ausis", "Ranka"
 		];
+		const personalItemsCards = [
+			"Krepšinė", "Puodelis", "Raktai", "Piniginė", "Akiniai",
+			"Skėtis", "Maisto dėžutė", "Telefonas", "Ausinės", "Žaislas",
+			"Laikrodis", "Užrašinė"
+		];
+		const clothingCards = [
+			"Marškinėliai", "Džinsai", "Striukė", "Kepurė",
+			"Šalikas", "Pirštinės", "Batai", "Megztinis",
+			"Suknelė", "Šortai", "Sijonas", "Kojinės",
+			"Apatiniai", "Naktiniai"
+		];
+		const hygieneCards = [
+			"Muilas", "Šepetėlis", "Dantų pasta", "Rankšluostis",
+			"Tualetinis popierius", "Servetėlės", "Krema", "Šampūnas",
+			"Dušo želė", "Lūpų balzamas", "Dezodorantas", "Losjonas",
+			"Šukos", "Žirklutės"
+		];
+		const numberCards = [
+			"1", "2", "3", "4",
+			"5", "6", "7", "8",
+			"9", "10"
+		];
+		const colorCards = [
+			"Balta", "Geltona", "Oranžinė", "Raudona",
+			"Žalia", "Mėlyna", "Violetinė", "Rožinė",
+			"Pilka", "Juoda"
+		];
+		const timeCards = [
+			"Ryte", "Diena", "Vakaras", "Naktis",
+			"Valanda", "Minute", "Metai", "Savaitė",
+			"Pietūs", "Laikas"
+		];
+		const peopleCards = [
+			"Aš", "Tu", "Jis", "Ji", "Mes",
+			"Jūs", "Jie", "Jos", "Žmogus", "Vaikas"
+		];
 
 		function renderWordCards(words) {
+			if (!Array.isArray(words) || words.length === 0) {
+				return "";
+			}
 			return words.map((word) => `
 				<article class="emotion-card emotion-card-placeholder">
 					<div class="emotion-card-tools">
@@ -490,6 +1013,42 @@
 					<p>${word}</p>
 				</article>
 			`).join("");
+		}
+
+		function goBackToCategories() {
+			if (currentSubgroup && currentIngredientList) {
+				currentSubgroup = false;
+				emotionHeading.textContent = "Maisto produktai";
+				ingredientSubgroups.hidden = false;
+				emotionGrid.hidden = true;
+				return;
+			}
+
+			if (currentIngredientList) {
+				currentIngredientList = false;
+				emotionHeading.textContent = currentCategoryName;
+				cookingSubgroups.hidden = false;
+				emotionGrid.hidden = true;
+				return;
+			}
+
+			if (currentSubgroup) {
+				currentSubgroup = false;
+				emotionHeading.textContent = currentCategoryName;
+				foodSubgroups.hidden = currentCategoryName !== "Valgyti";
+				activitiesSubgroups.hidden = currentCategoryName !== "Veiklos";
+				locationsSubgroups.hidden = currentCategoryName !== "Vietos";
+				cookingSubgroups.hidden = currentCategoryName !== "Gaminti";
+				itemsSubgroups.hidden = currentCategoryName !== "Daiktai";
+				emotionGrid.hidden = true;
+				return;
+			}
+
+			emotionView.hidden = true;
+			categoriesTitle.hidden = false;
+			categoryList.hidden = false;
+			appShell.classList.remove("is-emotion-view");
+			categoriesPanel.setAttribute("aria-labelledby", "categories-title");
 		}
 
 		function showCategory(categoryRow) {
@@ -508,7 +1067,9 @@
 			itemsSubgroups.hidden = categoryName !== "Daiktai";
 			ingredientSubgroups.hidden = true;
 			emotionGrid.hidden = categoryName === "Valgyti" || categoryName === "Veiklos" || categoryName === "Vietos" || categoryName === "Gaminti" || categoryName === "Daiktai";
-			if (categoryName === "Emocijos") {
+			if (categoryName === "Mano kortelės") {
+				renderPersonalCards();
+			} else if (categoryName === "Emocijos") {
 				emotionGrid.innerHTML = originalEmotionCards;
 			} else if (categoryName === "Transportas") {
 				emotionGrid.replaceChildren(transportCards.content.cloneNode(true));
@@ -522,6 +1083,14 @@
 				emotionGrid.innerHTML = renderWordCards(bendravimasCards);
 			} else if (categoryName === "Skauda") {
 				emotionGrid.innerHTML = renderWordCards(skaudaCards);
+			} else if (categoryName === "Skaičiai") {
+				emotionGrid.innerHTML = renderWordCards(numberCards);
+			} else if (categoryName === "Spalvos") {
+				emotionGrid.innerHTML = renderWordCards(colorCards);
+			} else if (categoryName === "Laikas") {
+				emotionGrid.innerHTML = renderWordCards(timeCards);
+			} else if (categoryName === "Žmonės") {
+				emotionGrid.innerHTML = renderWordCards(peopleCards);
 			} else if (categoryName !== "Valgyti" && categoryName !== "Veiklos" && categoryName !== "Vietos" && categoryName !== "Gaminti" && categoryName !== "Daiktai") {
 				emotionGrid.innerHTML = renderWordCards(Array.from({ length: 12 }, () => "Žodis"));
 			}
@@ -535,8 +1104,27 @@
 			window.scrollTo({ top: 0, behavior: "smooth" });
 		}
 
+		document.getElementById("emotion-back").addEventListener("click", goBackToCategories);
+		document.getElementById("nav-back").addEventListener("click", goBackToCategories);
+
+		function goHome() {
+			emotionView.hidden = true;
+			categoriesTitle.hidden = false;
+			categoryList.hidden = false;
+			appShell.classList.remove("is-emotion-view");
+			categoriesPanel.setAttribute("aria-labelledby", "categories-title");
+		}
+
+		document.getElementById("desktop-home").addEventListener("click", goHome);
+		document.getElementById("nav-home").addEventListener("click", goHome);
+
 		document.querySelectorAll(".category-row").forEach((categoryRow) => {
-			categoryRow.addEventListener("click", () => showCategory(categoryRow));
+			categoryRow.addEventListener("click", async () => {
+				if (categoryRow.hasAttribute("data-local-cards")) {
+					personalCards = await personalCardsReady;
+				}
+				showCategory(categoryRow);
+			});
 		});
 
 		document.querySelectorAll(".subcategory-row").forEach((subcategoryRow) => {
@@ -584,8 +1172,78 @@
 					"Užkandžiai": [
 						"Trapučiai", "Riešutai", "Džiovinti vaisiai",
 						"Popkornai", "Traškučiai", "Lazdelės"
-					]
+					],
+					"Asmeniniai daiktai": personalItemsCards,
+					"Apranga": clothingCards,
+					"Higiena": hygieneCards,
+					"Skaičiai": numberCards,
+					"Spalvos": colorCards
 				};
+				if (subgroupName === "Asmeniniai daiktai") {
+					emotionHeading.textContent = subgroupName;
+					foodSubgroups.hidden = true;
+					activitiesSubgroups.hidden = true;
+					locationsSubgroups.hidden = true;
+					cookingSubgroups.hidden = true;
+					itemsSubgroups.hidden = true;
+					ingredientSubgroups.hidden = true;
+					emotionGrid.hidden = false;
+					emotionGrid.innerHTML = renderWordCards(personalItemsCards);
+					emotionGrid.setAttribute("aria-label", `${subgroupName} kortelės`);
+					return;
+				}
+				if (subgroupName === "Apranga") {
+					emotionHeading.textContent = subgroupName;
+					foodSubgroups.hidden = true;
+					activitiesSubgroups.hidden = true;
+					locationsSubgroups.hidden = true;
+					cookingSubgroups.hidden = true;
+					itemsSubgroups.hidden = true;
+					ingredientSubgroups.hidden = true;
+					emotionGrid.hidden = false;
+					emotionGrid.innerHTML = renderWordCards(clothingCards);
+					emotionGrid.setAttribute("aria-label", `${subgroupName} kortelės`);
+					return;
+				}
+				if (subgroupName === "Higiena") {
+					emotionHeading.textContent = subgroupName;
+					foodSubgroups.hidden = true;
+					activitiesSubgroups.hidden = true;
+					locationsSubgroups.hidden = true;
+					cookingSubgroups.hidden = true;
+					itemsSubgroups.hidden = true;
+					ingredientSubgroups.hidden = true;
+					emotionGrid.hidden = false;
+					emotionGrid.innerHTML = renderWordCards(hygieneCards);
+					emotionGrid.setAttribute("aria-label", `${subgroupName} kortelės`);
+					return;
+				}
+				if (subgroupName === "Skaičiai") {
+					emotionHeading.textContent = subgroupName;
+					foodSubgroups.hidden = true;
+					activitiesSubgroups.hidden = true;
+					locationsSubgroups.hidden = true;
+					cookingSubgroups.hidden = true;
+					itemsSubgroups.hidden = true;
+					ingredientSubgroups.hidden = true;
+					emotionGrid.hidden = false;
+					emotionGrid.innerHTML = renderWordCards(numberCards);
+					emotionGrid.setAttribute("aria-label", `${subgroupName} kortelės`);
+					return;
+				}
+				if (subgroupName === "Spalvos") {
+					emotionHeading.textContent = subgroupName;
+					foodSubgroups.hidden = true;
+					activitiesSubgroups.hidden = true;
+					locationsSubgroups.hidden = true;
+					cookingSubgroups.hidden = true;
+					itemsSubgroups.hidden = true;
+					ingredientSubgroups.hidden = true;
+					emotionGrid.hidden = false;
+					emotionGrid.innerHTML = renderWordCards(colorCards);
+					emotionGrid.setAttribute("aria-label", `${subgroupName} kortelės`);
+					return;
+				}
 				const words = subgroupCards[subgroupName] || Array.from({ length: 12 }, () => "Žodis");
 				emotionHeading.textContent = subgroupName;
 				foodSubgroups.hidden = true;
@@ -614,40 +1272,113 @@
 			});
 		});
 
-		document.querySelector("[data-back-categories]").addEventListener("click", () => {
-			if (currentSubgroup && currentIngredientList) {
-				currentSubgroup = false;
-				emotionHeading.textContent = "Maisto produktai";
-				ingredientSubgroups.hidden = false;
-				emotionGrid.hidden = true;
+		emotionGrid.addEventListener("click", (event) => {
+			const card = event.target.closest(".emotion-card");
+			if (!card) {
+				return;
+			}
+			const word = card.querySelector("p")?.textContent.trim();
+			const personalCard = personalCards.find(({ id }) => id === card.dataset.personalCardId);
+			if (event.target.closest(".emotion-audio")) {
+				if (personalCard?.audio instanceof Blob) {
+					playAudioBlob(personalCard.audio).catch(() => speakText(word));
+				} else {
+					const normalizedWord = word.toLocaleLowerCase("lt-LT");
+					const cardAudioSource = emotionAudioFiles.get(normalizedWord) || dishAudioFiles.get(normalizedWord);
+					if (cardAudioSource) {
+						loadAudioSource(cardAudioSource)
+							.then((audioBlob) => audioBlob ? playAudioBlob(audioBlob) : speakText(word))
+							.catch(() => speakText(word));
+					} else {
+						speakText(word);
+					}
+				}
+				return;
+			}
+			addSelectedWord(word, personalCard?.photo || null, personalCard?.audio || null);
+		});
+
+		emotionGrid.addEventListener("keydown", (event) => {
+			if (!event.target.matches(".emotion-card") || (event.key !== "Enter" && event.key !== " ")) {
+				return;
+			}
+			event.preventDefault();
+			const card = event.target;
+			const personalCard = personalCards.find(({ id }) => id === card.dataset.personalCardId);
+			addSelectedWord(card.querySelector("p")?.textContent.trim(), personalCard?.photo || null, personalCard?.audio || null);
+		});
+
+		document.querySelector(".quick-phrases").addEventListener("click", async (event) => {
+			const phraseButton = event.target.closest(".phrase-chip");
+			const phrase = phraseButton?.querySelector(".phrase-chip-label")?.textContent;
+			if (phrase) {
+				addSelectedWord(phrase, null, await loadPhraseAudio(phraseButton));
+			}
+		});
+
+		selectedWordsTray.addEventListener("click", (event) => {
+			const removeButton = event.target.closest("[data-remove-selected-word]");
+			if (!removeButton) {
+				return;
+			}
+			const selectedWordId = Number(removeButton.dataset.removeSelectedWord);
+			selectedWords = selectedWords.filter(({ id }) => id !== selectedWordId);
+			renderSelectedWords();
+		});
+
+		document.getElementById("sentence-speak").addEventListener("click", () => {
+			speakSentence();
+		});
+
+		document.getElementById("create-card-button").addEventListener("click", async () => {
+			await personalCardsReady;
+			personalCardStatus.textContent = personalCardStorageError ? "Šiame įrenginyje nepavyko atverti vietinės saugyklos." : "";
+			personalCardDialog.showModal();
+			personalCardName.focus();
+		});
+
+		personalCardPhoto.addEventListener("change", () => {
+			showPhotoPreview(personalCardPhoto.files[0]);
+		});
+
+		personalCardAudio.addEventListener("change", () => {
+			showAudioPreview(personalCardAudio.files[0]);
+		});
+
+		document.getElementById("close-personal-card-dialog").addEventListener("click", () => personalCardDialog.close());
+		document.getElementById("cancel-personal-card").addEventListener("click", () => personalCardDialog.close());
+		personalCardDialog.addEventListener("close", () => {
+			personalCardForm.reset();
+			personalCardStatus.textContent = "";
+			showPhotoPreview(null);
+			showAudioPreview(null);
+		});
+
+		personalCardForm.addEventListener("submit", async (event) => {
+			event.preventDefault();
+			const name = personalCardName.value.trim();
+			if (!name) {
+				personalCardName.focus();
 				return;
 			}
 
-			if (currentIngredientList) {
-				currentIngredientList = false;
-				emotionHeading.textContent = currentCategoryName;
-				cookingSubgroups.hidden = false;
-				emotionGrid.hidden = true;
-				return;
-			}
+			const personalCard = {
+				id: window.crypto?.randomUUID?.() || `${Date.now()}-${Math.random().toString(16).slice(2)}`,
+				name,
+				photo: personalCardPhoto.files[0] || null,
+				audio: personalCardAudio.files[0] || null,
+				createdAt: Date.now()
+			};
 
-			if (currentSubgroup) {
-				currentSubgroup = false;
-				emotionHeading.textContent = currentCategoryName;
-				foodSubgroups.hidden = currentCategoryName !== "Valgyti";
-				activitiesSubgroups.hidden = currentCategoryName !== "Veiklos";
-				locationsSubgroups.hidden = currentCategoryName !== "Vietos";
-				cookingSubgroups.hidden = currentCategoryName !== "Gaminti";
-				itemsSubgroups.hidden = currentCategoryName !== "Daiktai";
-				emotionGrid.hidden = true;
-				return;
+			try {
+				await savePersonalCard(personalCard);
+				personalCards = [personalCard, ...personalCards];
+				personalCardDialog.close();
+				await personalCardsReady;
+				showCategory(document.querySelector("[data-local-cards]"));
+			} catch (error) {
+				personalCardStatus.textContent = "Nepavyko išsaugoti kortelės šiame telefone.";
 			}
-
-			emotionView.hidden = true;
-			categoriesTitle.hidden = false;
-			categoryList.hidden = false;
-			appShell.classList.remove("is-emotion-view");
-			categoriesPanel.setAttribute("aria-labelledby", "categories-title");
 		});
 
 		if ("serviceWorker" in navigator && window.isSecureContext) {
