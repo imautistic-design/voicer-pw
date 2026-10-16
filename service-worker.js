@@ -1,4 +1,4 @@
-const CACHE_NAME = "voicer-pwa-v192";
+const CACHE_NAME = "voicer-pwa-v193";
 const APP_SHELL = [
 	"./",
 	"./index.html",
@@ -150,6 +150,22 @@ const APP_SHELL = [
 	"./nuotraukos/kruopos/miltai.jpg",
 	"./nuotraukos/kruopos/perlinės kruopos.png",
 	"./nuotraukos/kruopos/ryžiai.png",
+	"./nuotraukos/viešos erdvės/biblioteka.jpg",
+	"./nuotraukos/viešos erdvės/darželis.jpg",
+	"./nuotraukos/viešos erdvės/dantistas.jpg",
+	"./nuotraukos/viešos erdvės/kavinė.jpg",
+	"./nuotraukos/viešos erdvės/kirpykla.jpg",
+	"./nuotraukos/viešos erdvės/ligoninė.jpg",
+	"./nuotraukos/viešos erdvės/mokykla.jpg",
+	"./nuotraukos/viešos erdvės/parduotuvė.jpg",
+	"./nuotraukos/skauda/dantys.jpg",
+	"./nuotraukos/skauda/galva.jpg",
+	"./nuotraukos/skauda/gerklė.jpg",
+	"./nuotraukos/skauda/nugara.jpg",
+	"./nuotraukos/skauda/pilvas.jpg",
+	"./nuotraukos/skauda/ranka.jpg",
+	"./nuotraukos/skauda/skauda ausis.jpg",
+	"./nuotraukos/skauda/skauda koja.jpg",
 	"./garsai/patiekalų garsai/virti kiaušiniai.mp3",
 	"./garsai/patiekalų garsai/sriuba.mp3",
 	"./garsai/patiekalų garsai/spagečiai.mp3",

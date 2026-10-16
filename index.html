@@ -698,6 +698,26 @@
 			["koridorius", "nuotraukos/namai/koridorius.jpg"],
 			["drabužinė", "nuotraukos/namai/drabužinė.jpg"]
 		]);
+		const publicPlaceImageFiles = new Map([
+			["mokykla", "nuotraukos/viešos erdvės/mokykla.jpg"],
+			["darželis", "nuotraukos/viešos erdvės/darželis.jpg"],
+			["parduotuvė", "nuotraukos/viešos erdvės/parduotuvė.jpg"],
+			["ligoninė", "nuotraukos/viešos erdvės/ligoninė.jpg"],
+			["dantistas", "nuotraukos/viešos erdvės/dantistas.jpg"],
+			["kirpykla", "nuotraukos/viešos erdvės/kirpykla.jpg"],
+			["kavinė", "nuotraukos/viešos erdvės/kavinė.jpg"],
+			["biblioteka", "nuotraukos/viešos erdvės/biblioteka.jpg"]
+		]);
+		const painImageFiles = new Map([
+			["dantys", "nuotraukos/skauda/dantys.jpg"],
+			["gerklė", "nuotraukos/skauda/gerklė.jpg"],
+			["pilvas", "nuotraukos/skauda/pilvas.jpg"],
+			["galva", "nuotraukos/skauda/galva.jpg"],
+			["koja", "nuotraukos/skauda/skauda koja.jpg"],
+			["nugara", "nuotraukos/skauda/nugara.jpg"],
+			["ausis", "nuotraukos/skauda/skauda ausis.jpg"],
+			["ranka", "nuotraukos/skauda/ranka.jpg"]
+		]);
 		const natureImageFiles = new Map([
 			["parkas", "nuotraukos/gamta/parkas.jpg"],
 			["žaidimų aikštelė", "nuotraukos/gamta/žaidimų aikštelė.jpg"],
@@ -1642,6 +1662,10 @@
 						? entertainmentImageFiles.get(normalizedWord) || ""
 					: emotionHeading.textContent === "Namai"
 						? homeLocationImageFiles.get(normalizedWord) || ""
+					: emotionHeading.textContent === "Viešos erdvės"
+						? publicPlaceImageFiles.get(normalizedWord) || ""
+					: emotionHeading.textContent === "Skauda"
+						? painImageFiles.get(normalizedWord) || ""
 					: emotionHeading.textContent === "Gamta"
 						? natureImageFiles.get(normalizedWord) || ""
 					: emotionHeading.textContent === "Transportas"
