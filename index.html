@@ -722,6 +722,16 @@
 			["kalmarai", "nuotraukos/žuvis/kalmarais.jpg"],
 			["tunas", "nuotraukos/žuvis/tunas.png"]
 		]);
+		const grainImageFiles = new Map([
+			["ryžiai", "nuotraukos/kruopos/ryžiai.png"],
+			["grikiai", "nuotraukos/kruopos/grikiai.png"],
+			["lęšiai", "nuotraukos/kruopos/lęšiai.png"],
+			["perlinės kruopos", "nuotraukos/kruopos/perlinės kruopos.png"],
+			["bulguras", "nuotraukos/kruopos/bulguras.jpg"],
+			["kuskusas", "nuotraukos/kruopos/kuskusas.png"],
+			["kvietiniai miltai", "nuotraukos/kruopos/miltai.jpg"],
+			["avižiniai dribsniai", "nuotraukos/kruopos/avižiniai dribsniia.jpg"]
+		]);
 		const communicationImageFiles = new Map([
 			["labas", "nuotraukos/bendraukime/labas.jpg"],
 			["taip", "nuotraukos/bendraukime/taip.jpg"],
@@ -1638,6 +1648,8 @@
 						? transportImageFiles.get(normalizedWord) || ""
 					: emotionHeading.textContent === "Žuvis"
 						? fishImageFiles.get(normalizedWord) || ""
+					: emotionHeading.textContent === "Kruopos"
+						? grainImageFiles.get(normalizedWord) || ""
 					: "";
 		}
 
