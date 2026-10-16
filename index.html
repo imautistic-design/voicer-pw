@@ -690,6 +690,14 @@
 			["teatras", "nuotraukos/pramogos/teatras.jpg"],
 			["piknikas", "nuotraukos/pramogos/piknikas.jpg"]
 		]);
+		const homeLocationImageFiles = new Map([
+			["svetainė", "nuotraukos/namai/svetainė.jpg"],
+			["miegamasis", "nuotraukos/namai/miegamasis.jpg"],
+			["vonia", "nuotraukos/namai/vonia.jpg"],
+			["virtuvė", "nuotraukos/namai/virtuvė.jpg"],
+			["koridorius", "nuotraukos/namai/koridorius.jpg"],
+			["drabužinė", "nuotraukos/namai/drabužinė.jpg"]
+		]);
 		const communicationImageFiles = new Map([
 			["labas", "nuotraukos/bendraukime/labas.jpg"],
 			["taip", "nuotraukos/bendraukime/taip.jpg"],
@@ -1598,6 +1606,8 @@
 						? restImageFiles.get(normalizedWord) || ""
 					: emotionHeading.textContent === "Pramogos"
 						? entertainmentImageFiles.get(normalizedWord) || ""
+					: emotionHeading.textContent === "Namai"
+						? homeLocationImageFiles.get(normalizedWord) || ""
 					: "";
 		}
 
