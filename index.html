@@ -715,6 +715,13 @@
 			["lėktuvas", "nuotraukos/transportas/lėktuvas.jpg"],
 			["laivas", "nuotraukos/transportas/laivas.jpg"]
 		]);
+		const fishImageFiles = new Map([
+			["lašiša", "nuotraukos/žuvis/lašiša.png"],
+			["menkė", "nuotraukos/žuvis/menkė.png"],
+			["krevetės", "nuotraukos/žuvis/krevetės.jpg"],
+			["kalmarai", "nuotraukos/žuvis/kalmarais.jpg"],
+			["tunas", "nuotraukos/žuvis/tunas.png"]
+		]);
 		const communicationImageFiles = new Map([
 			["labas", "nuotraukos/bendraukime/labas.jpg"],
 			["taip", "nuotraukos/bendraukime/taip.jpg"],
@@ -1629,6 +1636,8 @@
 						? natureImageFiles.get(normalizedWord) || ""
 					: emotionHeading.textContent === "Transportas"
 						? transportImageFiles.get(normalizedWord) || ""
+					: emotionHeading.textContent === "Žuvis"
+						? fishImageFiles.get(normalizedWord) || ""
 					: "";
 		}
 

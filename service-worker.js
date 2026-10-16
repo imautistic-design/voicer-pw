@@ -1,4 +1,4 @@
-const CACHE_NAME = "voicer-pwa-v188";
+const CACHE_NAME = "voicer-pwa-v189";
 const APP_SHELL = [
 	"./",
 	"./index.html",
@@ -137,6 +137,11 @@ const APP_SHELL = [
 	"./nuotraukos/transportas/lėktuvas.jpg",
 	"./nuotraukos/transportas/paspirtukas.jpg",
 	"./nuotraukos/transportas/traukinys.jpg",
+	"./nuotraukos/žuvis/kalmarais.jpg",
+	"./nuotraukos/žuvis/krevetės.jpg",
+	"./nuotraukos/žuvis/lašiša.png",
+	"./nuotraukos/žuvis/menkė.png",
+	"./nuotraukos/žuvis/tunas.png",
 	"./garsai/patiekalų garsai/virti kiaušiniai.mp3",
 	"./garsai/patiekalų garsai/sriuba.mp3",
 	"./garsai/patiekalų garsai/spagečiai.mp3",
