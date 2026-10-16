@@ -60,6 +60,7 @@
 				<button class="category-row" type="button" data-local-cards><span class="category-icon"><img src="NAVIGACIJOA IKONOS/megstamiausi.svg" alt=""></span><span>Mano kortelės</span><span class="chevron">›</span></button>
 				<button class="category-row" type="button" data-open-emotions><span class="category-icon"><img src="kategoriju-ikonos/EMOCIJOS.svg" alt=""></span><span>Emocijos</span><span class="chevron">›</span></button>
 				<button class="category-row" type="button"><span class="category-icon"><img src="kategoriju-ikonos/VALGYTI.svg" alt=""></span><span>Valgyti</span><span class="chevron">›</span></button>
+				<button class="category-row" type="button"><span class="category-icon"><img src="IKONOS POGRUPIAI/MAISTO PRODUKTAI.svg" alt=""></span><span>Maisto produktai</span><span class="chevron">›</span></button>
 				<button class="category-row" type="button"><span class="category-icon"><img src="kategoriju-ikonos/GERTI.svg" alt=""></span><span>Gerti</span><span class="chevron">›</span></button>
 				<button class="category-row" type="button"><span class="category-icon"><img src="kategoriju-ikonos/TUALETAS.svg" alt=""></span><span>Tualetas</span><span class="chevron">›</span></button>
 				<button class="category-row" type="button"><span class="category-icon"><img src="kategoriju-ikonos/BENDRAUKIME.svg" alt=""></span><span>Bendravimas</span><span class="chevron">›</span></button>
@@ -120,9 +121,6 @@
 					</button>
 				</div>
 				<div class="category-subgroups" id="cooking-subgroups" hidden aria-label="Gaminimo pogrupiai">
-					<button class="subcategory-row" type="button">
-						<span class="subcategory-icon"><img src="IKONOS POGRUPIAI/MAISTO PRODUKTAI.svg" alt=""></span><span>Maisto produktai</span><span class="chevron">›</span>
-					</button>
 					<button class="subcategory-row" type="button">
 						<span class="subcategory-icon"><img src="IKONOS POGRUPIAI/GAMINIMO PROCESAS.svg" alt=""></span><span>Gaminimo procesas</span><span class="chevron">›</span>
 					</button>
@@ -1783,9 +1781,11 @@
 			if (currentIngredientList) {
 				currentIngredientList = false;
 				emotionHeading.textContent = currentCategoryName;
-				cookingSubgroups.hidden = false;
-				emotionGrid.hidden = true;
-				return;
+				if (currentCategoryName === "Gaminti") {
+					cookingSubgroups.hidden = false;
+					emotionGrid.hidden = true;
+					return;
+				}
 			}
 
 			if (currentSubgroup) {
@@ -1813,7 +1813,7 @@
 
 			currentCategoryName = categoryName;
 			currentSubgroup = false;
-			currentIngredientList = false;
+			currentIngredientList = categoryName === "Maisto produktai";
 			emotionHeading.textContent = categoryName;
 			emotionHeadingIcon.src = categoryIcon.src;
 			foodSubgroups.hidden = categoryName !== "Valgyti";
@@ -1821,8 +1821,8 @@
 			locationsSubgroups.hidden = categoryName !== "Vietos";
 			cookingSubgroups.hidden = categoryName !== "Gaminti";
 			itemsSubgroups.hidden = categoryName !== "Daiktai";
-			ingredientSubgroups.hidden = true;
-			emotionGrid.hidden = categoryName === "Valgyti" || categoryName === "Veiklos" || categoryName === "Vietos" || categoryName === "Gaminti" || categoryName === "Daiktai";
+			ingredientSubgroups.hidden = categoryName !== "Maisto produktai";
+			emotionGrid.hidden = categoryName === "Valgyti" || categoryName === "Maisto produktai" || categoryName === "Veiklos" || categoryName === "Vietos" || categoryName === "Gaminti" || categoryName === "Daiktai";
 			if (categoryName === "Mano kortelės") {
 				renderPersonalCards();
 			} else if (categoryName === "Emocijos") {
@@ -1896,15 +1896,6 @@
 					emotionGrid.setAttribute("aria-label", `${subgroupName} kortelės`);
 					return;
 				}
-				if (subgroupName === "Maisto produktai") {
-					currentIngredientList = true;
-					cookingSubgroups.hidden = true;
-					ingredientSubgroups.hidden = false;
-					emotionGrid.hidden = true;
-					emotionHeading.textContent = subgroupName;
-					return;
-				}
-
 				currentSubgroup = true;
 				if (!subcategoryRow.closest("#ingredient-subgroups")) {
 					currentIngredientList = false;
