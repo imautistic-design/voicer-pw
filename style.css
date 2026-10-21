@@ -1,3 +1,5 @@
+@charset "UTF-8";
+
 :root {
 	color-scheme: light;
 	font-family: "Nunito", sans-serif;
@@ -114,7 +116,7 @@ button {
 
 @media (max-width: 759px) {
 	.app-shell {
-		padding-top: 32px;
+		padding-top: 16px;
 	}
 
 	.top-area {
@@ -678,44 +680,9 @@ button {
 	mask: url("NAVIGACIJOA IKONOS/SpeakerSimpleHigh.svg") center / contain no-repeat;
 }
 
-.emotion-favorite {
-	width: 20px;
-	height: 20px;
-	flex: 0 0 20px;
-	background-color: var(--blue);
-	font-size: 0;
-	-webkit-mask: url("NAVIGACIJOA IKONOS/megstamiausi.svg") center / contain no-repeat;
-	mask: url("NAVIGACIJOA IKONOS/megstamiausi.svg") center / contain no-repeat;
-}
-
 .emotion-photo-placeholder {
 	order: 1;
 	position: relative;
-}
-
-.emotion-photo-placeholder .emotion-favorite {
-	position: absolute;
-	top: 8px;
-	right: 8px;
-	display: grid;
-	width: 32px;
-	height: 32px;
-	flex: 0 0 32px;
-	place-items: center;
-	border-radius: 50%;
-	background: rgb(255 255 255 / 92%);
-	box-shadow: 0 2px 8px rgb(38 58 90 / 12%);
-	-webkit-mask: none;
-	mask: none;
-}
-
-.emotion-photo-placeholder .emotion-favorite::before {
-	width: 18px;
-	height: 18px;
-	background-color: var(--blue);
-	content: "";
-	-webkit-mask: url("NAVIGACIJOA IKONOS/megstamiausi.svg") center / contain no-repeat;
-	mask: url("NAVIGACIJOA IKONOS/megstamiausi.svg") center / contain no-repeat;
 }
 
 .emotion-add {
@@ -813,16 +780,17 @@ button {
 
 .category-row,
 .subcategory-row {
+	position: relative;
 	display: grid;
 	width: 100%;
-	min-height: 76px;
-	grid-template-columns: 58px minmax(0, 1fr) 16px;
+	min-height: 0;
+	grid-template-columns: minmax(0, 42%) minmax(0, 1fr);
 	align-items: center;
-	gap: 18px;
-	padding: 8px 20px;
-	border: 0;
-	border-bottom: 1px solid var(--line);
-	background: transparent;
+	gap: clamp(12px, 2vw, 24px);
+	padding: 16px;
+	padding-right: calc(clamp(44px, 5vw, 56px) + 24px);
+	border: 1px solid #eef1f5;
+	border-radius: 52px;
 	background: #fff;
 	font-size: 16px;
 	font-weight: 500;
@@ -830,20 +798,400 @@ button {
 	text-transform: uppercase;
 	cursor: pointer;
 	transition: color 160ms ease, background-color 160ms ease;
-	opacity: 0.99;
 }
 .category-row {
 	margin-bottom: 14px;
+}
+
+.category-row--local-cards {
+	--category-color: #DDE4F0;
+	--category-icon-mask: url("kategoriju-ikonos/DAIKTAI.svg");
+}
+
+.category-row--food {
+	--category-color: #EAF1E6;
+	--category-icon-mask: url("kategoriju-ikonos/VALGYTI.svg");
+}
+
+.category-row--drink {
+	--category-color: #DDE4F0;
+	--category-icon-mask: url("kategoriju-ikonos/GERTI.svg");
+}
+
+.category-row--toilet {
+	--category-color: #D4CCB4;
+	--category-icon-mask: url("kategoriju-ikonos/TUALETAS.svg");
+}
+
+.category-row--communication {
+	--category-color: #B4AFCF;
+	--category-icon-mask: url("kategoriju-ikonos/BENDRAUKIME.svg");
+}
+
+.category-row--pain {
+	--category-color: #D98989;
+	--category-icon-mask: url("kategoriju-ikonos/SKAUDA.svg");
+}
+
+.category-row--activities {
+	--category-color: #B9CBC8;
+	--category-icon-mask: url("kategoriju-ikonos/VEIKLOS.svg");
+}
+
+.category-row--locations {
+	--category-color: #98BE9D;
+	--category-icon-mask: url("kategoriju-ikonos/VIETOS.svg");
+}
+
+.category-row--transport {
+	--category-color: #C9AED8;
+	--category-icon-mask: url("kategoriju-ikonos/TRANSPORTAS.svg");
+}
+
+.category-row--cooking {
+	--category-color: #D4B199;
+	--category-icon-mask: url("kategoriju-ikonos/GAMINTI.svg");
+}
+
+.category-row--sport {
+	--category-color: #E7E6B6;
+	--category-icon-mask: url("kategoriju-ikonos/SPORTAS.svg");
+}
+
+.category-row--personal-items {
+	--category-color: #B0BBA4;
+	--category-icon-mask: url("kategoriju-ikonos/DAIKTAI.svg");
+}
+
+.category-row--colors {
+	--category-color: #A2B8BA;
+	--category-icon-mask: url("kategoriju-ikonos/SPALVOS.svg");
+}
+
+.category-row--numbers {
+	--category-color: #CCB9B9;
+	--category-icon-mask: url("kategoriju-ikonos/SKAI%C4%8CIAI.svg");
+}
+
+.category-row--hygiene {
+	--category-color: #BBD2D7;
+	--category-icon-mask: url("IKONOS POGRUPIAI/HIGIENA.svg");
+}
+
+.category-row--clothing {
+	--category-color: #C57890;
+	--category-icon-mask: url("IKONOS POGRUPIAI/APRANGA.svg");
+}
+
+.subcategory-row--meals {
+	--category-icon-mask: url("IKONOS POGRUPIAI/PATIEKLAI.svg");
+}
+
+.subcategory-row--pastries {
+	--category-icon-mask: url("IKONOS POGRUPIAI/KEPINIAI.svg");
+}
+
+.subcategory-row--snacks {
+	--category-icon-mask: url("IKONOS POGRUPIAI/U%C5%BDKAND%C5%BDIAI.svg");
+}
+
+.subcategory-row--sweets {
+	--category-icon-mask: url("IKONOS POGRUPIAI/SALDUMYNAI.svg");
+}
+
+.subcategory-row--chores {
+	--category-icon-mask: url("IKONOS POGRUPIAI/NAM%C5%B2%20RUO%C5%A0A.svg");
+}
+
+.subcategory-row--rest {
+	--category-icon-mask: url("IKONOS POGRUPIAI/POILSIS.svg");
+}
+
+.subcategory-row--entertainment {
+	--category-icon-mask: url("IKONOS POGRUPIAI/PRAMOGOS.svg");
+}
+
+.subcategory-row--homes {
+	--category-icon-mask: url("IKONOS POGRUPIAI/NAMAI.svg");
+}
+
+.subcategory-row--public-spaces {
+	--category-icon-mask: url("IKONOS POGRUPIAI/VIE%C5%A0OS%20ERDV%C4%96S.svg");
+}
+
+.subcategory-row--nature {
+	--category-icon-mask: url("IKONOS POGRUPIAI/GAMTA.svg");
+}
+
+.subcategory-row--ingredients {
+	--category-icon-mask: url("IKONOS POGRUPIAI/MAISTO PRODUKTAI.svg");
+}
+
+.subcategory-row--cooking-process {
+	--category-icon-mask: url("IKONOS POGRUPIAI/GAMINIMO PROCESAS.svg");
+}
+
+.subcategory-row--utensils {
+	--category-icon-mask: url("IKONOS POGRUPIAI/INDAI.svg");
+}
+
+.subcategory-row--fruit {
+	--category-icon-mask: url("IKONOS POGRUPIAI/VAISIAI.svg");
+}
+
+.subcategory-row--berries {
+	--category-icon-mask: url("IKONOS POGRUPIAI/UOGOS.svg");
+}
+
+.subcategory-row--vegetables {
+	--category-icon-mask: url("IKONOS POGRUPIAI/DAR%C5%BDOV%C4%96S.svg");
+}
+
+.subcategory-row--bread {
+	--category-icon-mask: url("IKONOS POGRUPIAI/DUONA.svg");
+}
+
+.subcategory-row--eggs {
+	--category-icon-mask: url("IKONOS POGRUPIAI/KIAU%C5%A0INIAI.svg");
+}
+
+.subcategory-row--dairy {
+	--category-icon-mask: url("IKONOS POGRUPIAI/PIENAS.svg");
+}
+
+.subcategory-row--meat {
+	--category-icon-mask: url("IKONOS POGRUPIAI/M%C4%96SA.svg");
+}
+
+.subcategory-row--fish {
+	--category-icon-mask: url("IKONOS POGRUPIAI/%C5%BDUVIS.svg");
+}
+
+.subcategory-row--pasta {
+	--category-icon-mask: url("IKONOS POGRUPIAI/MAKARONAI.svg");
+}
+
+.subcategory-row--sauces {
+	--category-icon-mask: url("IKONOS POGRUPIAI/PADA%C5%BDAI.svg");
+}
+
+.subcategory-row--grains {
+	--category-icon-mask: url("IKONOS POGRUPIAI/KRUOPOS.svg");
+}
+
+.subcategory-row--spices {
+	--category-icon-mask: url("IKONOS POGRUPIAI/PRIESKONIAI.svg");
+}
+
+.subcategory-row--prepared-foods {
+	--category-icon-mask: url("IKONOS POGRUPIAI/DE%C5%A0REL%C4%96S.svg");
+}
+
+.emotion-view {
+	--category-color: #DDE4F0;
+	--category-icon-mask: url("kategoriju-ikonos/DAIKTAI.svg");
+}
+
+.emotion-view--food {
+	--category-color: #EAF1E6;
+	--category-icon-mask: url("kategoriju-ikonos/VALGYTI.svg");
+}
+
+.emotion-view--drink {
+	--category-color: #DDE4F0;
+	--category-icon-mask: url("kategoriju-ikonos/GERTI.svg");
+}
+
+.emotion-view--toilet {
+	--category-color: #D4CCB4;
+	--category-icon-mask: url("kategoriju-ikonos/TUALETAS.svg");
+}
+
+.emotion-view--communication {
+	--category-color: #B4AFCF;
+	--category-icon-mask: url("kategoriju-ikonos/BENDRAUKIME.svg");
+}
+
+.emotion-view--pain {
+	--category-color: #D98989;
+	--category-icon-mask: url("kategoriju-ikonos/SKAUDA.svg");
+}
+
+.emotion-view--activities {
+	--category-color: #B9CBC8;
+	--category-icon-mask: url("kategoriju-ikonos/VEIKLOS.svg");
+}
+
+.emotion-view--locations {
+	--category-color: #98BE9D;
+	--category-icon-mask: url("kategoriju-ikonos/VIETOS.svg");
+}
+
+.emotion-view--transport {
+	--category-color: #C9AED8;
+	--category-icon-mask: url("kategoriju-ikonos/TRANSPORTAS.svg");
+}
+
+.emotion-view--cooking {
+	--category-color: #D4B199;
+	--category-icon-mask: url("kategoriju-ikonos/GAMINTI.svg");
+}
+
+.emotion-view--sport {
+	--category-color: #E7E6B6;
+	--category-icon-mask: url("kategoriju-ikonos/SPORTAS.svg");
+}
+
+.emotion-view--personal-items {
+	--category-color: #B0BBA4;
+	--category-icon-mask: url("kategoriju-ikonos/DAIKTAI.svg");
+}
+
+.emotion-view--colors {
+	--category-color: #A2B8BA;
+	--category-icon-mask: url("kategoriju-ikonos/SPALVOS.svg");
+}
+
+.emotion-view--numbers {
+	--category-color: #CCB9B9;
+	--category-icon-mask: url("kategoriju-ikonos/SKAI%C4%8CIAI.svg");
+}
+
+.emotion-view--hygiene {
+	--category-color: #BBD2D7;
+	--category-icon-mask: url("IKONOS POGRUPIAI/HIGIENA.svg");
+}
+
+.emotion-view--clothing {
+	--category-color: #C57890;
+	--category-icon-mask: url("IKONOS POGRUPIAI/APRANGA.svg");
+}
+
+.emotion-card {
+	position: relative;
+}
+
+.emotion-card::before {
+	position: absolute;
+	z-index: 2;
+	top: 16px;
+	left: 16px;
+	width: 32px;
+	aspect-ratio: 1;
+	border-radius: 50%;
+	background: color-mix(in srgb, var(--category-color, #DDE4F0) 38%, #fff);
+	content: "";
+	pointer-events: none;
+}
+
+.emotion-card::after {
+	position: absolute;
+	z-index: 3;
+	top: 24px;
+	left: 24px;
+	width: 16px;
+	height: 16px;
+	background: color-mix(in srgb, var(--category-color, #DDE4F0) 45%, #3F527C);
+	content: "";
+	-webkit-mask: var(--category-icon-mask) center / contain no-repeat;
+	mask: var(--category-icon-mask) center / contain no-repeat;
+	pointer-events: none;
+}
+
+.category-copy,
+.subcategory-copy {
+	display: contents;
+}
+
+.category-symbol,
+.subcategory-symbol {
+	position: absolute;
+	top: 10px;
+	right: 12px;
+	display: grid;
+	width: clamp(44px, 5vw, 56px);
+	aspect-ratio: 1;
+	place-items: center;
+	border-radius: 50%;
+	background: color-mix(in srgb, var(--category-color, #DDE4F0) 38%, #fff);
+}
+
+.category-label,
+.subcategory-label {
+	min-width: 0;
+	grid-column: 2;
+	grid-row: 1;
+	align-self: center;
+	overflow-wrap: normal;
+	word-break: normal;
+}
+
+.category-symbol::before,
+.subcategory-symbol::before {
+	width: 52%;
+	height: 52%;
+	background: color-mix(in srgb, var(--category-color, #DDE4F0) 65%, #3F527C);
+	content: "";
+	-webkit-mask: var(--category-icon-mask) center / contain no-repeat;
+	mask: var(--category-icon-mask) center / contain no-repeat;
+}
+
+.category-label,
+.subcategory-label {
+	color: var(--ink);
+	font-size: clamp(18px, 2.4vw, 32px);
+	font-weight: 900;
+	letter-spacing: 1px;
+	line-height: 1.15;
+}
+
+.emotion-view--food .emotion-heading,
+.emotion-view--drink .emotion-heading,
+.emotion-view--toilet .emotion-heading,
+.emotion-view--communication .emotion-heading,
+.emotion-view--pain .emotion-heading,
+.emotion-view--activities .emotion-heading,
+.emotion-view--locations .emotion-heading,
+.emotion-view--transport .emotion-heading,
+.emotion-view--cooking .emotion-heading,
+.emotion-view--sport .emotion-heading,
+.emotion-view--personal-items .emotion-heading,
+.emotion-view--colors .emotion-heading,
+.emotion-view--numbers .emotion-heading,
+.emotion-view--hygiene .emotion-heading,
+.emotion-view--clothing .emotion-heading {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	overflow: hidden;
+	clip: rect(0, 0, 0, 0);
+	clip-path: inset(50%);
+	white-space: nowrap;
+	padding: 0;
 	border: 0;
-	border-radius: 40px;
-	background: #f2f5f8;
+}
+
+.emotion-view--food .emotion-grid,
+.emotion-view--drink .emotion-grid,
+.emotion-view--toilet .emotion-grid,
+.emotion-view--communication .emotion-grid,
+.emotion-view--pain .emotion-grid,
+.emotion-view--activities .emotion-grid,
+.emotion-view--locations .emotion-grid,
+.emotion-view--transport .emotion-grid,
+.emotion-view--cooking .emotion-grid,
+.emotion-view--sport .emotion-grid,
+.emotion-view--personal-items .emotion-grid,
+.emotion-view--colors .emotion-grid,
+.emotion-view--numbers .emotion-grid,
+.emotion-view--hygiene .emotion-grid,
+.emotion-view--clothing .emotion-grid {
+	padding: 8px;
+	border-radius: 24px;
 }
 
 .subcategory-row {
 	margin-bottom: 14px;
-	border: 0;
-	border-radius: 40px;
-	background: #f2f5f8;
 }
 
 .subcategory-row:last-child {
@@ -865,78 +1213,124 @@ button {
 	}
 
 	.category-row {
-		padding-right: 0;
-		padding-left: 0;
+		grid-template-columns: minmax(0, 38%) minmax(0, 1fr);
+		gap: 10px;
+		padding: 12px;
+		padding-right: 62px;
 	}
 
-	.category-row {
-		min-height: 76px;
-		grid-template-columns: 58px minmax(0, 1fr) 16px;
-		gap: 18px;
-		padding: 8px 16px;
+	.category-row .category-icon {
+		width: 100%;
 	}
 
 	.subcategory-row {
-		min-height: 76px;
-		grid-template-columns: 58px minmax(0, 1fr) 16px;
-		gap: 18px;
-		padding: 8px 16px;
+		grid-template-columns: minmax(0, 38%) minmax(0, 1fr);
+		gap: 10px;
+		padding: 12px;
+		padding-right: 62px;
 	}
-}
 
-.category-row:last-of-type,
-.subcategory-row:last-child {
-	border-bottom: 0;
+	.subcategory-row .subcategory-icon {
+		width: 100%;
+	}
+
+	.category-row,
+	.subcategory-row {
+		border-radius: 34px;
+	}
+
+	.category-row .category-icon,
+	.subcategory-row .subcategory-icon {
+		border-radius: 28px;
+	}
+
+	.category-symbol,
+	.subcategory-symbol {
+		top: 8px;
+		right: 8px;
+		width: 42px;
+	}
+
+	.category-label,
+	.subcategory-label {
+		font-size: clamp(13px, 3.6vw, 16px);
+		letter-spacing: .3px;
+	}
+
+	.emotion-view--food .emotion-heading,
+	.emotion-view--drink .emotion-heading,
+	.emotion-view--toilet .emotion-heading,
+	.emotion-view--communication .emotion-heading,
+	.emotion-view--pain .emotion-heading,
+	.emotion-view--activities .emotion-heading,
+	.emotion-view--locations .emotion-heading,
+	.emotion-view--transport .emotion-heading,
+	.emotion-view--cooking .emotion-heading,
+	.emotion-view--sport .emotion-heading,
+	.emotion-view--personal-items .emotion-heading,
+	.emotion-view--colors .emotion-heading,
+	.emotion-view--numbers .emotion-heading,
+	.emotion-view--hygiene .emotion-heading,
+	.emotion-view--clothing .emotion-heading {
+		margin: -1px;
+	}
+
+	.emotion-view--food .emotion-grid,
+	.emotion-view--drink .emotion-grid,
+	.emotion-view--toilet .emotion-grid,
+	.emotion-view--communication .emotion-grid,
+	.emotion-view--pain .emotion-grid,
+	.emotion-view--activities .emotion-grid,
+	.emotion-view--locations .emotion-grid,
+	.emotion-view--transport .emotion-grid,
+	.emotion-view--cooking .emotion-grid,
+	.emotion-view--sport .emotion-grid,
+	.emotion-view--personal-items .emotion-grid,
+	.emotion-view--colors .emotion-grid,
+	.emotion-view--numbers .emotion-grid,
+	.emotion-view--hygiene .emotion-grid,
+	.emotion-view--clothing .emotion-grid {
+		margin: 0 -32px;
+		padding-bottom: 24px;
+		border-radius: 0;
+	}
 }
 
 .category-row:active,
 .subcategory-row:active {
-	background: #d0d9e6;
+	background: #f5f7fa;
 	color: #2f3e5e;
 }
+
+.category-row > .chevron,
+.subcategory-row > .chevron {
+	display: none;
+}
 .category-row:active {
-	background: #e8edf3;
+	background: #f5f7fa;
 }
 
 .subcategory-row:active {
-	background: #e8edf3;
+	background: #f5f7fa;
 }
 
 .category-icon,
 .subcategory-icon {
-	display: grid;
-	width: 58px;
-	height: 58px;
-	place-items: center;
-	border: 1px solid rgb(136 167 201 / 10%);
-	border-radius: 12px;
-	background: rgb(136 167 201 / 10%);
-	color: #596f96;
-	font-size: 24px;
-	line-height: 1;
-}
-
-.category-row .category-icon {
-	border: 0;
-	border-radius: 50%;
-	background: #fff;
-}
-
-.subcategory-row .subcategory-icon {
-	border: 0;
-	border-radius: 50%;
-	background: #fff;
+	display: block;
+	width: 100%;
+	height: auto;
+	aspect-ratio: 1;
+	overflow: hidden;
+	border-radius: 42px;
+	background: transparent;
 }
 
 .category-icon img,
 .subcategory-icon img {
-	width: 34px;
-	height: 34px;
-	object-fit: contain;
-}
-
-.subcategory-icon img {
-	filter: brightness(0) saturate(100%) invert(29%) sepia(16%) saturate(1320%) hue-rotate(184deg) brightness(92%) contrast(88%);
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	border-radius: inherit;
 }
 
 .chevron {
@@ -1057,6 +1451,95 @@ button {
 	font-size: 15px;
 	font-weight: 400;
 	line-height: 1.05;
+}
+
+@media (max-width: 759px) {
+	.bottom-nav {
+		padding-bottom: calc(12px + env(safe-area-inset-bottom));
+	}
+
+	.bottom-nav-actions {
+		width: auto;
+		margin-top: 8px;
+		grid-template-columns: repeat(3, 48px);
+		gap: 12px;
+		padding: 8px 12px;
+		border: 1px solid #ece9e1;
+		border-radius: 999px;
+		background: #fbfaf7;
+		box-shadow: 0 6px 20px rgb(38 42 50 / 10%);
+	}
+
+	.bottom-nav .nav-item {
+		position: relative;
+		width: 48px;
+		height: 48px;
+		min-height: 48px;
+		gap: 0;
+		margin: 0;
+		padding: 0;
+		border: 0;
+		border-radius: 50%;
+		font-size: 0;
+		line-height: 1;
+	}
+
+	.bottom-nav .nav-item > span:not(.nav-icon):not(.nav-back-icon):not(.nav-home-icon) {
+		position: absolute;
+		width: 1px;
+		height: 1px;
+		overflow: hidden;
+		clip: rect(0, 0, 0, 0);
+		white-space: nowrap;
+		clip-path: inset(50%);
+	}
+
+	.bottom-nav .nav-back-icon,
+	.bottom-nav .nav-home-icon {
+		width: 48px;
+		height: 48px;
+		border: 1px solid #ece9e1;
+		background: #fff;
+		color: #3F527C;
+	}
+
+	.bottom-nav .nav-back-icon img,
+	.bottom-nav .nav-home-icon img {
+		width: 22px;
+		height: 22px;
+		filter: none;
+		opacity: .8;
+	}
+
+	.bottom-nav .nav-create {
+		align-self: center;
+		display: grid;
+		width: 48px;
+		height: 48px;
+		min-height: 48px;
+		place-items: center;
+		padding: 0;
+		border: 0;
+		border-radius: 50%;
+		background: #3F527C;
+		box-shadow: none;
+		color: #fff;
+		font-size: 0;
+	}
+
+	.bottom-nav .nav-create.is-active {
+		background: #3F527C;
+		color: #fff;
+	}
+
+	.bottom-nav .nav-create .nav-icon {
+		width: 24px;
+		height: 24px;
+		padding: 0;
+		font-size: 24px;
+		line-height: 1;
+		color: inherit;
+	}
 }
 
 .bottom-nav .composer-copy {
@@ -1568,8 +2051,9 @@ input:focus-visible {
 		box-shadow: 0 7px 18px rgb(38 58 90 / 12%);
 	}
 
-	.category-row:hover {
-		background: rgb(136 167 201 / 8%);
+	.category-row:hover,
+	.subcategory-row:hover {
+		background: #f8f9fb;
 		color: var(--ink);
 	}
 
@@ -1750,24 +2234,17 @@ button:active {
 		margin-inline: -24px;
 	}
 
-	.category-row {
-		min-height: 58px;
-		grid-template-columns: 42px minmax(0, 1fr) 16px;
-		gap: 14px;
-		padding-right: 24px;
-		padding-left: 24px;
-		font-size: 14px;
+	.category-row,
+	.subcategory-row {
+		grid-template-columns: minmax(0, 42%) minmax(0, 1fr);
+		gap: clamp(12px, 2vw, 24px);
+		padding: 16px;
+		padding-right: calc(clamp(44px, 5vw, 56px) + 24px);
 	}
 
-	.category-icon {
-		width: 42px;
-		height: 42px;
-		border-radius: 10px;
-	}
-
-	.category-icon img {
-		width: 28px;
-		height: 28px;
+	.category-row .category-icon,
+	.subcategory-row .subcategory-icon {
+		width: 100%;
 	}
 
 	.bottom-nav {
