@@ -1461,20 +1461,25 @@ button {
 }
 
 @media (max-width: 759px) {
-	.bottom-nav {
-		padding-bottom: calc(12px + env(safe-area-inset-bottom));
+	.bottom-nav,
+	.app-shell.has-sentence .bottom-nav {
+		min-height: 0;
+		padding-top: 4px;
+		padding-bottom: calc(4px + env(safe-area-inset-bottom));
+		border-radius: 24px 24px 0 0;
 	}
 
 	.bottom-nav-actions {
-		width: auto;
-		margin-top: 8px;
-		grid-template-columns: repeat(3, 48px);
-		gap: 12px;
-		padding: 8px 12px;
-		border: 1px solid #ece9e1;
-		border-radius: 999px;
-		background: #fbfaf7;
-		box-shadow: 0 6px 20px rgb(38 42 50 / 10%);
+		width: 100%;
+		margin-top: 0;
+		grid-template-columns: repeat(3, minmax(0, 1fr));
+		justify-items: center;
+		gap: 0;
+		padding: 0;
+		border: 0;
+		border-radius: 0;
+		background: transparent;
+		box-shadow: none;
 	}
 
 	.bottom-nav .nav-item {
@@ -1505,21 +1510,22 @@ button {
 	.bottom-nav .nav-home-icon {
 		width: 48px;
 		height: 48px;
-		border: 1px solid #ece9e1;
-		background: #fff;
+		border: 0;
+		background: transparent;
 		color: #3F527C;
 	}
 
 	.bottom-nav .nav-back-icon img,
 	.bottom-nav .nav-home-icon img {
-		width: 22px;
-		height: 22px;
+		width: 26px;
+		height: 26px;
 		filter: none;
 		opacity: .8;
 	}
 
 	.bottom-nav .nav-create {
 		align-self: center;
+		justify-self: center;
 		display: grid;
 		width: 48px;
 		height: 48px;
@@ -1528,24 +1534,25 @@ button {
 		padding: 0;
 		border: 0;
 		border-radius: 50%;
-		background: #3F527C;
+		background: transparent;
 		box-shadow: none;
-		color: #fff;
+		color: #8d98a8;
 		font-size: 0;
 	}
 
 	.bottom-nav .nav-create.is-active {
-		background: #3F527C;
-		color: #fff;
+		background: transparent;
+		color: #8d98a8;
 	}
 
 	.bottom-nav .nav-create .nav-icon {
-		width: 24px;
-		height: 24px;
+		width: 28px;
+		height: 28px;
 		padding: 0;
-		font-size: 24px;
+		font-size: 30px;
 		line-height: 1;
 		color: inherit;
+		opacity: .8;
 	}
 }
 
@@ -1756,6 +1763,21 @@ button {
 	border: 1px solid var(--line);
 	border-radius: 30px;
 	background: #fff;
+}
+
+@media (max-width: 759px) {
+	.bottom-nav .composer-copy {
+		padding-top: 8px;
+		padding-bottom: 4px;
+	}
+
+	.bottom-nav .greeting {
+		font-size: 20px;
+	}
+
+	.bottom-nav .composer-hint {
+		font-size: 16px;
+	}
 }
 
 .nav-item {
