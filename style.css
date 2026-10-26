@@ -1239,7 +1239,10 @@ button {
 		border-radius: 34px;
 	}
 
-	.category-row .category-icon,
+	.category-row .category-icon {
+		border-radius: 0;
+	}
+
 	.subcategory-row .subcategory-icon {
 		border-radius: 28px;
 	}
@@ -1323,6 +1326,10 @@ button {
 	overflow: hidden;
 	border-radius: 42px;
 	background: transparent;
+}
+
+.category-icon {
+	border-radius: 0;
 }
 
 .category-icon img,
