@@ -1735,7 +1735,9 @@ button {
 	grid-template-columns: 42px minmax(0, 1fr) 24px;
 	gap: 8px;
 	padding: 6px 8px;
+	border: 1px solid var(--line);
 	border-radius: 32px;
+	box-shadow: none;
 }
 
 .bottom-nav .selected-word-photo {
