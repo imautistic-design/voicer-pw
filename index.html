@@ -8,7 +8,7 @@
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&display=swap" rel="stylesheet">
-	<link rel="stylesheet" href="style.css?v=236">
+	<link rel="stylesheet" href="style.css?v=237">
 </head>
 <body>
 	<main class="app-shell">
@@ -403,6 +403,7 @@
 					<path d="m15.5 15.5 4.2 4.2" />
 				</svg>
 			</button>
+			<input class="tabbar-field" id="tab-search-input" type="search" placeholder="Ieškoti…" aria-label="Ieškoti žodyno kortelių" autocomplete="off" enterkeyhint="search">
 			<button class="tabbar-item" id="tab-home" type="button" aria-label="Pagrindinis">
 				<img src="NAVIGACIJOA IKONOS/PRADŽIA.svg" alt="">
 			</button>
@@ -2190,24 +2191,31 @@
 			});
 		}
 
+		const tabSearchInput = document.querySelector("#tab-search-input");
+
 		function setSearchOpen(isOpen) {
 			appShell.classList.toggle("is-searching", isOpen);
 			tabSearch.setAttribute("aria-pressed", String(isOpen));
 			if (isOpen) {
-				searchInput.focus();
+				tabSearchInput.focus();
 			} else {
 				searchInput.value = "";
+				tabSearchInput.value = "";
 				applySearch();
 			}
 		}
 
 		tabSearch.addEventListener("click", () => setSearchOpen(!appShell.classList.contains("is-searching")));
 		searchInput.addEventListener("input", applySearch);
-		searchInput.addEventListener("keydown", (event) => {
-			if (event.key === "Enter") {
-				searchInput.blur();
-			}
+		tabSearchInput.addEventListener("input", () => {
+			searchInput.value = tabSearchInput.value;
+			applySearch();
 		});
+		[searchInput, tabSearchInput].forEach((input) => input.addEventListener("keydown", (event) => {
+			if (event.key === "Enter") {
+				input.blur();
+			}
+		}));
 		new MutationObserver(applySearch).observe(emotionGrid, { childList: true });
 		document.addEventListener("click", (event) => {
 			if (event.target.closest(".category-row, .subcategory-row, #emotion-back, #nav-back, #nav-home, #desktop-home, #tab-home")) {

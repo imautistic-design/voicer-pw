@@ -134,13 +134,35 @@ button {
 		display: none;
 	}
 
-	.app-shell.is-searching .desktop-search-row {
-		display: block;
-		margin-bottom: 8px;
+	.tabbar-field {
+		display: none;
+		min-width: 0;
+		height: 44px;
+		flex: 1;
+		padding: 0 14px;
+		border: 1px solid var(--line);
+		border-radius: 22px;
+		background: #fff;
+		color: #3F527C;
+		font: inherit;
+		font-size: 16px;
 	}
 
-	.search-box {
-		height: 48px;
+	.app-shell.is-searching .tabbar {
+		display: flex;
+		justify-content: space-between;
+		gap: 4px;
+		padding-right: 8px;
+		padding-left: 8px;
+	}
+
+	.app-shell.is-searching .tabbar .tabbar-field {
+		display: block;
+	}
+
+	.app-shell.is-searching .tabbar .tabbar-item {
+		width: 44px;
+		flex: 0 0 44px;
 	}
 
 	.sticky-message-panel {
