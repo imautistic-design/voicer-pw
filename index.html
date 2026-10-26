@@ -8,7 +8,7 @@
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&display=swap" rel="stylesheet">
-	<link rel="stylesheet" href="style.css?v=235">
+	<link rel="stylesheet" href="style.css?v=236">
 </head>
 <body>
 	<main class="app-shell">
@@ -34,6 +34,12 @@
 						<p class="composer-hint">Ką norėtum pasakyti?</p>
 					</div>
 					<div class="selected-words" id="selected-words" role="list" aria-label="Pasirinktos kortelės" hidden></div>
+				</section>
+				<section class="sentence-bar" id="sentence-bar" aria-label="Sakinys" aria-live="polite" hidden>
+					<p class="sentence-text" id="sentence-text"></p>
+					<button class="sentence-speak" id="sentence-speak" type="button" aria-label="Ištarti sakinį">
+						<img src="NAVIGACIJOA IKONOS/SpeakerSimpleHigh.svg" alt="">
+					</button>
 				</section>
 				<details class="quick-phrase-dropdown">
 					<summary>
@@ -390,13 +396,24 @@
 			</div>
 		</section>
 
-		<nav class="bottom-nav" aria-label="Pagrindinė navigacija">
-			<section class="sentence-bar" id="sentence-bar" aria-label="Sakinys" aria-live="polite" hidden>
-				<p class="sentence-text" id="sentence-text"></p>
-				<button class="sentence-speak" id="sentence-speak" type="button" aria-label="Ištarti sakinį">
-					<img src="NAVIGACIJOA IKONOS/SpeakerSimpleHigh.svg" alt="">
-				</button>
-			</section>
+		<nav class="tabbar" aria-label="Pagrindinė navigacija">
+			<button class="tabbar-item" id="tab-search" type="button" aria-label="Ieškoti" aria-pressed="false">
+				<svg viewBox="0 0 24 24" aria-hidden="true">
+					<circle cx="10.8" cy="10.8" r="6.3" />
+					<path d="m15.5 15.5 4.2 4.2" />
+				</svg>
+			</button>
+			<button class="tabbar-item" id="tab-home" type="button" aria-label="Pagrindinis">
+				<img src="NAVIGACIJOA IKONOS/PRADŽIA.svg" alt="">
+			</button>
+			<button class="tabbar-item" id="tab-add" type="button" aria-label="Pridėti kortelę">
+				<svg viewBox="0 0 24 24" aria-hidden="true">
+					<path d="M12 5v14M5 12h14" />
+				</svg>
+			</button>
+		</nav>
+
+		<nav class="bottom-nav" aria-label="Kortelių kūrimas">
 			<div class="bottom-nav-actions">
 			<button class="nav-item nav-back" id="nav-back" type="button" aria-label="Atgal">
 				<span class="nav-back-icon" aria-hidden="true"><img src="NAVIGACIJOA IKONOS/ATGAL.svg" alt=""></span>
@@ -460,34 +477,12 @@
 		const emotionHeading = document.querySelector(".emotion-heading h2");
 		const emotionHeadingIcon = document.querySelector(".emotion-heading img");
 		const emotionGrid = document.querySelector(".emotion-grid");
-		const composer = document.querySelector(".composer");
 		const composerCopy = document.querySelector(".composer-copy");
 		const selectedWordsTray = document.querySelector("#selected-words");
 		const sentenceBar = document.querySelector("#sentence-bar");
 		const sentenceText = document.querySelector("#sentence-text");
-		const bottomNav = document.querySelector(".bottom-nav");
-		const bottomNavActions = document.querySelector(".bottom-nav-actions");
-		const stickyMessagePanel = document.querySelector(".sticky-message-panel");
-		const quickPhraseDropdown = document.querySelector(".quick-phrase-dropdown");
-		const desktopLayout = window.matchMedia("(min-width: 760px)");
-
-		function moveSentenceBar() {
-			if (desktopLayout.matches) {
-				composer.insertBefore(composerCopy, composer.firstElementChild);
-				composer.appendChild(selectedWordsTray);
-				stickyMessagePanel.appendChild(quickPhraseDropdown);
-				stickyMessagePanel.insertBefore(sentenceBar, quickPhraseDropdown);
-			} else {
-				bottomNav.insertBefore(composerCopy, bottomNavActions);
-				bottomNav.insertBefore(quickPhraseDropdown, bottomNavActions);
-				bottomNav.insertBefore(selectedWordsTray, bottomNavActions);
-				bottomNav.insertBefore(sentenceBar, bottomNavActions);
-			}
-		}
-
-		moveSentenceBar();
-		desktopLayout.addEventListener("change", moveSentenceBar);
-		window.addEventListener("resize", moveSentenceBar);
+		const searchInput = document.querySelector(".search-box input");
+		const tabSearch = document.querySelector("#tab-search");
 
 		const foodSubgroups = document.querySelector("#food-subgroups");
 		const activitiesSubgroups = document.querySelector("#activities-subgroups");
@@ -2181,6 +2176,44 @@
 
 		document.getElementById("desktop-home").addEventListener("click", goHome);
 		document.getElementById("nav-home").addEventListener("click", goHome);
+		document.getElementById("tab-home").addEventListener("click", goHome);
+
+		function normalizeSearchText(text) {
+			return text.toLocaleLowerCase("lt-LT").normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+		}
+
+		function applySearch() {
+			const query = normalizeSearchText(searchInput.value.trim());
+			document.querySelectorAll(".category-row, .subcategory-row, .emotion-grid > *").forEach((item) => {
+				const label = item.querySelector(".category-label, .subcategory-label, p") || item;
+				item.classList.toggle("is-search-hidden", Boolean(query) && !normalizeSearchText(label.textContent).includes(query));
+			});
+		}
+
+		function setSearchOpen(isOpen) {
+			appShell.classList.toggle("is-searching", isOpen);
+			tabSearch.setAttribute("aria-pressed", String(isOpen));
+			if (isOpen) {
+				searchInput.focus();
+			} else {
+				searchInput.value = "";
+				applySearch();
+			}
+		}
+
+		tabSearch.addEventListener("click", () => setSearchOpen(!appShell.classList.contains("is-searching")));
+		searchInput.addEventListener("input", applySearch);
+		searchInput.addEventListener("keydown", (event) => {
+			if (event.key === "Enter") {
+				searchInput.blur();
+			}
+		});
+		new MutationObserver(applySearch).observe(emotionGrid, { childList: true });
+		document.addEventListener("click", (event) => {
+			if (event.target.closest(".category-row, .subcategory-row, #emotion-back, #nav-back, #nav-home, #desktop-home, #tab-home")) {
+				setSearchOpen(false);
+			}
+		}, true);
 
 		document.querySelectorAll(".category-row").forEach((categoryRow) => {
 			categoryRow.addEventListener("click", async () => {
@@ -2348,12 +2381,12 @@
 			speakSentence();
 		});
 
-		document.getElementById("create-card-button").addEventListener("click", async () => {
+		document.querySelectorAll("#create-card-button, #tab-add").forEach((createButton) => createButton.addEventListener("click", async () => {
 			await personalCardsReady;
 			personalCardStatus.textContent = personalCardStorageError ? "Šiame įrenginyje nepavyko atverti vietinės saugyklos." : "";
 			personalCardDialog.showModal();
 			personalCardName.focus();
-		});
+		}));
 
 		personalCardPhoto.addEventListener("change", () => {
 			showPhotoPreview(personalCardPhoto.files[0]);
