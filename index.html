@@ -8,7 +8,7 @@
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&display=swap" rel="stylesheet">
-	<link rel="stylesheet" href="style.css?v=237">
+	<link rel="stylesheet" href="style.css?v=238">
 </head>
 <body>
 	<main class="app-shell">
@@ -394,6 +394,7 @@
 				<div class="emotion-grid" aria-label="Kortelės">
 				</div>
 			</div>
+			<div class="search-results" id="search-results" hidden aria-live="polite"></div>
 		</section>
 
 		<nav class="tabbar" aria-label="Pagrindinė navigacija">
@@ -2183,13 +2184,175 @@
 			return text.toLocaleLowerCase("lt-LT").normalize("NFD").replace(/[\u0300-\u036f]/g, "");
 		}
 
-		function applySearch() {
-			const query = normalizeSearchText(searchInput.value.trim());
-			document.querySelectorAll(".category-row, .subcategory-row, .emotion-grid > *").forEach((item) => {
-				const label = item.querySelector(".category-label, .subcategory-label, p") || item;
-				item.classList.toggle("is-search-hidden", Boolean(query) && !normalizeSearchText(label.textContent).includes(query));
+		const searchResults = document.querySelector("#search-results");
+		const subgroupContainers = [foodSubgroups, activitiesSubgroups, locationsSubgroups, cookingSubgroups, ingredientSubgroups];
+		let searchIndex = null;
+		let isBuildingSearchIndex = false;
+		let currentSearchMatches = [];
+		const searchObjectUrls = [];
+
+		function collectVisibleCards(entries) {
+			prepareEmotionCards();
+			const label = currentCategoryName === emotionHeading.textContent
+				? currentCategoryName
+				: `${currentCategoryName} › ${emotionHeading.textContent}`;
+			emotionGrid.querySelectorAll(".emotion-card:not([data-personal-card-id])").forEach((card) => {
+				const word = card.querySelector("p")?.textContent.trim();
+				if (!word || word === "Žodis") {
+					return;
+				}
+				entries.push({
+					word,
+					norm: normalizeSearchText(word),
+					image: card.querySelector(".emotion-photo-placeholder img")?.getAttribute("src") || "",
+					audio: getCardAudioSource(word) || "",
+					label
+				});
 			});
 		}
+
+		function crawlRows(rows, entries) {
+			rows.forEach((row) => {
+				if (row.hasAttribute("data-local-cards")) {
+					return;
+				}
+				row.click();
+				if (!emotionGrid.hidden) {
+					collectVisibleCards(entries);
+				} else {
+					const container = subgroupContainers.find((subgroups) => !subgroups.hidden);
+					if (container) {
+						crawlRows(Array.from(container.querySelectorAll(".subcategory-row")), entries);
+					}
+				}
+				goBackToCategories();
+			});
+		}
+
+		function ensureSearchIndex() {
+			if (searchIndex) {
+				return;
+			}
+			isBuildingSearchIndex = true;
+			const scrollTop = window.scrollY;
+			const entries = [];
+			try {
+				if (!emotionView.hidden) {
+					goHome();
+				}
+				crawlRows(Array.from(document.querySelectorAll(".category-row")), entries);
+			} finally {
+				isBuildingSearchIndex = false;
+				window.scrollTo({ top: scrollTop, behavior: "instant" });
+			}
+			const seen = new Set();
+			searchIndex = entries.filter(({ norm, image, label }) => {
+				const key = `${norm}|${image}|${label}`;
+				return seen.has(key) ? false : Boolean(seen.add(key));
+			});
+		}
+
+		function renderSearchResults(matches) {
+			searchObjectUrls.splice(0).forEach((url) => URL.revokeObjectURL(url));
+			if (matches.length === 0) {
+				const empty = document.createElement("p");
+				empty.className = "search-results-empty";
+				empty.textContent = "Nieko nerasta.";
+				searchResults.replaceChildren(empty);
+				return;
+			}
+			searchResults.replaceChildren(...matches.map((entry, index) => {
+				const row = document.createElement("div");
+				row.className = "search-result";
+				row.dataset.index = String(index);
+
+				const main = document.createElement("button");
+				main.type = "button";
+				main.className = "search-result-main";
+				main.setAttribute("aria-label", `Pridėti ${entry.word} prie sakinio`);
+
+				const thumb = document.createElement("span");
+				thumb.className = "search-result-thumb";
+				let imageSource = entry.image;
+				if (entry.personal?.photo instanceof Blob) {
+					imageSource = URL.createObjectURL(entry.personal.photo);
+					searchObjectUrls.push(imageSource);
+				}
+				if (imageSource) {
+					const image = document.createElement("img");
+					image.src = imageSource;
+					image.alt = "";
+					image.loading = "lazy";
+					thumb.append(image);
+				}
+
+				const copy = document.createElement("span");
+				copy.className = "search-result-copy";
+				const word = document.createElement("span");
+				word.className = "search-result-word";
+				word.textContent = entry.word;
+				const label = document.createElement("span");
+				label.className = "search-result-label";
+				label.textContent = entry.label;
+				copy.append(word, label);
+				main.append(thumb, copy);
+
+				const audioButton = document.createElement("button");
+				audioButton.type = "button";
+				audioButton.className = "search-result-audio";
+				audioButton.setAttribute("aria-label", `Leisti garsą: ${entry.word.toLocaleLowerCase("lt-LT")}`);
+				audioButton.innerHTML = '<img src="NAVIGACIJOA IKONOS/SpeakerSimpleHigh.svg" alt="">';
+
+				row.append(main, audioButton);
+				return row;
+			}));
+		}
+
+		function applySearch() {
+			const query = normalizeSearchText(searchInput.value.trim());
+			appShell.classList.toggle("is-search-results", Boolean(query));
+			searchResults.hidden = !query;
+			if (!query) {
+				searchResults.replaceChildren();
+				currentSearchMatches = [];
+				return;
+			}
+			ensureSearchIndex();
+			const personalEntries = personalCards.map((personal) => ({
+				word: personal.name,
+				norm: normalizeSearchText(personal.name),
+				image: "",
+				audio: "",
+				label: "Mano kortelės",
+				personal
+			}));
+			currentSearchMatches = [...personalEntries, ...searchIndex]
+				.filter(({ norm }) => norm.includes(query))
+				.sort((a, b) => Number(b.norm.startsWith(query)) - Number(a.norm.startsWith(query)))
+				.slice(0, 80);
+			renderSearchResults(currentSearchMatches);
+		}
+
+		searchResults.addEventListener("click", (event) => {
+			const row = event.target.closest(".search-result");
+			const entry = row && currentSearchMatches[Number(row.dataset.index)];
+			if (!entry) {
+				return;
+			}
+			if (event.target.closest(".search-result-audio")) {
+				if (entry.personal?.audio instanceof Blob) {
+					playAudioBlob(entry.personal.audio).catch(() => speakText(entry.word));
+				} else if (entry.audio) {
+					loadAudioSource(entry.audio)
+						.then((audioBlob) => audioBlob ? playAudioBlob(audioBlob) : speakText(entry.word))
+						.catch(() => speakText(entry.word));
+				} else {
+					speakText(entry.word);
+				}
+				return;
+			}
+			addSelectedWord(entry.word, entry.personal?.photo || entry.image || null, entry.personal?.audio || null, entry.personal ? "" : entry.audio);
+		});
 
 		const tabSearchInput = document.querySelector("#tab-search-input");
 
@@ -2197,6 +2360,7 @@
 			appShell.classList.toggle("is-searching", isOpen);
 			tabSearch.setAttribute("aria-pressed", String(isOpen));
 			if (isOpen) {
+				ensureSearchIndex();
 				tabSearchInput.focus();
 			} else {
 				searchInput.value = "";
@@ -2216,9 +2380,8 @@
 				input.blur();
 			}
 		}));
-		new MutationObserver(applySearch).observe(emotionGrid, { childList: true });
 		document.addEventListener("click", (event) => {
-			if (event.target.closest(".category-row, .subcategory-row, #emotion-back, #nav-back, #nav-home, #desktop-home, #tab-home")) {
+			if (!isBuildingSearchIndex && event.target.closest("#emotion-back, #nav-back, #nav-home, #desktop-home, #tab-home")) {
 				setSearchOpen(false);
 			}
 		}, true);
