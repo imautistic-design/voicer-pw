@@ -1213,10 +1213,10 @@ button {
 	}
 
 	.category-row {
-		grid-template-columns: minmax(0, 38%) minmax(0, 1fr);
+		grid-template-columns: minmax(0, 55%) minmax(0, 1fr);
 		gap: 10px;
 		padding: 12px;
-		padding-right: 62px;
+		padding-right: 12px;
 	}
 
 	.category-row .category-icon {
