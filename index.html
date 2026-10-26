@@ -8,7 +8,7 @@
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&display=swap" rel="stylesheet">
-	<link rel="stylesheet" href="style.css?v=238">
+	<link rel="stylesheet" href="style.css?v=239">
 </head>
 <body>
 	<main class="app-shell">
@@ -2326,9 +2326,12 @@
 				label: "Mano kortelės",
 				personal
 			}));
-			currentSearchMatches = [...personalEntries, ...searchIndex]
-				.filter(({ norm }) => norm.includes(query))
-				.sort((a, b) => Number(b.norm.startsWith(query)) - Number(a.norm.startsWith(query)))
+			const rank = ({ norm }) => norm.startsWith(query) ? 0 : norm.split(/\s+/).some((part) => part.startsWith(query)) ? 1 : 2;
+			const candidates = [...personalEntries, ...searchIndex].filter(({ norm }) => norm.includes(query));
+			const hasWordStart = candidates.some((entry) => rank(entry) < 2);
+			currentSearchMatches = candidates
+				.filter((entry) => !hasWordStart || rank(entry) < 2)
+				.sort((a, b) => rank(a) - rank(b) || a.word.localeCompare(b.word, "lt-LT"))
 				.slice(0, 80);
 			renderSearchResults(currentSearchMatches);
 		}
