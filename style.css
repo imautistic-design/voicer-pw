@@ -1464,7 +1464,7 @@ button {
 	.bottom-nav,
 	.app-shell.has-sentence .bottom-nav {
 		min-height: 0;
-		padding-top: 4px;
+		padding-top: 16px;
 		padding-bottom: calc(4px + env(safe-area-inset-bottom));
 		border-radius: 24px 24px 0 0;
 	}
@@ -1767,8 +1767,16 @@ button {
 
 @media (max-width: 759px) {
 	.bottom-nav .composer-copy {
-		padding-top: 8px;
-		padding-bottom: 4px;
+		padding-top: 0;
+		padding-bottom: 8px;
+	}
+
+	.bottom-nav .selected-words {
+		padding-top: 10px;
+	}
+
+	.bottom-nav .sentence-bar {
+		margin-top: 4px;
 	}
 
 	.bottom-nav .greeting {
