@@ -853,6 +853,7 @@ button {
 	}
 }
 
+.category-list[hidden],
 .emotion-view[hidden] {
 	display: none;
 }
@@ -1167,19 +1168,22 @@ button {
 	--category-icon-mask: url("kategoriju-ikonos/SKAUDA.svg");
 }
 
-.category-row--activities {
+.category-row--chores,
+.category-row--rest {
 	--category-color: #B9CBC8;
-	--category-icon-mask: url("kategoriju-ikonos/VEIKLOS.svg");
+}
+
+.category-row--chores {
+	--category-icon-mask: url("IKONOS POGRUPIAI/NAM%C5%B2%20RUO%C5%A0A.svg");
+}
+
+.category-row--rest {
+	--category-icon-mask: url("IKONOS POGRUPIAI/POILSIS.svg");
 }
 
 .category-row--locations {
 	--category-color: #98BE9D;
 	--category-icon-mask: url("kategoriju-ikonos/VIETOS.svg");
-}
-
-.category-row--transport {
-	--category-color: #C9AED8;
-	--category-icon-mask: url("kategoriju-ikonos/TRANSPORTAS.svg");
 }
 
 .category-row--cooking {
@@ -1231,30 +1235,6 @@ button {
 
 .subcategory-row--sweets {
 	--category-icon-mask: url("IKONOS POGRUPIAI/SALDUMYNAI.svg");
-}
-
-.subcategory-row--chores {
-	--category-icon-mask: url("IKONOS POGRUPIAI/NAM%C5%B2%20RUO%C5%A0A.svg");
-}
-
-.subcategory-row--rest {
-	--category-icon-mask: url("IKONOS POGRUPIAI/POILSIS.svg");
-}
-
-.subcategory-row--entertainment {
-	--category-icon-mask: url("IKONOS POGRUPIAI/PRAMOGOS.svg");
-}
-
-.subcategory-row--homes {
-	--category-icon-mask: url("IKONOS POGRUPIAI/NAMAI.svg");
-}
-
-.subcategory-row--public-spaces {
-	--category-icon-mask: url("IKONOS POGRUPIAI/VIE%C5%A0OS%20ERDV%C4%96S.svg");
-}
-
-.subcategory-row--nature {
-	--category-icon-mask: url("IKONOS POGRUPIAI/GAMTA.svg");
 }
 
 .subcategory-row--ingredients {
@@ -1351,19 +1331,22 @@ button {
 	--category-icon-mask: url("kategoriju-ikonos/SKAUDA.svg");
 }
 
-.emotion-view--activities {
+.emotion-view--chores,
+.emotion-view--rest {
 	--category-color: #B9CBC8;
-	--category-icon-mask: url("kategoriju-ikonos/VEIKLOS.svg");
+}
+
+.emotion-view--chores {
+	--category-icon-mask: url("IKONOS POGRUPIAI/NAM%C5%B2%20RUO%C5%A0A.svg");
+}
+
+.emotion-view--rest {
+	--category-icon-mask: url("IKONOS POGRUPIAI/POILSIS.svg");
 }
 
 .emotion-view--locations {
 	--category-color: #98BE9D;
 	--category-icon-mask: url("kategoriju-ikonos/VIETOS.svg");
-}
-
-.emotion-view--transport {
-	--category-color: #C9AED8;
-	--category-icon-mask: url("kategoriju-ikonos/TRANSPORTAS.svg");
 }
 
 .emotion-view--cooking {
@@ -1484,9 +1467,9 @@ button {
 .emotion-view--toilet .emotion-heading,
 .emotion-view--communication .emotion-heading,
 .emotion-view--pain .emotion-heading,
-.emotion-view--activities .emotion-heading,
+.emotion-view--chores .emotion-heading,
+.emotion-view--rest .emotion-heading,
 .emotion-view--locations .emotion-heading,
-.emotion-view--transport .emotion-heading,
 .emotion-view--cooking .emotion-heading,
 .emotion-view--sport .emotion-heading,
 .emotion-view--personal-items .emotion-heading,
@@ -1510,9 +1493,9 @@ button {
 .emotion-view--toilet .emotion-grid,
 .emotion-view--communication .emotion-grid,
 .emotion-view--pain .emotion-grid,
-.emotion-view--activities .emotion-grid,
+.emotion-view--chores .emotion-grid,
+.emotion-view--rest .emotion-grid,
 .emotion-view--locations .emotion-grid,
-.emotion-view--transport .emotion-grid,
 .emotion-view--cooking .emotion-grid,
 .emotion-view--sport .emotion-grid,
 .emotion-view--personal-items .emotion-grid,
@@ -1537,6 +1520,10 @@ button {
 
 @media (max-width: 759px) {
 	.category-list {
+		display: grid;
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+		align-items: stretch;
+		gap: 12px;
 		margin-right: 0;
 		margin-left: 0;
 	}
@@ -1547,14 +1534,17 @@ button {
 	}
 
 	.category-row {
-		grid-template-columns: minmax(0, 55%) minmax(0, 1fr);
-		gap: 10px;
-		padding: 12px;
-		padding-right: 12px;
+		grid-template-columns: minmax(0, 1fr);
+		grid-template-rows: auto auto;
+		gap: 8px;
+		margin-bottom: 0;
+		padding: 58px 10px 10px;
+		border-radius: 24px;
 	}
 
 	.category-row .category-icon {
 		width: 100%;
+		aspect-ratio: 1;
 	}
 
 	.subcategory-row {
@@ -1575,6 +1565,12 @@ button {
 
 	.category-row .category-icon {
 		border-radius: 0;
+	}
+
+	.category-row .category-label {
+		grid-column: 1;
+		grid-row: 2;
+		text-align: center;
 	}
 
 	.subcategory-row .subcategory-icon {
@@ -1599,9 +1595,9 @@ button {
 	.emotion-view--toilet .emotion-heading,
 	.emotion-view--communication .emotion-heading,
 	.emotion-view--pain .emotion-heading,
-	.emotion-view--activities .emotion-heading,
+	.emotion-view--chores .emotion-heading,
+	.emotion-view--rest .emotion-heading,
 	.emotion-view--locations .emotion-heading,
-	.emotion-view--transport .emotion-heading,
 	.emotion-view--cooking .emotion-heading,
 	.emotion-view--sport .emotion-heading,
 	.emotion-view--personal-items .emotion-heading,
@@ -1617,9 +1613,9 @@ button {
 	.emotion-view--toilet .emotion-grid,
 	.emotion-view--communication .emotion-grid,
 	.emotion-view--pain .emotion-grid,
-	.emotion-view--activities .emotion-grid,
+	.emotion-view--chores .emotion-grid,
+	.emotion-view--rest .emotion-grid,
 	.emotion-view--locations .emotion-grid,
-	.emotion-view--transport .emotion-grid,
 	.emotion-view--cooking .emotion-grid,
 	.emotion-view--sport .emotion-grid,
 	.emotion-view--personal-items .emotion-grid,
