@@ -8,55 +8,70 @@
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&display=swap" rel="stylesheet">
-	<link rel="stylesheet" href="style.css?v=240">
+	<link rel="stylesheet" href="style.css?v=270">
 </head>
 <body>
 	<main class="app-shell">
 		<header class="top-area" aria-label="Bendravimo įrankiai">
 			<div class="desktop-search-row">
-				<button class="desktop-home" id="desktop-home" type="button" aria-label="Pagrindinis">
-					<img src="NAVIGACIJOA IKONOS/PRADŽIA.svg" alt="">
-				</button>
-				<label class="search-box">
-					<span class="sr-only">Ieškoti žodyno kortelių</span>
-					<input type="search" placeholder="Ieškoti žodžio...">
-					<svg class="search-icon" viewBox="0 0 24 24" aria-hidden="true">
-						<circle cx="10.8" cy="10.8" r="6.3" />
-						<path d="m15.5 15.5 4.2 4.2" />
-					</svg>
-				</label>
+				<div class="desktop-actions" aria-label="Navigacija">
+					<button class="desktop-home" id="desktop-home" type="button" aria-label="Pagrindinis">
+						<img src="NAVIGACIJOA IKONOS/PRADŽIA.svg" alt="">
+					</button>
+					<button class="nav-item nav-create is-active" id="create-card-button" type="button" aria-current="page">
+						<span class="nav-icon" aria-hidden="true">＋</span>
+						<span class="create-label-desktop">Susikurti kortelę</span>
+					</button>
+					<label class="search-box" id="desktop-search-box">
+						<span class="sr-only">Ieškoti žodyno kortelių</span>
+						<input type="search" placeholder="Ieškoti žodžio...">
+					</label>
+					<button class="desktop-search-toggle" id="desktop-search-toggle" type="button" aria-label="Ieškoti" aria-controls="desktop-search-box" aria-expanded="false">
+						<svg class="search-icon" viewBox="0 0 24 24" aria-hidden="true">
+							<circle cx="10.8" cy="10.8" r="6.3" />
+							<path d="m15.5 15.5 4.2 4.2" />
+						</svg>
+					</button>
+					<button class="emotion-back" id="emotion-back" type="button" aria-label="Atgal">
+						<span class="emotion-back-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M19 12H5m6-6-6 6 6 6" /></svg></span>
+						<span class="sr-only">Atgal</span>
+					</button>
+				</div>
 			</div>
 
 			<div class="sticky-message-panel">
-				<section class="composer" aria-label="Sakinio redaktorius">
-					<div class="composer-copy">
-						<p class="greeting">Labas, <img class="greeting-image" src="LABAS KA NORĖTUM PASASKYT.png" alt="" aria-hidden="true"></p>
-						<p class="composer-hint">Ką norėtum pasakyti?</p>
-					</div>
-					<div class="selected-words" id="selected-words" role="list" aria-label="Pasirinktos kortelės" hidden></div>
-				</section>
 				<section class="sentence-bar" id="sentence-bar" aria-label="Sakinys" aria-live="polite" hidden>
 					<p class="sentence-text" id="sentence-text"></p>
 					<button class="sentence-speak" id="sentence-speak" type="button" aria-label="Ištarti sakinį">
 						<img src="NAVIGACIJOA IKONOS/SpeakerSimpleHigh.svg" alt="">
 					</button>
 				</section>
-				<details class="quick-phrase-dropdown">
-					<summary>
-						<span>Veiksmai</span>
-						<span class="quick-phrase-chevron" aria-hidden="true">›</span>
-					</summary>
-					<div class="quick-phrases" aria-label="Greitos frazės">
-				<button class="phrase-chip" type="button" data-audio-src="garsai/noriu.mp3"><img src="ikonos/NORIU.svg" alt=""> <span class="phrase-chip-label">NORIU</span> <b aria-hidden="true"><img src="ikonos/Plus.svg" alt=""></b></button>
-				<button class="phrase-chip" type="button" data-audio-src="garsai/padėk.mp3"><img src="ikonos/padėk.svg" alt=""> <span class="phrase-chip-label">PADĖK</span> <b aria-hidden="true"><img src="ikonos/Plus.svg" alt=""></b></button>
-				<button class="phrase-chip" type="button" data-audio-src="garsai/taip.mp3"><img src="ikonos/taip.svg" alt=""> <span class="phrase-chip-label">TAIP</span> <b aria-hidden="true"><img src="ikonos/Plus.svg" alt=""></b></button>
-				<button class="phrase-chip" type="button" data-audio-src="garsai/ne.mp3"><img src="ikonos/ne.svg" alt=""> <span class="phrase-chip-label">NE</span> <b aria-hidden="true"><img src="ikonos/Plus.svg" alt=""></b></button>
-				<button class="phrase-chip" type="button" data-audio-src="garsai/eiti.mp3"><img src="ikonos/eiti.svg" alt=""> <span class="phrase-chip-label">EITI</span> <b aria-hidden="true"><img src="ikonos/Plus.svg" alt=""></b></button>
-				<button class="phrase-chip" type="button"><img src="ikonos/Car.svg" alt=""> <span class="phrase-chip-label">VAŽIUOTI</span> <b aria-hidden="true"><img src="ikonos/Plus.svg" alt=""></b></button>
-				<button class="phrase-chip" type="button"><img src="ikonos/valgyti.svg" alt=""> <span class="phrase-chip-label">VALGYTI</span> <b aria-hidden="true"><img src="ikonos/Plus.svg" alt=""></b></button>
-				<button class="phrase-chip" type="button"><img src="ikonos/gerti.svg" alt=""> <span class="phrase-chip-label">GERTI</span> <b aria-hidden="true"><img src="ikonos/Plus.svg" alt=""></b></button>
-					</div>
-				</details>
+				<div class="message-editor-column">
+					<section class="composer" aria-label="Sakinio redaktorius">
+						<div class="composer-copy">
+							<p class="greeting"><span>Labas, kaip laikaisi?</span></p>
+							<p class="composer-hint">Ką norėtum pasakyti?</p>
+						</div>
+						<div class="selected-words" id="selected-words" role="list" aria-label="Pasirinktos kortelės" hidden></div>
+					</section>
+					<details class="quick-phrase-dropdown">
+						<summary>
+							<img class="quick-phrase-icon" src="veiksmai ikonos/veiksmai.png" alt="" aria-hidden="true">
+							<span>Veiksmai</span>
+							<span class="quick-phrase-chevron" aria-hidden="true">›</span>
+						</summary>
+						<div class="quick-phrases" aria-label="Greitos frazės">
+							<button class="phrase-chip" type="button" data-audio-src="garsai/noriu.mp3"><img src="veiksmai ikonos/noriu.png" alt=""> <span class="phrase-chip-label">NORIU</span> <b aria-hidden="true"><img src="ikonos/Plus.svg" alt=""></b></button>
+							<button class="phrase-chip" type="button" data-audio-src="garsai/padėk.mp3"><img src="veiksmai ikonos/padėk.png" alt=""> <span class="phrase-chip-label">PADĖK</span> <b aria-hidden="true"><img src="ikonos/Plus.svg" alt=""></b></button>
+							<button class="phrase-chip" type="button" data-audio-src="garsai/taip.mp3"><img src="veiksmai ikonos/taip.png" alt=""> <span class="phrase-chip-label">TAIP</span> <b aria-hidden="true"><img src="ikonos/Plus.svg" alt=""></b></button>
+							<button class="phrase-chip" type="button" data-audio-src="garsai/ne.mp3"><img src="veiksmai ikonos/ne.png" alt=""> <span class="phrase-chip-label">NE</span> <b aria-hidden="true"><img src="ikonos/Plus.svg" alt=""></b></button>
+							<button class="phrase-chip" type="button" data-audio-src="garsai/eiti.mp3"><img src="veiksmai ikonos/eiti.png" alt=""> <span class="phrase-chip-label">EITI</span> <b aria-hidden="true"><img src="ikonos/Plus.svg" alt=""></b></button>
+							<button class="phrase-chip" type="button"><img src="veiksmai ikonos/važiuoti.png" alt=""> <span class="phrase-chip-label">VAŽIUOTI</span> <b aria-hidden="true"><img src="ikonos/Plus.svg" alt=""></b></button>
+							<button class="phrase-chip" type="button"><img src="veiksmai ikonos/valgyti.png" alt=""> <span class="phrase-chip-label">VALGYTI</span> <b aria-hidden="true"><img src="ikonos/Plus.svg" alt=""></b></button>
+							<button class="phrase-chip" type="button"><img src="veiksmai ikonos/gerti.png" alt=""> <span class="phrase-chip-label">GERTI</span> <b aria-hidden="true"><img src="ikonos/Plus.svg" alt=""></b></button>
+						</div>
+					</details>
+				</div>
 			</div>
 		</header>
 
@@ -82,10 +97,6 @@
 			</div>
 
 			<div class="emotion-view" id="emotion-view" hidden>
-				<button class="emotion-back" id="emotion-back" type="button" aria-label="Atgal">
-					<span class="emotion-back-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M19 12H5m6-6-6 6 6 6" /></svg></span>
-					<span class="sr-only">Atgal</span>
-				</button>
 				<div class="emotion-heading">
 					<img alt="">
 					<h2 id="emotion-title">Kategorija</h2>
@@ -379,15 +390,18 @@
 					<circle cx="10.8" cy="10.8" r="6.3" />
 					<path d="m15.5 15.5 4.2 4.2" />
 				</svg>
+				<span class="tabbar-label">Ieškoti</span>
 			</button>
 			<input class="tabbar-field" id="tab-search-input" type="search" placeholder="Ieškoti…" aria-label="Ieškoti žodyno kortelių" autocomplete="off" enterkeyhint="search">
-			<button class="tabbar-item" id="tab-home" type="button" aria-label="Pagrindinis">
+			<button class="tabbar-item" id="tab-home" type="button" aria-label="Pagrindinis" aria-current="page">
 				<img src="NAVIGACIJOA IKONOS/PRADŽIA.svg" alt="">
+				<span class="tabbar-label">Pagrindinis</span>
 			</button>
 			<button class="tabbar-item" id="tab-add" type="button" aria-label="Pridėti kortelę">
 				<svg viewBox="0 0 24 24" aria-hidden="true">
 					<path d="M12 5v14M5 12h14" />
 				</svg>
+				<span class="tabbar-label">Pridėti</span>
 			</button>
 		</nav>
 
@@ -396,11 +410,6 @@
 			<button class="nav-item nav-back" id="nav-back" type="button" aria-label="Atgal">
 				<span class="nav-back-icon" aria-hidden="true"><img src="NAVIGACIJOA IKONOS/ATGAL.svg" alt=""></span>
 				<span>Atgal</span>
-			</button>
-			<button class="nav-item nav-create is-active" id="create-card-button" type="button" aria-current="page">
-				<span class="nav-icon" aria-hidden="true">＋</span>
-				<span class="create-label-mobile">Sukurti</span>
-				<span class="create-label-desktop">Susikurti kortelę</span>
 			</button>
 			<button class="nav-item nav-home" id="nav-home" type="button" aria-label="Pagrindinis">
 				<span class="nav-home-icon" aria-hidden="true"><img src="NAVIGACIJOA IKONOS/PRADŽIA.svg" alt=""></span>
@@ -460,6 +469,7 @@
 		const sentenceBar = document.querySelector("#sentence-bar");
 		const sentenceText = document.querySelector("#sentence-text");
 		const searchInput = document.querySelector(".search-box input");
+		const desktopSearchToggle = document.querySelector("#desktop-search-toggle");
 		const tabSearch = document.querySelector("#tab-search");
 
 		const foodSubgroups = document.querySelector("#food-subgroups");
@@ -872,28 +882,16 @@
 			["losjonas", "nuotraukos/higiena/losjonas.jpg"]
 		]);
 		const numberImageFiles = new Map([
-			["1", "nuotraukos/skaičiai/VIENAS.png"],
-			["2", "nuotraukos/skaičiai/DU.png"],
-			["3", "nuotraukos/skaičiai/TRYS.png"],
-			["4", "nuotraukos/skaičiai/KETURI.png"],
-			["5", "nuotraukos/skaičiai/PENKI.png"],
-			["6", "nuotraukos/skaičiai/ŠEŠI.png"],
-			["7", "nuotraukos/skaičiai/SEPTYNI.png"],
-			["8", "nuotraukos/skaičiai/A6TUONI.png"],
-			["9", "nuotraukos/skaičiai/DEVYNI.png"],
-			["10", "nuotraukos/skaičiai/DE6IMT.png"]
-		]);
-		const colorImageFiles = new Map([
-			["balta", "nuotraukos/spalvos/BALTA.png"],
-			["geltona", "nuotraukos/spalvos/GELTONAS.png"],
-			["oranžinė", "nuotraukos/spalvos/ORANŽINĖ.png"],
-			["raudona", "nuotraukos/spalvos/RAUDONA.png"],
-			["žalia", "nuotraukos/spalvos/ŽALIA.png"],
-			["mėlyna", "nuotraukos/spalvos/MĖLYNA.png"],
-			["violetinė", "nuotraukos/spalvos/VIOKETINĖ.png"],
-			["rožinė", "nuotraukos/spalvos/ROŽINĖ.png"],
-			["pilka", "nuotraukos/spalvos/PILKA.png"],
-			["juoda", "nuotraukos/spalvos/JUODA.png"]
+			["vienas", "nuotraukos/skaičiai/VIENAS.png"],
+			["du", "nuotraukos/skaičiai/DU.png"],
+			["trys", "nuotraukos/skaičiai/TRYS.png"],
+			["keturi", "nuotraukos/skaičiai/KETURI.png"],
+			["penki", "nuotraukos/skaičiai/PENKI.png"],
+			["šeši", "nuotraukos/skaičiai/ŠEŠI.png"],
+			["septyni", "nuotraukos/skaičiai/SEPTYNI.png"],
+			["aštuoni", "nuotraukos/skaičiai/A6TUONI.png"],
+			["devyni", "nuotraukos/skaičiai/DEVYNI.png"],
+			["dešimt", "nuotraukos/skaičiai/DE6IMT.png"]
 		]);
 		const fishImageFiles = new Map([
 			["lašiša", "nuotraukos/žuvis/lašiša.png"],
@@ -1256,16 +1254,16 @@
 			["žirklutės", "garsai/higiena/žirklutės.mp3"]
 		]);
 		const numberAudioFiles = new Map([
-			["1", "garsai/skaičiai/vienas.mp3"],
-			["2", "garsai/skaičiai/du.mp3"],
-			["3", "garsai/skaičiai/trys.mp3"],
-			["4", "garsai/skaičiai/keturi.mp3"],
-			["5", "garsai/skaičiai/penki.mp3"],
-			["6", "garsai/skaičiai/šeši.mp3"],
-			["7", "garsai/skaičiai/septyni.mp3"],
-			["8", "garsai/skaičiai/aštuoni.mp3"],
-			["9", "garsai/skaičiai/devyni.mp3"],
-			["10", "garsai/skaičiai/dešimt.mp3"]
+			["vienas", "garsai/skaičiai/vienas.mp3"],
+			["du", "garsai/skaičiai/du.mp3"],
+			["trys", "garsai/skaičiai/trys.mp3"],
+			["keturi", "garsai/skaičiai/keturi.mp3"],
+			["penki", "garsai/skaičiai/penki.mp3"],
+			["šeši", "garsai/skaičiai/šeši.mp3"],
+			["septyni", "garsai/skaičiai/septyni.mp3"],
+			["aštuoni", "garsai/skaičiai/aštuoni.mp3"],
+			["devyni", "garsai/skaičiai/devyni.mp3"],
+			["dešimt", "garsai/skaičiai/dešimt.mp3"]
 		]);
 		const colorAudioFiles = new Map([
 			["balta", "garsai/spalvos/balta.mp3"],
@@ -1858,8 +1856,6 @@
 						? hygieneImageFiles.get(normalizedWord) || ""
 					: emotionHeading.textContent === "Skaičiai"
 						? numberImageFiles.get(normalizedWord) || ""
-					: emotionHeading.textContent === "Spalvos"
-						? colorImageFiles.get(normalizedWord) || ""
 					: emotionHeading.textContent === "Žuvis"
 						? fishImageFiles.get(normalizedWord) || ""
 					: emotionHeading.textContent === "Kruopos"
@@ -1874,30 +1870,10 @@
 					card.setAttribute("role", "group");
 					card.setAttribute("tabindex", "0");
 					card.setAttribute("aria-label", `${word}, pridėti prie sakinio`);
-					const addPlaceholder = card.querySelector(".emotion-add-placeholder");
-					if (addPlaceholder && !card.querySelector(".emotion-add")) {
-						const addButton = document.createElement("button");
-						addButton.className = "emotion-add";
-						addButton.type = "button";
-						addButton.setAttribute("aria-label", `Pridėti ${word} prie sakinio`);
-						const addIcon = document.createElement("img");
-						addIcon.src = "ikonos/Plus.svg";
-						addIcon.alt = "";
-						addButton.append(addIcon);
-						addPlaceholder.replaceWith(addButton);
-					}
-					const tools = card.querySelector(".emotion-card-tools");
-					const audioButton = tools?.querySelector(".emotion-audio");
-					const addButton = tools?.querySelector(".emotion-add");
-					if (tools && audioButton && addButton && !tools.querySelector(".emotion-audio-add")) {
-						const capsule = document.createElement("div");
-						capsule.className = "emotion-audio-add";
-						capsule.setAttribute("role", "group");
-						capsule.setAttribute("aria-label", `${word}: garso įrašas ir pridėjimas`);
-						tools.insertBefore(capsule, audioButton);
-						capsule.append(audioButton, addButton);
-					}
-					const imageSource = getCardImageSource(word);
+					card.querySelectorAll(".emotion-add-placeholder, .emotion-add").forEach((control) => control.remove());
+					const imageSource = card.classList.contains("emotion-card--color-swatch")
+						? ""
+						: getCardImageSource(word);
 					const photoPlaceholder = card.querySelector(".emotion-photo-placeholder");
 					if (imageSource && photoPlaceholder && !photoPlaceholder.querySelector("img")) {
 						const image = document.createElement("img");
@@ -1947,26 +1923,42 @@
 			"Šukos", "Žirklutės"
 		];
 		const numberCards = [
-			"1", "2", "3", "4",
-			"5", "6", "7", "8",
-			"9", "10"
+			"Vienas", "Du", "Trys", "Keturi",
+			"Penki", "Šeši", "Septyni", "Aštuoni",
+			"Devyni", "Dešimt"
 		];
 		const colorCards = [
 			"Balta", "Geltona", "Oranžinė", "Raudona",
 			"Žalia", "Mėlyna", "Violetinė", "Rožinė",
 			"Pilka", "Juoda"
 		];
+		const colorSwatches = new Map([
+			["Balta", "#ffffff"],
+			["Geltona", "#facc15"],
+			["Oranžinė", "#f97316"],
+			["Raudona", "#ef4444"],
+			["Žalia", "#22c55e"],
+			["Mėlyna", "#3b82f6"],
+			["Violetinė", "#8b5cf6"],
+			["Rožinė", "#ec4899"],
+			["Pilka", "#9ca3af"],
+			["Juoda", "#111827"]
+		]);
 		const timeCards = [
 			"Ryte", "Diena", "Vakaras", "Naktis",
 			"Valanda", "Minute", "Metai", "Savaitė",
 			"Pietūs", "Laikas"
 		];
-		function renderWordCards(words) {
+		function renderWordCards(words, swatches = null) {
 			if (!Array.isArray(words) || words.length === 0) {
 				return "";
 			}
-			return words.map((word) => `
-				<article class="emotion-card emotion-card-placeholder">
+			return words.map((word) => {
+				const swatch = swatches?.get(word);
+				const swatchClass = swatch ? " emotion-card--color-swatch" : "";
+				const swatchStyle = swatch ? ` style="--color-swatch: ${swatch}"` : "";
+				return `
+				<article class="emotion-card emotion-card-placeholder${swatchClass}"${swatchStyle}>
 					<div class="emotion-card-tools">
 						<button class="emotion-audio" type="button" aria-label="Leisti garsą: ${word.toLowerCase()}">
 							<span aria-hidden="true">◖))</span> Garsas
@@ -1976,7 +1968,8 @@
 					<div class="emotion-photo-placeholder" aria-hidden="true"></div>
 					<p>${word}</p>
 				</article>
-			`).join("");
+			`;
+			}).join("");
 		}
 
 		function goBackToCategories() {
@@ -2009,6 +2002,7 @@
 			categoriesTitle.hidden = false;
 			categoryList.hidden = false;
 			appShell.classList.remove("is-emotion-view");
+			appShell.classList.remove("is-personal-cards-view");
 			appShell.classList.remove("is-food-view");
 			appShell.classList.remove("is-drink-view");
 			appShell.classList.remove("is-toilet-view");
@@ -2060,6 +2054,7 @@
 			appShell.classList.toggle("is-clothing-view", categoryName === "Apranga");
 			emotionHeading.textContent = categoryName;
 			emotionHeadingIcon.src = categoryIcon.src;
+			appShell.classList.toggle("is-personal-cards-view", categoryName === "Mano kortelės");
 			foodSubgroups.hidden = categoryName !== "Valgyti";
 			cookingSubgroups.hidden = categoryName !== "Gaminti";
 			ingredientSubgroups.hidden = true;
@@ -2094,7 +2089,7 @@
 			} else if (categoryName === "Skaičiai") {
 				emotionGrid.innerHTML = renderWordCards(numberCards);
 			} else if (categoryName === "Spalvos") {
-				emotionGrid.innerHTML = renderWordCards(colorCards);
+				emotionGrid.innerHTML = renderWordCards(colorCards, colorSwatches);
 			} else if (categoryName === "Laikas") {
 				emotionGrid.innerHTML = renderWordCards(timeCards);
 			} else if (categoryName !== "Valgyti" && categoryName !== "Gaminti") {
@@ -2118,6 +2113,7 @@
 			categoriesTitle.hidden = false;
 			categoryList.hidden = false;
 			appShell.classList.remove("is-emotion-view");
+			appShell.classList.remove("is-personal-cards-view");
 			appShell.classList.remove("is-food-view");
 			appShell.classList.remove("is-drink-view");
 			appShell.classList.remove("is-toilet-view");
@@ -2315,27 +2311,50 @@
 		});
 
 		const tabSearchInput = document.querySelector("#tab-search-input");
+		const tabHome = document.querySelector("#tab-home");
 
 		function setSearchOpen(isOpen) {
 			appShell.classList.toggle("is-searching", isOpen);
 			tabSearch.setAttribute("aria-pressed", String(isOpen));
+			tabSearch.setAttribute("aria-current", isOpen ? "page" : "false");
+			tabHome.setAttribute("aria-current", isOpen ? "false" : "page");
 			if (isOpen) {
 				ensureSearchIndex();
 				tabSearchInput.focus();
 			} else {
 				searchInput.value = "";
 				tabSearchInput.value = "";
+				appShell.classList.remove("is-desktop-search-open");
+				desktopSearchToggle.setAttribute("aria-expanded", "false");
+				applySearch();
+			}
+		}
+
+		function setDesktopSearchOpen(isOpen) {
+			appShell.classList.toggle("is-desktop-search-open", isOpen);
+			desktopSearchToggle.setAttribute("aria-expanded", String(isOpen));
+			if (isOpen) {
+				searchInput.focus();
+			} else {
+				searchInput.value = "";
 				applySearch();
 			}
 		}
 
 		tabSearch.addEventListener("click", () => setSearchOpen(!appShell.classList.contains("is-searching")));
+		desktopSearchToggle.addEventListener("click", () => setDesktopSearchOpen(!appShell.classList.contains("is-desktop-search-open")));
 		searchInput.addEventListener("input", applySearch);
 		tabSearchInput.addEventListener("input", () => {
 			searchInput.value = tabSearchInput.value;
 			applySearch();
 		});
 		[searchInput, tabSearchInput].forEach((input) => input.addEventListener("keydown", (event) => {
+			if (input === searchInput && event.key === "Escape" && appShell.classList.contains("is-desktop-search-open")) {
+				event.preventDefault();
+				setDesktopSearchOpen(false);
+				desktopSearchToggle.focus();
+				return;
+			}
 			if (event.key === "Enter") {
 				input.blur();
 			}
@@ -2419,7 +2438,7 @@
 					cookingSubgroups.hidden = true;
 					ingredientSubgroups.hidden = true;
 					emotionGrid.hidden = false;
-					emotionGrid.innerHTML = renderWordCards(colorCards);
+					emotionGrid.innerHTML = renderWordCards(colorCards, colorSwatches);
 					emotionGrid.setAttribute("aria-label", `${subgroupName} kortelės`);
 					return;
 				}
