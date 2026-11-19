@@ -8,7 +8,7 @@
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&display=swap" rel="stylesheet">
-	<link rel="stylesheet" href="style.css?v=270">
+	<link rel="stylesheet" href="style.css?v=452">
 </head>
 <body>
 	<main class="app-shell">
@@ -16,17 +16,20 @@
 			<div class="desktop-search-row">
 				<div class="desktop-actions" aria-label="Navigacija">
 					<button class="desktop-home" id="desktop-home" type="button" aria-label="Pagrindinis">
-						<img src="NAVIGACIJOA IKONOS/PRADŽIA.svg" alt="">
+						<svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+							<path d="M1.5 20.25H22.5M14.25 20.25V14.25H9.75V20.25M3.75 10.9375V20.2478M20.25 20.2478V10.9375M2.25 12.4403L11.4694 3.21996C11.539 3.15023 11.6217 3.09491 11.7128 3.05717C11.8038 3.01943 11.9014 3 12 3C12.0986 3 12.1962 3.01943 12.2872 3.05717C12.3783 3.09491 12.461 3.15023 12.5306 3.21996L21.75 12.4403" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+						</svg>
 					</button>
-					<button class="nav-item nav-create is-active" id="create-card-button" type="button" aria-current="page">
-						<span class="nav-icon" aria-hidden="true">＋</span>
-						<span class="create-label-desktop">Susikurti kortelę</span>
+					<button class="category-add-button desktop-category-add-button" type="button" aria-label="Sukurti kortelę" data-create-card>
+						<svg class="category-add-icon" viewBox="0 0 24 24" aria-hidden="true">
+							<path d="M12 5v14M5 12h14" />
+						</svg>
 					</button>
 					<label class="search-box" id="desktop-search-box">
 						<span class="sr-only">Ieškoti žodyno kortelių</span>
 						<input type="search" placeholder="Ieškoti žodžio...">
 					</label>
-					<button class="desktop-search-toggle" id="desktop-search-toggle" type="button" aria-label="Ieškoti" aria-controls="desktop-search-box" aria-expanded="false">
+					<button class="desktop-search-toggle" id="desktop-search-toggle" type="button" aria-label="Ieškoti" aria-controls="desktop-search-box" aria-expanded="true">
 						<svg class="search-icon" viewBox="0 0 24 24" aria-hidden="true">
 							<circle cx="10.8" cy="10.8" r="6.3" />
 							<path d="m15.5 15.5 4.2 4.2" />
@@ -39,6 +42,23 @@
 				</div>
 			</div>
 
+			<div class="mobile-toolbar-row">
+				<div class="category-feature-row">
+					<span class="category-search-icon" aria-hidden="true">
+						<svg viewBox="0 0 24 24">
+							<circle cx="10.8" cy="10.8" r="6.3" />
+							<path d="m15.5 15.5 4.2 4.2" />
+						</svg>
+					</span>
+					<input class="tabbar-field" id="tab-search-input" type="search" placeholder="Ieškoti" aria-label="Ieškoti žodyno kortelių" autocomplete="off" enterkeyhint="search">
+				</div>
+				<button class="category-add-button" id="create-card-button" type="button" aria-label="Sukurti kortelę" data-create-card>
+					<svg class="category-add-icon" viewBox="0 0 24 24" aria-hidden="true">
+						<path d="M12 5v14M5 12h14" />
+					</svg>
+				</button>
+			</div>
+
 			<div class="sticky-message-panel">
 				<section class="sentence-bar" id="sentence-bar" aria-label="Sakinys" aria-live="polite" hidden>
 					<p class="sentence-text" id="sentence-text"></p>
@@ -48,10 +68,6 @@
 				</section>
 				<div class="message-editor-column">
 					<section class="composer" aria-label="Sakinio redaktorius">
-						<div class="composer-copy">
-							<p class="greeting"><span>Labas, kaip laikaisi?</span></p>
-							<p class="composer-hint">Ką norėtum pasakyti?</p>
-						</div>
 						<div class="selected-words" id="selected-words" role="list" aria-label="Pasirinktos kortelės" hidden></div>
 					</section>
 					<details class="quick-phrase-dropdown">
@@ -385,23 +401,22 @@
 		</section>
 
 		<nav class="tabbar" aria-label="Pagrindinė navigacija">
-			<button class="tabbar-item" id="tab-search" type="button" aria-label="Ieškoti" aria-pressed="false">
+			<button class="tabbar-item tabbar-item--back" id="tab-back" type="button" aria-label="Atgal">
 				<svg viewBox="0 0 24 24" aria-hidden="true">
-					<circle cx="10.8" cy="10.8" r="6.3" />
-					<path d="m15.5 15.5 4.2 4.2" />
+					<path d="M20.25 12H3.75" />
+					<path d="M10.5 5.25L3.75 12L10.5 18.75" />
 				</svg>
-				<span class="tabbar-label">Ieškoti</span>
+				<span class="tabbar-label">Atgal</span>
 			</button>
-			<input class="tabbar-field" id="tab-search-input" type="search" placeholder="Ieškoti…" aria-label="Ieškoti žodyno kortelių" autocomplete="off" enterkeyhint="search">
 			<button class="tabbar-item" id="tab-home" type="button" aria-label="Pagrindinis" aria-current="page">
-				<img src="NAVIGACIJOA IKONOS/PRADŽIA.svg" alt="">
-				<span class="tabbar-label">Pagrindinis</span>
-			</button>
-			<button class="tabbar-item" id="tab-add" type="button" aria-label="Pridėti kortelę">
 				<svg viewBox="0 0 24 24" aria-hidden="true">
-					<path d="M12 5v14M5 12h14" />
+					<path d="M1.5 20.25H22.5" />
+					<path d="M14.25 20.25V14.25H9.75V20.25" />
+					<path d="M3.75 10.9375V20.2478" />
+					<path d="M20.25 20.2478V10.9375" />
+					<path d="M2.25 12.4403L11.4694 3.21996C11.539 3.15023 11.6217 3.09491 11.7128 3.05717C11.8038 3.01943 11.9014 3 12 3C12.0986 3 12.1962 3.01943 12.2872 3.05717C12.3783 3.09491 12.461 3.15023 12.5306 3.21996L21.75 12.4403" />
 				</svg>
-				<span class="tabbar-label">Pridėti</span>
+				<span class="tabbar-label">Pagrindinis</span>
 			</button>
 		</nav>
 
@@ -464,13 +479,11 @@
 		const emotionHeading = document.querySelector(".emotion-heading h2");
 		const emotionHeadingIcon = document.querySelector(".emotion-heading img");
 		const emotionGrid = document.querySelector(".emotion-grid");
-		const composerCopy = document.querySelector(".composer-copy");
 		const selectedWordsTray = document.querySelector("#selected-words");
 		const sentenceBar = document.querySelector("#sentence-bar");
 		const sentenceText = document.querySelector("#sentence-text");
 		const searchInput = document.querySelector(".search-box input");
 		const desktopSearchToggle = document.querySelector("#desktop-search-toggle");
-		const tabSearch = document.querySelector("#tab-search");
 
 		const foodSubgroups = document.querySelector("#food-subgroups");
 		const cookingSubgroups = document.querySelector("#cooking-subgroups");
@@ -1611,7 +1624,6 @@
 
 			const hasWords = selectedWords.length > 0;
 			selectedWordsTray.hidden = !hasWords;
-			composerCopy.hidden = hasWords;
 			sentenceBar.hidden = !hasWords;
 			appShell.classList.toggle("has-sentence", hasWords);
 			sentenceText.textContent = composeSentence().toLocaleUpperCase("lt-LT");
@@ -2107,6 +2119,7 @@
 
 		document.getElementById("emotion-back").addEventListener("click", goBackToCategories);
 		document.getElementById("nav-back").addEventListener("click", goBackToCategories);
+		document.getElementById("tab-back").addEventListener("click", goBackToCategories);
 
 		function goHome() {
 			emotionView.hidden = true;
@@ -2313,46 +2326,25 @@
 		const tabSearchInput = document.querySelector("#tab-search-input");
 		const tabHome = document.querySelector("#tab-home");
 
-		function setSearchOpen(isOpen) {
-			appShell.classList.toggle("is-searching", isOpen);
-			tabSearch.setAttribute("aria-pressed", String(isOpen));
-			tabSearch.setAttribute("aria-current", isOpen ? "page" : "false");
-			tabHome.setAttribute("aria-current", isOpen ? "false" : "page");
-			if (isOpen) {
-				ensureSearchIndex();
-				tabSearchInput.focus();
-			} else {
-				searchInput.value = "";
-				tabSearchInput.value = "";
-				appShell.classList.remove("is-desktop-search-open");
-				desktopSearchToggle.setAttribute("aria-expanded", "false");
-				applySearch();
-			}
+		function clearSearch() {
+			tabHome.setAttribute("aria-current", "page");
+			searchInput.value = "";
+			tabSearchInput.value = "";
+			applySearch();
 		}
 
-		function setDesktopSearchOpen(isOpen) {
-			appShell.classList.toggle("is-desktop-search-open", isOpen);
-			desktopSearchToggle.setAttribute("aria-expanded", String(isOpen));
-			if (isOpen) {
-				searchInput.focus();
-			} else {
-				searchInput.value = "";
-				applySearch();
-			}
-		}
-
-		tabSearch.addEventListener("click", () => setSearchOpen(!appShell.classList.contains("is-searching")));
-		desktopSearchToggle.addEventListener("click", () => setDesktopSearchOpen(!appShell.classList.contains("is-desktop-search-open")));
+		desktopSearchToggle.addEventListener("click", () => searchInput.focus());
 		searchInput.addEventListener("input", applySearch);
 		tabSearchInput.addEventListener("input", () => {
 			searchInput.value = tabSearchInput.value;
 			applySearch();
 		});
 		[searchInput, tabSearchInput].forEach((input) => input.addEventListener("keydown", (event) => {
-			if (input === searchInput && event.key === "Escape" && appShell.classList.contains("is-desktop-search-open")) {
+			if (input === searchInput && event.key === "Escape") {
 				event.preventDefault();
-				setDesktopSearchOpen(false);
-				desktopSearchToggle.focus();
+				searchInput.value = "";
+				tabSearchInput.value = "";
+				applySearch();
 				return;
 			}
 			if (event.key === "Enter") {
@@ -2360,8 +2352,8 @@
 			}
 		}));
 		document.addEventListener("click", (event) => {
-			if (!isBuildingSearchIndex && event.target.closest("#emotion-back, #nav-back, #nav-home, #desktop-home, #tab-home")) {
-				setSearchOpen(false);
+			if (!isBuildingSearchIndex && event.target.closest("#emotion-back, #nav-back, #tab-back, #nav-home, #desktop-home, #tab-home")) {
+				clearSearch();
 			}
 		}, true);
 
@@ -2511,7 +2503,7 @@
 			speakSentence();
 		});
 
-		document.querySelectorAll("#create-card-button, #tab-add").forEach((createButton) => createButton.addEventListener("click", async () => {
+		document.querySelectorAll("[data-create-card]").forEach((createButton) => createButton.addEventListener("click", async () => {
 			await personalCardsReady;
 			personalCardStatus.textContent = personalCardStorageError ? "Šiame įrenginyje nepavyko atverti vietinės saugyklos." : "";
 			personalCardDialog.showModal();
