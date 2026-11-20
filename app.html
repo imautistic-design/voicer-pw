@@ -1,0 +1,2628 @@
+<!doctype html>
+<html lang="lt">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="theme-color" content="#FBFCFD">
+	<title>Voicer — bendravimo kortelės</title>
+	<link rel="manifest" href="manifest.webmanifest">
+	<link rel="apple-touch-icon" href="logo/app-icon-192.png">
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="style.css?v=482">
+</head>
+<body>
+	<main class="app-shell">
+		<header class="top-area" aria-label="Bendravimo įrankiai">
+			<div class="desktop-search-row">
+				<div class="desktop-actions" aria-label="Navigacija">
+					<a class="app-site-link app-site-link--desktop" href="index.html" aria-label="Grįžti į I'm Autistic svetainę">
+						<img src="vizualas puslapiui/VOIVER LOGO.png" alt="" width="417" height="184">
+					</a>
+					<button class="desktop-home" id="desktop-home" type="button" aria-label="Pagrindinis">
+						<svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+							<path d="M1.5 20.25H22.5M14.25 20.25V14.25H9.75V20.25M3.75 10.9375V20.2478M20.25 20.2478V10.9375M2.25 12.4403L11.4694 3.21996C11.539 3.15023 11.6217 3.09491 11.7128 3.05717C11.8038 3.01943 11.9014 3 12 3C12.0986 3 12.1962 3.01943 12.2872 3.05717C12.3783 3.09491 12.461 3.15023 12.5306 3.21996L21.75 12.4403" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+						</svg>
+					</button>
+					<button class="category-add-button desktop-category-add-button" type="button" aria-label="Sukurti kortelę" data-create-card>
+						<svg class="category-add-icon" viewBox="0 0 24 24" aria-hidden="true">
+							<path d="M12 5v14M5 12h14" />
+						</svg>
+					</button>
+					<label class="search-box" id="desktop-search-box">
+						<span class="sr-only">Ieškoti žodyno kortelių</span>
+						<input type="search" placeholder="Ieškoti žodžio...">
+					</label>
+					<button class="desktop-search-toggle" id="desktop-search-toggle" type="button" aria-label="Ieškoti" aria-controls="desktop-search-box" aria-expanded="true">
+						<svg class="search-icon" viewBox="0 0 24 24" aria-hidden="true">
+							<circle cx="10.8" cy="10.8" r="6.3" />
+							<path d="m15.5 15.5 4.2 4.2" />
+						</svg>
+					</button>
+					<button class="emotion-back" id="emotion-back" type="button" aria-label="Atgal">
+						<span class="emotion-back-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M19 12H5m6-6-6 6 6 6" /></svg></span>
+						<span class="sr-only">Atgal</span>
+					</button>
+				</div>
+			</div>
+
+			<a class="app-site-link app-site-link--mobile" href="index.html" aria-label="Grįžti į I'm Autistic svetainę">
+				<img src="vizualas puslapiui/VOIVER LOGO.png" alt="" width="417" height="184">
+			</a>
+			<div class="mobile-toolbar-row">
+				<div class="category-feature-row">
+					<span class="category-search-icon" aria-hidden="true">
+						<svg viewBox="0 0 24 24">
+							<circle cx="10.8" cy="10.8" r="6.3" />
+							<path d="m15.5 15.5 4.2 4.2" />
+						</svg>
+					</span>
+					<input class="tabbar-field" id="tab-search-input" type="search" placeholder="Ieškoti" aria-label="Ieškoti žodyno kortelių" autocomplete="off" enterkeyhint="search">
+				</div>
+				<button class="category-add-button" id="create-card-button" type="button" aria-label="Sukurti kortelę" data-create-card>
+					<svg class="category-add-icon" viewBox="0 0 24 24" aria-hidden="true">
+						<path d="M12 5v14M5 12h14" />
+					</svg>
+				</button>
+			</div>
+
+			<div class="sticky-message-panel">
+				<button class="sentence-clear" id="sentence-clear" type="button" aria-label="Išvalyti sakinį" title="Išvalyti sakinį">
+					<svg viewBox="0 0 24 24" aria-hidden="true">
+						<path d="M3 6h18M8 6V4h8v2m2 0-.8 14H6.8L6 6m4 4v6m4-6v6" />
+					</svg>
+				</button>
+				<section class="sentence-bar" id="sentence-bar" aria-label="Sakinys" aria-live="polite" hidden>
+					<p class="sentence-text" id="sentence-text"></p>
+					<button class="sentence-speak" id="sentence-speak" type="button" aria-label="Ištarti sakinį">
+						<img src="NAVIGACIJOA IKONOS/SpeakerSimpleHigh.svg?v=3" alt="">
+					</button>
+				</section>
+				<div class="message-editor-column">
+					<section class="composer" aria-label="Sakinio redaktorius">
+						<div class="selected-words" id="selected-words" role="list" aria-label="Pasirinktos kortelės" hidden></div>
+					</section>
+					<details class="quick-phrase-dropdown">
+						<summary>
+							<img class="quick-phrase-icon" src="veiksmai ikonos/veiksmai.png" alt="" aria-hidden="true">
+							<span>Veiksmai</span>
+							<span class="quick-phrase-chevron" aria-hidden="true">›</span>
+						</summary>
+						<div class="quick-phrases" aria-label="Greitos frazės">
+							<button class="phrase-chip" type="button" data-audio-src="garsai/noriu.mp3"><img src="veiksmai ikonos/noriu.png" alt=""> <span class="phrase-chip-label">NORIU</span> <b aria-hidden="true"><img src="ikonos/Plus.svg" alt=""></b></button>
+							<button class="phrase-chip" type="button" data-audio-src="garsai/padėk.mp3"><img src="veiksmai ikonos/padėk.png" alt=""> <span class="phrase-chip-label">PADĖK</span> <b aria-hidden="true"><img src="ikonos/Plus.svg" alt=""></b></button>
+							<button class="phrase-chip" type="button" data-audio-src="garsai/taip.mp3"><img src="veiksmai ikonos/taip.png" alt=""> <span class="phrase-chip-label">TAIP</span> <b aria-hidden="true"><img src="ikonos/Plus.svg" alt=""></b></button>
+							<button class="phrase-chip" type="button" data-audio-src="garsai/ne.mp3"><img src="veiksmai ikonos/ne.png" alt=""> <span class="phrase-chip-label">NE</span> <b aria-hidden="true"><img src="ikonos/Plus.svg" alt=""></b></button>
+							<button class="phrase-chip" type="button" data-audio-src="garsai/eiti.mp3"><img src="veiksmai ikonos/eiti.png" alt=""> <span class="phrase-chip-label">EITI</span> <b aria-hidden="true"><img src="ikonos/Plus.svg" alt=""></b></button>
+							<button class="phrase-chip" type="button"><img src="veiksmai ikonos/važiuoti.png" alt=""> <span class="phrase-chip-label">VAŽIUOTI</span> <b aria-hidden="true"><img src="ikonos/Plus.svg" alt=""></b></button>
+							<button class="phrase-chip" type="button"><img src="veiksmai ikonos/valgyti.png" alt=""> <span class="phrase-chip-label">VALGYTI</span> <b aria-hidden="true"><img src="ikonos/Plus.svg" alt=""></b></button>
+							<button class="phrase-chip" type="button"><img src="veiksmai ikonos/gerti.png" alt=""> <span class="phrase-chip-label">GERTI</span> <b aria-hidden="true"><img src="ikonos/Plus.svg" alt=""></b></button>
+						</div>
+					</details>
+				</div>
+			</div>
+		</header>
+
+		<section class="categories" aria-labelledby="categories-title">
+			<h1 class="sr-only" id="categories-title">Kategorijos</h1>
+			<div class="category-list">
+				<button class="category-row category-row--local-cards" type="button" data-local-cards><span class="category-icon"><img src="nuotraukos/asmeniniai daiktai/piniginė.jpg" alt=""></span><span class="category-copy"><span class="category-symbol" aria-hidden="true"></span><span class="category-label">Mano kortelės</span></span><span class="chevron">›</span></button>
+				<button class="category-row category-row--food" type="button"><span class="category-icon"><img src="kategorijų iliustracijos/valgyti.png" alt=""></span><span class="category-copy"><span class="category-symbol" aria-hidden="true"></span><span class="category-label">Valgyti</span></span><span class="chevron">›</span></button>
+				<button class="category-row category-row--drink" type="button"><span class="category-icon"><img src="kategorijų iliustracijos/gerti.png" alt=""></span><span class="category-copy"><span class="category-symbol" aria-hidden="true"></span><span class="category-label">Gerti</span></span><span class="chevron">›</span></button>
+				<button class="category-row category-row--toilet" type="button"><span class="category-icon"><img src="kategorijų iliustracijos/tualetas.png" alt=""></span><span class="category-copy"><span class="category-symbol" aria-hidden="true"></span><span class="category-label">Tualetas</span></span><span class="chevron">›</span></button>
+				<button class="category-row category-row--communication" type="button"><span class="category-icon"><img src="kategorijų iliustracijos/bendravimas.png" alt=""></span><span class="category-copy"><span class="category-symbol" aria-hidden="true"></span><span class="category-label">Bendravimas</span></span><span class="chevron">›</span></button>
+				<button class="category-row category-row--pain" type="button"><span class="category-icon"><img src="kategorijų iliustracijos/skauda.png" alt=""></span><span class="category-copy"><span class="category-symbol" aria-hidden="true"></span><span class="category-label">Skauda</span></span><span class="chevron">›</span></button>
+				<button class="category-row category-row--chores" type="button"><span class="category-icon"><img src="kategorijų iliustracijos/namų ruoša.png" alt=""></span><span class="category-copy"><span class="category-symbol" aria-hidden="true"></span><span class="category-label">Namų ruoša</span></span><span class="chevron">›</span></button>
+				<button class="category-row category-row--rest" type="button"><span class="category-icon"><img src="kategorijų iliustracijos/poilsis.png" alt=""></span><span class="category-copy"><span class="category-symbol" aria-hidden="true"></span><span class="category-label">Poilsis</span></span><span class="chevron">›</span></button>
+				<button class="category-row category-row--locations" type="button"><span class="category-icon"><img src="kategorijų iliustracijos/vietos.png" alt=""></span><span class="category-copy"><span class="category-symbol" aria-hidden="true"></span><span class="category-label">Vietos</span></span><span class="chevron">›</span></button>
+				<button class="category-row category-row--cooking" type="button"><span class="category-icon"><img src="kategorijų iliustracijos/gaminti.png" alt=""></span><span class="category-copy"><span class="category-symbol" aria-hidden="true"></span><span class="category-label">Gaminti</span></span><span class="chevron">›</span></button>
+				<button class="category-row category-row--sport" type="button"><span class="category-icon"><img src="kategorijų iliustracijos/sportas.png" alt=""></span><span class="category-copy"><span class="category-symbol" aria-hidden="true"></span><span class="category-label">Sportas</span></span><span class="chevron">›</span></button>
+				<button class="category-row category-row--personal-items" type="button"><span class="category-icon"><img src="kategorijų iliustracijos/daiktai.png" alt=""></span><span class="category-copy"><span class="category-symbol" aria-hidden="true"></span><span class="category-label">Daiktai</span></span><span class="chevron">›</span></button>
+				<button class="category-row category-row--clothing" type="button"><span class="category-icon"><img src="kategorijų iliustracijos/apranga.png" alt=""></span><span class="category-copy"><span class="category-symbol" aria-hidden="true"></span><span class="category-label">Apranga</span></span><span class="chevron">›</span></button>
+				<button class="category-row category-row--hygiene" type="button"><span class="category-icon"><img src="kategorijų iliustracijos/higiena.png" alt=""></span><span class="category-copy"><span class="category-symbol" aria-hidden="true"></span><span class="category-label">Higiena</span></span><span class="chevron">›</span></button>
+				<button class="category-row category-row--numbers" type="button"><span class="category-icon"><img src="kategorijų iliustracijos/skaičiai.png" alt=""></span><span class="category-copy"><span class="category-symbol" aria-hidden="true"></span><span class="category-label">Skaičiai</span></span><span class="chevron">›</span></button>
+				<button class="category-row category-row--colors" type="button"><span class="category-icon"><img src="kategorijų iliustracijos/spalvos.png" alt=""></span><span class="category-copy"><span class="category-symbol" aria-hidden="true"></span><span class="category-label">Spalvos</span></span><span class="chevron">›</span></button>
+			</div>
+
+			<div class="emotion-view" id="emotion-view" hidden>
+				<div class="emotion-heading">
+					<img alt="">
+					<h2 id="emotion-title">Kategorija</h2>
+				</div>
+				<div class="category-subgroups" id="food-subgroups" hidden aria-label="Valgyti pogrupiai">
+					<button class="subcategory-row subcategory-row--meals" type="button">
+						<span class="subcategory-icon"><img src="nuotraukos/patiekalai/pica.jpeg" alt=""></span><span class="subcategory-copy"><span class="subcategory-symbol" aria-hidden="true"></span><span class="subcategory-label">Patiekalai</span></span><span class="chevron">›</span>
+					</button>
+					<button class="subcategory-row subcategory-row--pastries" type="button">
+						<span class="subcategory-icon"><img src="nuotraukos/kepiniai/kruasanas.jpeg" alt=""></span><span class="subcategory-copy"><span class="subcategory-symbol" aria-hidden="true"></span><span class="subcategory-label">Kepiniai</span></span><span class="chevron">›</span>
+					</button>
+					<button class="subcategory-row subcategory-row--snacks" type="button">
+						<span class="subcategory-icon"><img src="nuotraukos/užkandžiai/traškučiai.jpeg" alt=""></span><span class="subcategory-copy"><span class="subcategory-symbol" aria-hidden="true"></span><span class="subcategory-label">Užkandžiai</span></span><span class="chevron">›</span>
+					</button>
+					<button class="subcategory-row subcategory-row--sweets" type="button">
+						<span class="subcategory-icon"><img src="nuotraukos/saldumynai/šokoladas.jpeg" alt=""></span><span class="subcategory-copy"><span class="subcategory-symbol" aria-hidden="true"></span><span class="subcategory-label">Saldumynai</span></span><span class="chevron">›</span>
+					</button>
+				</div>
+				<div class="category-subgroups" id="cooking-subgroups" hidden aria-label="Gaminimo pogrupiai">
+					<button class="subcategory-row subcategory-row--ingredients" type="button">
+						<span class="subcategory-icon"><img src="kategorijų iliustracijos/maisto produktai.png" alt=""></span><span class="subcategory-copy"><span class="subcategory-symbol" aria-hidden="true"></span><span class="subcategory-label">Maisto produktai</span></span><span class="chevron">›</span>
+					</button>
+					<button class="subcategory-row subcategory-row--cooking-process" type="button">
+						<span class="subcategory-icon"><img src="kategorijų iliustracijos/gaminimo procesas.png" alt=""></span><span class="subcategory-copy"><span class="subcategory-symbol" aria-hidden="true"></span><span class="subcategory-label">Gaminimo procesas</span></span><span class="chevron">›</span>
+					</button>
+					<button class="subcategory-row subcategory-row--utensils" type="button">
+						<span class="subcategory-icon"><img src="kategorijų iliustracijos/indai.png" alt=""></span><span class="subcategory-copy"><span class="subcategory-symbol" aria-hidden="true"></span><span class="subcategory-label">Indai</span></span><span class="chevron">›</span>
+					</button>
+				</div>
+				<div class="category-subgroups" id="ingredient-subgroups" hidden aria-label="Maisto produktų pogrupiai">
+					<button class="subcategory-row subcategory-row--fruit" type="button"><span class="subcategory-icon"><img src="nuotraukos/vaisiai/obuolys.jpg" alt=""></span><span class="subcategory-copy"><span class="subcategory-symbol" aria-hidden="true"></span><span class="subcategory-label">Vaisiai</span></span><span class="chevron">›</span></button>
+					<button class="subcategory-row subcategory-row--berries" type="button"><span class="subcategory-icon"><img src="nuotraukos/uogos/braškės.jpg" alt=""></span><span class="subcategory-copy"><span class="subcategory-symbol" aria-hidden="true"></span><span class="subcategory-label">Uogos</span></span><span class="chevron">›</span></button>
+					<button class="subcategory-row subcategory-row--vegetables" type="button"><span class="subcategory-icon"><img src="nuotraukos/daržovės/pomidoras.jpg" alt=""></span><span class="subcategory-copy"><span class="subcategory-symbol" aria-hidden="true"></span><span class="subcategory-label">Daržovės</span></span><span class="chevron">›</span></button>
+					<button class="subcategory-row subcategory-row--bread" type="button"><span class="subcategory-icon"><img src="nuotraukos/kepiniai/juoda duona.jpeg" alt=""></span><span class="subcategory-copy"><span class="subcategory-symbol" aria-hidden="true"></span><span class="subcategory-label">Duona</span></span><span class="chevron">›</span></button>
+					<button class="subcategory-row subcategory-row--eggs" type="button"><span class="subcategory-icon"><img src="nuotraukos/kiaušiniai/kiaušiniai.jpg" alt=""></span><span class="subcategory-copy"><span class="subcategory-symbol" aria-hidden="true"></span><span class="subcategory-label">Kiaušiniai</span></span><span class="chevron">›</span></button>
+					<button class="subcategory-row subcategory-row--dairy" type="button"><span class="subcategory-icon"><img src="nuotraukos/pienas/pienas.jpg" alt=""></span><span class="subcategory-copy"><span class="subcategory-symbol" aria-hidden="true"></span><span class="subcategory-label">Pienas</span></span><span class="chevron">›</span></button>
+					<button class="subcategory-row subcategory-row--meat" type="button"><span class="subcategory-icon"><img src="nuotraukos/mėsa/jautinea.jpg" alt=""></span><span class="subcategory-copy"><span class="subcategory-symbol" aria-hidden="true"></span><span class="subcategory-label">Mėsa</span></span><span class="chevron">›</span></button>
+					<button class="subcategory-row subcategory-row--fish" type="button"><span class="subcategory-icon"><img src="nuotraukos/žuvis/krevetės.jpg" alt=""></span><span class="subcategory-copy"><span class="subcategory-symbol" aria-hidden="true"></span><span class="subcategory-label">Žuvis</span></span><span class="chevron">›</span></button>
+					<button class="subcategory-row subcategory-row--pasta" type="button"><span class="subcategory-icon"><img src="nuotraukos/makaronai/spagečiai.jpg" alt=""></span><span class="subcategory-copy"><span class="subcategory-symbol" aria-hidden="true"></span><span class="subcategory-label">Makaronai</span></span><span class="chevron">›</span></button>
+					<button class="subcategory-row subcategory-row--sauces" type="button"><span class="subcategory-icon"><img src="nuotraukos/padažai/kečupas.jpg" alt=""></span><span class="subcategory-copy"><span class="subcategory-symbol" aria-hidden="true"></span><span class="subcategory-label">Padažai</span></span><span class="chevron">›</span></button>
+					<button class="subcategory-row subcategory-row--grains" type="button"><span class="subcategory-icon"><img src="nuotraukos/kruopos/bulguras.jpg" alt=""></span><span class="subcategory-copy"><span class="subcategory-symbol" aria-hidden="true"></span><span class="subcategory-label">Kruopos</span></span><span class="chevron">›</span></button>
+					<button class="subcategory-row subcategory-row--spices" type="button"><span class="subcategory-icon"><img src="nuotraukos/prieskoniai/petražolės.jpg" alt=""></span><span class="subcategory-copy"><span class="subcategory-symbol" aria-hidden="true"></span><span class="subcategory-label">Prieskoniai</span></span><span class="chevron">›</span></button>
+					<button class="subcategory-row subcategory-row--prepared-foods" type="button"><span class="subcategory-icon"><img src="nuotraukos/paruošti produktai/dešra.jpg" alt=""></span><span class="subcategory-copy"><span class="subcategory-symbol" aria-hidden="true"></span><span class="subcategory-label">Paruošti produktai</span></span><span class="chevron">›</span></button>
+				</div>
+				<template id="household-chores-cards">
+					<article class="emotion-card emotion-card-placeholder"><div class="emotion-card-tools"><button class="emotion-audio" type="button" aria-label="Leisti garsą: plauti indus"><span aria-hidden="true">◖))</span> Garsas</button><span class="emotion-add-placeholder" aria-hidden="true"></span></div><div class="emotion-photo-placeholder" aria-hidden="true"></div><p>Plauti indus</p></article>
+					<article class="emotion-card emotion-card-placeholder"><div class="emotion-card-tools"><button class="emotion-audio" type="button" aria-label="Leisti garsą: plauti grindis"><span aria-hidden="true">◖))</span> Garsas</button><span class="emotion-add-placeholder" aria-hidden="true"></span></div><div class="emotion-photo-placeholder" aria-hidden="true"></div><p>Plauti grindis</p></article>
+					<article class="emotion-card emotion-card-placeholder"><div class="emotion-card-tools"><button class="emotion-audio" type="button" aria-label="Leisti garsą: išnešti šiukšles"><span aria-hidden="true">◖))</span> Garsas</button><span class="emotion-add-placeholder" aria-hidden="true"></span></div><div class="emotion-photo-placeholder" aria-hidden="true"></div><p>Išnešti šiukšles</p></article>
+					<article class="emotion-card emotion-card-placeholder"><div class="emotion-card-tools"><button class="emotion-audio" type="button" aria-label="Leisti garsą: valyti dulkes"><span aria-hidden="true">◖))</span> Garsas</button><span class="emotion-add-placeholder" aria-hidden="true"></span></div><div class="emotion-photo-placeholder" aria-hidden="true"></div><p>Valyti dulkes</p></article>
+					<article class="emotion-card emotion-card-placeholder"><div class="emotion-card-tools"><button class="emotion-audio" type="button" aria-label="Leisti garsą: skalbti"><span aria-hidden="true">◖))</span> Garsas</button><span class="emotion-add-placeholder" aria-hidden="true"></span></div><div class="emotion-photo-placeholder" aria-hidden="true"></div><p>Skalbti</p></article>
+					<article class="emotion-card emotion-card-placeholder"><div class="emotion-card-tools"><button class="emotion-audio" type="button" aria-label="Leisti garsą: džiovinti"><span aria-hidden="true">◖))</span> Garsas</button><span class="emotion-add-placeholder" aria-hidden="true"></span></div><div class="emotion-photo-placeholder" aria-hidden="true"></div><p>Džiovinti</p></article>
+					<article class="emotion-card emotion-card-placeholder"><div class="emotion-card-tools"><button class="emotion-audio" type="button" aria-label="Leisti garsą: laistyti gėles"><span aria-hidden="true">◖))</span> Garsas</button><span class="emotion-add-placeholder" aria-hidden="true"></span></div><div class="emotion-photo-placeholder" aria-hidden="true"></div><p>Laistyti gėles</p></article>
+					<article class="emotion-card emotion-card-placeholder"><div class="emotion-card-tools"><button class="emotion-audio" type="button" aria-label="Leisti garsą: siurbti"><span aria-hidden="true">◖))</span> Garsas</button><span class="emotion-add-placeholder" aria-hidden="true"></span></div><div class="emotion-photo-placeholder" aria-hidden="true"></div><p>Siurbti</p></article>
+				</template>
+				<template id="rest-cards">
+					<article class="emotion-card emotion-card-placeholder"><div class="emotion-card-tools"><button class="emotion-audio" type="button" aria-label="Leisti garsą: ausinės"><span aria-hidden="true">◖))</span> Garsas</button><span class="emotion-add-placeholder" aria-hidden="true"></span></div><div class="emotion-photo-placeholder" aria-hidden="true"></div><p>Ausinės</p></article>
+					<article class="emotion-card emotion-card-placeholder"><div class="emotion-card-tools"><button class="emotion-audio" type="button" aria-label="Leisti garsą: kvėpavimas"><span aria-hidden="true">◖))</span> Garsas</button><span class="emotion-add-placeholder" aria-hidden="true"></span></div><div class="emotion-photo-placeholder" aria-hidden="true"></div><p>Kvėpavimas</p></article>
+					<article class="emotion-card emotion-card-placeholder"><div class="emotion-card-tools"><button class="emotion-audio" type="button" aria-label="Leisti garsą: miegas"><span aria-hidden="true">◖))</span> Garsas</button><span class="emotion-add-placeholder" aria-hidden="true"></span></div><div class="emotion-photo-placeholder" aria-hidden="true"></div><p>Miegas</p></article>
+					<article class="emotion-card emotion-card-placeholder"><div class="emotion-card-tools"><button class="emotion-audio" type="button" aria-label="Leisti garsą: sėdmaišis"><span aria-hidden="true">◖))</span> Garsas</button><span class="emotion-add-placeholder" aria-hidden="true"></span></div><div class="emotion-photo-placeholder" aria-hidden="true"></div><p>Sėdmaišis</p></article>
+					<article class="emotion-card emotion-card-placeholder"><div class="emotion-card-tools"><button class="emotion-audio" type="button" aria-label="Leisti garsą: piešimas"><span aria-hidden="true">◖))</span> Garsas</button><span class="emotion-add-placeholder" aria-hidden="true"></span></div><div class="emotion-photo-placeholder" aria-hidden="true"></div><p>Piešimas</p></article>
+					<article class="emotion-card emotion-card-placeholder"><div class="emotion-card-tools"><button class="emotion-audio" type="button" aria-label="Leisti garsą: žaisti"><span aria-hidden="true">◖))</span> Garsas</button><span class="emotion-add-placeholder" aria-hidden="true"></span></div><div class="emotion-photo-placeholder" aria-hidden="true"></div><p>Žaisti</p></article>
+					<article class="emotion-card emotion-card-placeholder"><div class="emotion-card-tools"><button class="emotion-audio" type="button" aria-label="Leisti garsą: kompiuteris"><span aria-hidden="true">◖))</span> Garsas</button><span class="emotion-add-placeholder" aria-hidden="true"></span></div><div class="emotion-photo-placeholder" aria-hidden="true"></div><p>Kompiuteris</p></article>
+					<article class="emotion-card emotion-card-placeholder"><div class="emotion-card-tools"><button class="emotion-audio" type="button" aria-label="Leisti garsą: televizorius"><span aria-hidden="true">◖))</span> Garsas</button><span class="emotion-add-placeholder" aria-hidden="true"></span></div><div class="emotion-photo-placeholder" aria-hidden="true"></div><p>Televizorius</p></article>
+					<article class="emotion-card emotion-card-placeholder"><div class="emotion-card-tools"><button class="emotion-audio" type="button" aria-label="Leisti garsą: koncertas"><span aria-hidden="true">◖))</span> Garsas</button><span class="emotion-add-placeholder" aria-hidden="true"></span></div><div class="emotion-photo-placeholder" aria-hidden="true"></div><p>Koncertas</p></article>
+					<article class="emotion-card emotion-card-placeholder"><div class="emotion-card-tools"><button class="emotion-audio" type="button" aria-label="Leisti garsą: žaidimai"><span aria-hidden="true">◖))</span> Garsas</button><span class="emotion-add-placeholder" aria-hidden="true"></span></div><div class="emotion-photo-placeholder" aria-hidden="true"></div><p>Žaidimai</p></article>
+					<article class="emotion-card emotion-card-placeholder"><div class="emotion-card-tools"><button class="emotion-audio" type="button" aria-label="Leisti garsą: teatras"><span aria-hidden="true">◖))</span> Garsas</button><span class="emotion-add-placeholder" aria-hidden="true"></span></div><div class="emotion-photo-placeholder" aria-hidden="true"></div><p>Teatras</p></article>
+					<article class="emotion-card emotion-card-placeholder"><div class="emotion-card-tools"><button class="emotion-audio" type="button" aria-label="Leisti garsą: piknikas"><span aria-hidden="true">◖))</span> Garsas</button><span class="emotion-add-placeholder" aria-hidden="true"></span></div><div class="emotion-photo-placeholder" aria-hidden="true"></div><p>Piknikas</p></article>
+				</template>
+				<template id="home-location-cards">
+					<article class="emotion-card emotion-card-placeholder"><div class="emotion-card-tools"><button class="emotion-audio" type="button" aria-label="Leisti garsą: svetainė"><span aria-hidden="true">◖))</span> Garsas</button><span class="emotion-add-placeholder" aria-hidden="true"></span></div><div class="emotion-photo-placeholder" aria-hidden="true"></div><p>Svetainė</p></article>
+					<article class="emotion-card emotion-card-placeholder"><div class="emotion-card-tools"><button class="emotion-audio" type="button" aria-label="Leisti garsą: miegamasis"><span aria-hidden="true">◖))</span> Garsas</button><span class="emotion-add-placeholder" aria-hidden="true"></span></div><div class="emotion-photo-placeholder" aria-hidden="true"></div><p>Miegamasis</p></article>
+					<article class="emotion-card emotion-card-placeholder"><div class="emotion-card-tools"><button class="emotion-audio" type="button" aria-label="Leisti garsą: vonia"><span aria-hidden="true">◖))</span> Garsas</button><span class="emotion-add-placeholder" aria-hidden="true"></span></div><div class="emotion-photo-placeholder" aria-hidden="true"></div><p>Vonia</p></article>
+					<article class="emotion-card emotion-card-placeholder"><div class="emotion-card-tools"><button class="emotion-audio" type="button" aria-label="Leisti garsą: virtuvė"><span aria-hidden="true">◖))</span> Garsas</button><span class="emotion-add-placeholder" aria-hidden="true"></span></div><div class="emotion-photo-placeholder" aria-hidden="true"></div><p>Virtuvė</p></article>
+					<article class="emotion-card emotion-card-placeholder"><div class="emotion-card-tools"><button class="emotion-audio" type="button" aria-label="Leisti garsą: koridorius"><span aria-hidden="true">◖))</span> Garsas</button><span class="emotion-add-placeholder" aria-hidden="true"></span></div><div class="emotion-photo-placeholder" aria-hidden="true"></div><p>Koridorius</p></article>
+					<article class="emotion-card emotion-card-placeholder"><div class="emotion-card-tools"><button class="emotion-audio" type="button" aria-label="Leisti garsą: drabužinė"><span aria-hidden="true">◖))</span> Garsas</button><span class="emotion-add-placeholder" aria-hidden="true"></span></div><div class="emotion-photo-placeholder" aria-hidden="true"></div><p>Drabužinė</p></article>
+				</template>
+				<template id="public-place-cards">
+					<article class="emotion-card emotion-card-placeholder"><div class="emotion-card-tools"><button class="emotion-audio" type="button" aria-label="Leisti garsą: mokykla"><span aria-hidden="true">◖))</span> Garsas</button><span class="emotion-add-placeholder" aria-hidden="true"></span></div><div class="emotion-photo-placeholder" aria-hidden="true"></div><p>Mokykla</p></article>
+					<article class="emotion-card emotion-card-placeholder"><div class="emotion-card-tools"><button class="emotion-audio" type="button" aria-label="Leisti garsą: darželis"><span aria-hidden="true">◖))</span> Garsas</button><span class="emotion-add-placeholder" aria-hidden="true"></span></div><div class="emotion-photo-placeholder" aria-hidden="true"></div><p>Darželis</p></article>
+					<article class="emotion-card emotion-card-placeholder"><div class="emotion-card-tools"><button class="emotion-audio" type="button" aria-label="Leisti garsą: parduotuvė"><span aria-hidden="true">◖))</span> Garsas</button><span class="emotion-add-placeholder" aria-hidden="true"></span></div><div class="emotion-photo-placeholder" aria-hidden="true"></div><p>Parduotuvė</p></article>
+					<article class="emotion-card emotion-card-placeholder"><div class="emotion-card-tools"><button class="emotion-audio" type="button" aria-label="Leisti garsą: ligoninė"><span aria-hidden="true">◖))</span> Garsas</button><span class="emotion-add-placeholder" aria-hidden="true"></span></div><div class="emotion-photo-placeholder" aria-hidden="true"></div><p>Ligoninė</p></article>
+					<article class="emotion-card emotion-card-placeholder"><div class="emotion-card-tools"><button class="emotion-audio" type="button" aria-label="Leisti garsą: dantistas"><span aria-hidden="true">◖))</span> Garsas</button><span class="emotion-add-placeholder" aria-hidden="true"></span></div><div class="emotion-photo-placeholder" aria-hidden="true"></div><p>Dantistas</p></article>
+					<article class="emotion-card emotion-card-placeholder"><div class="emotion-card-tools"><button class="emotion-audio" type="button" aria-label="Leisti garsą: kirpykla"><span aria-hidden="true">◖))</span> Garsas</button><span class="emotion-add-placeholder" aria-hidden="true"></span></div><div class="emotion-photo-placeholder" aria-hidden="true"></div><p>Kirpykla</p></article>
+					<article class="emotion-card emotion-card-placeholder"><div class="emotion-card-tools"><button class="emotion-audio" type="button" aria-label="Leisti garsą: kavinė"><span aria-hidden="true">◖))</span> Garsas</button><span class="emotion-add-placeholder" aria-hidden="true"></span></div><div class="emotion-photo-placeholder" aria-hidden="true"></div><p>Kavinė</p></article>
+					<article class="emotion-card emotion-card-placeholder"><div class="emotion-card-tools"><button class="emotion-audio" type="button" aria-label="Leisti garsą: biblioteka"><span aria-hidden="true">◖))</span> Garsas</button><span class="emotion-add-placeholder" aria-hidden="true"></span></div><div class="emotion-photo-placeholder" aria-hidden="true"></div><p>Biblioteka</p></article>
+				</template>
+				<template id="nature-place-cards">
+					<article class="emotion-card emotion-card-placeholder"><div class="emotion-card-tools"><button class="emotion-audio" type="button" aria-label="Leisti garsą: parkas"><span aria-hidden="true">◖))</span> Garsas</button><span class="emotion-add-placeholder" aria-hidden="true"></span></div><div class="emotion-photo-placeholder" aria-hidden="true"></div><p>Parkas</p></article>
+					<article class="emotion-card emotion-card-placeholder"><div class="emotion-card-tools"><button class="emotion-audio" type="button" aria-label="Leisti garsą: žaidimų aikštelė"><span aria-hidden="true">◖))</span> Garsas</button><span class="emotion-add-placeholder" aria-hidden="true"></span></div><div class="emotion-photo-placeholder" aria-hidden="true"></div><p>Žaidimų aikštelė</p></article>
+					<article class="emotion-card emotion-card-placeholder"><div class="emotion-card-tools"><button class="emotion-audio" type="button" aria-label="Leisti garsą: jūra"><span aria-hidden="true">◖))</span> Garsas</button><span class="emotion-add-placeholder" aria-hidden="true"></span></div><div class="emotion-photo-placeholder" aria-hidden="true"></div><p>Jūra</p></article>
+					<article class="emotion-card emotion-card-placeholder"><div class="emotion-card-tools"><button class="emotion-audio" type="button" aria-label="Leisti garsą: ežeras"><span aria-hidden="true">◖))</span> Garsas</button><span class="emotion-add-placeholder" aria-hidden="true"></span></div><div class="emotion-photo-placeholder" aria-hidden="true"></div><p>Ežeras</p></article>
+					<article class="emotion-card emotion-card-placeholder"><div class="emotion-card-tools"><button class="emotion-audio" type="button" aria-label="Leisti garsą: upė"><span aria-hidden="true">◖))</span> Garsas</button><span class="emotion-add-placeholder" aria-hidden="true"></span></div><div class="emotion-photo-placeholder" aria-hidden="true"></div><p>Upė</p></article>
+					<article class="emotion-card emotion-card-placeholder"><div class="emotion-card-tools"><button class="emotion-audio" type="button" aria-label="Leisti garsą: miškas"><span aria-hidden="true">◖))</span> Garsas</button><span class="emotion-add-placeholder" aria-hidden="true"></span></div><div class="emotion-photo-placeholder" aria-hidden="true"></div><p>Miškas</p></article>
+				</template>
+				<template id="transport-cards">
+					<article class="emotion-card emotion-card-placeholder"><div class="emotion-card-tools"><button class="emotion-audio" type="button" aria-label="Leisti garsą: dviratis"><span aria-hidden="true">◖))</span> Garsas</button><span class="emotion-add-placeholder" aria-hidden="true"></span></div><div class="emotion-photo-placeholder" aria-hidden="true"></div><p>Dviratis</p></article>
+					<article class="emotion-card emotion-card-placeholder"><div class="emotion-card-tools"><button class="emotion-audio" type="button" aria-label="Leisti garsą: paspirtukas"><span aria-hidden="true">◖))</span> Garsas</button><span class="emotion-add-placeholder" aria-hidden="true"></span></div><div class="emotion-photo-placeholder" aria-hidden="true"></div><p>Paspirtukas</p></article>
+					<article class="emotion-card emotion-card-placeholder"><div class="emotion-card-tools"><button class="emotion-audio" type="button" aria-label="Leisti garsą: automobilis"><span aria-hidden="true">◖))</span> Garsas</button><span class="emotion-add-placeholder" aria-hidden="true"></span></div><div class="emotion-photo-placeholder" aria-hidden="true"></div><p>Automobilis</p></article>
+					<article class="emotion-card emotion-card-placeholder"><div class="emotion-card-tools"><button class="emotion-audio" type="button" aria-label="Leisti garsą: autobusas"><span aria-hidden="true">◖))</span> Garsas</button><span class="emotion-add-placeholder" aria-hidden="true"></span></div><div class="emotion-photo-placeholder" aria-hidden="true"></div><p>Autobusas</p></article>
+					<article class="emotion-card emotion-card-placeholder"><div class="emotion-card-tools"><button class="emotion-audio" type="button" aria-label="Leisti garsą: traukinys"><span aria-hidden="true">◖))</span> Garsas</button><span class="emotion-add-placeholder" aria-hidden="true"></span></div><div class="emotion-photo-placeholder" aria-hidden="true"></div><p>Traukinys</p></article>
+					<article class="emotion-card emotion-card-placeholder"><div class="emotion-card-tools"><button class="emotion-audio" type="button" aria-label="Leisti garsą: lėktuvas"><span aria-hidden="true">◖))</span> Garsas</button><span class="emotion-add-placeholder" aria-hidden="true"></span></div><div class="emotion-photo-placeholder" aria-hidden="true"></div><p>Lėktuvas</p></article>
+					<article class="emotion-card emotion-card-placeholder"><div class="emotion-card-tools"><button class="emotion-audio" type="button" aria-label="Leisti garsą: laivas"><span aria-hidden="true">◖))</span> Garsas</button><span class="emotion-add-placeholder" aria-hidden="true"></span></div><div class="emotion-photo-placeholder" aria-hidden="true"></div><p>Laivas</p></article>
+				</template>
+				<template id="sport-cards">
+					<article class="emotion-card emotion-card-placeholder"><div class="emotion-card-tools"><button class="emotion-audio" type="button" aria-label="Leisti garsą: bėgimas"><span aria-hidden="true">◖))</span> Garsas</button><span class="emotion-add-placeholder" aria-hidden="true"></span></div><div class="emotion-photo-placeholder" aria-hidden="true"></div><p>Bėgimas</p></article>
+					<article class="emotion-card emotion-card-placeholder"><div class="emotion-card-tools"><button class="emotion-audio" type="button" aria-label="Leisti garsą: krepšinis"><span aria-hidden="true">◖))</span> Garsas</button><span class="emotion-add-placeholder" aria-hidden="true"></span></div><div class="emotion-photo-placeholder" aria-hidden="true"></div><p>Krepšinis</p></article>
+					<article class="emotion-card emotion-card-placeholder"><div class="emotion-card-tools"><button class="emotion-audio" type="button" aria-label="Leisti garsą: futbolas"><span aria-hidden="true">◖))</span> Garsas</button><span class="emotion-add-placeholder" aria-hidden="true"></span></div><div class="emotion-photo-placeholder" aria-hidden="true"></div><p>Futbolas</p></article>
+					<article class="emotion-card emotion-card-placeholder"><div class="emotion-card-tools"><button class="emotion-audio" type="button" aria-label="Leisti garsą: plaukimas"><span aria-hidden="true">◖))</span> Garsas</button><span class="emotion-add-placeholder" aria-hidden="true"></span></div><div class="emotion-photo-placeholder" aria-hidden="true"></div><p>Plaukimas</p></article>
+					<article class="emotion-card emotion-card-placeholder"><div class="emotion-card-tools"><button class="emotion-audio" type="button" aria-label="Leisti garsą: tenisas"><span aria-hidden="true">◖))</span> Garsas</button><span class="emotion-add-placeholder" aria-hidden="true"></span></div><div class="emotion-photo-placeholder" aria-hidden="true"></div><p>Tenisas</p></article>
+					<article class="emotion-card emotion-card-placeholder"><div class="emotion-card-tools"><button class="emotion-audio" type="button" aria-label="Leisti garsą: tinklinis"><span aria-hidden="true">◖))</span> Garsas</button><span class="emotion-add-placeholder" aria-hidden="true"></span></div><div class="emotion-photo-placeholder" aria-hidden="true"></div><p>Tinklinis</p></article>
+					<article class="emotion-card emotion-card-placeholder"><div class="emotion-card-tools"><button class="emotion-audio" type="button" aria-label="Leisti garsą: joga"><span aria-hidden="true">◖))</span> Garsas</button><span class="emotion-add-placeholder" aria-hidden="true"></span></div><div class="emotion-photo-placeholder" aria-hidden="true"></div><p>Joga</p></article>
+					<article class="emotion-card emotion-card-placeholder"><div class="emotion-card-tools"><button class="emotion-audio" type="button" aria-label="Leisti garsą: dviratis"><span aria-hidden="true">◖))</span> Garsas</button><span class="emotion-add-placeholder" aria-hidden="true"></span></div><div class="emotion-photo-placeholder" aria-hidden="true"></div><p>Dviratis</p></article>
+					<article class="emotion-card emotion-card-placeholder"><div class="emotion-card-tools"><button class="emotion-audio" type="button" aria-label="Leisti garsą: slidinėjimas"><span aria-hidden="true">◖))</span> Garsas</button><span class="emotion-add-placeholder" aria-hidden="true"></span></div><div class="emotion-photo-placeholder" aria-hidden="true"></div><p>Slidinėjimas</p></article>
+					<article class="emotion-card emotion-card-placeholder"><div class="emotion-card-tools"><button class="emotion-audio" type="button" aria-label="Leisti garsą: riedučiai"><span aria-hidden="true">◖))</span> Garsas</button><span class="emotion-add-placeholder" aria-hidden="true"></span></div><div class="emotion-photo-placeholder" aria-hidden="true"></div><p>Riedučiai</p></article>
+				</template>
+				<template id="fruit-cards">
+					<article class="emotion-card emotion-card-placeholder"><div class="emotion-card-tools"><button class="emotion-audio" type="button" aria-label="Leisti garsą: obuolys"><span aria-hidden="true">◖))</span> Garsas</button><span class="emotion-add-placeholder" aria-hidden="true"></span></div><div class="emotion-photo-placeholder" aria-hidden="true"></div><p>Obuolys</p></article>
+					<article class="emotion-card emotion-card-placeholder"><div class="emotion-card-tools"><button class="emotion-audio" type="button" aria-label="Leisti garsą: kriaušė"><span aria-hidden="true">◖))</span> Garsas</button><span class="emotion-add-placeholder" aria-hidden="true"></span></div><div class="emotion-photo-placeholder" aria-hidden="true"></div><p>Kriaušė</p></article>
+					<article class="emotion-card emotion-card-placeholder"><div class="emotion-card-tools"><button class="emotion-audio" type="button" aria-label="Leisti garsą: bananas"><span aria-hidden="true">◖))</span> Garsas</button><span class="emotion-add-placeholder" aria-hidden="true"></span></div><div class="emotion-photo-placeholder" aria-hidden="true"></div><p>Bananas</p></article>
+					<article class="emotion-card emotion-card-placeholder"><div class="emotion-card-tools"><button class="emotion-audio" type="button" aria-label="Leisti garsą: apelsinas"><span aria-hidden="true">◖))</span> Garsas</button><span class="emotion-add-placeholder" aria-hidden="true"></span></div><div class="emotion-photo-placeholder" aria-hidden="true"></div><p>Apelsinas</p></article>
+					<article class="emotion-card emotion-card-placeholder"><div class="emotion-card-tools"><button class="emotion-audio" type="button" aria-label="Leisti garsą: mandarinas"><span aria-hidden="true">◖))</span> Garsas</button><span class="emotion-add-placeholder" aria-hidden="true"></span></div><div class="emotion-photo-placeholder" aria-hidden="true"></div><p>Mandarinas</p></article>
+					<article class="emotion-card emotion-card-placeholder"><div class="emotion-card-tools"><button class="emotion-audio" type="button" aria-label="Leisti garsą: laimas"><span aria-hidden="true">◖))</span> Garsas</button><span class="emotion-add-placeholder" aria-hidden="true"></span></div><div class="emotion-photo-placeholder" aria-hidden="true"></div><p>Laimas</p></article>
+					<article class="emotion-card emotion-card-placeholder"><div class="emotion-card-tools"><button class="emotion-audio" type="button" aria-label="Leisti garsą: greipfrutas"><span aria-hidden="true">◖))</span> Garsas</button><span class="emotion-add-placeholder" aria-hidden="true"></span></div><div class="emotion-photo-placeholder" aria-hidden="true"></div><p>Greipfrutas</p></article>
+					<article class="emotion-card emotion-card-placeholder"><div class="emotion-card-tools"><button class="emotion-audio" type="button" aria-label="Leisti garsą: citrina"><span aria-hidden="true">◖))</span> Garsas</button><span class="emotion-add-placeholder" aria-hidden="true"></span></div><div class="emotion-photo-placeholder" aria-hidden="true"></div><p>Citrina</p></article>
+					<article class="emotion-card emotion-card-placeholder"><div class="emotion-card-tools"><button class="emotion-audio" type="button" aria-label="Leisti garsą: pamelo"><span aria-hidden="true">◖))</span> Garsas</button><span class="emotion-add-placeholder" aria-hidden="true"></span></div><div class="emotion-photo-placeholder" aria-hidden="true"></div><p>Pamelo</p></article>
+					<article class="emotion-card emotion-card-placeholder"><div class="emotion-card-tools"><button class="emotion-audio" type="button" aria-label="Leisti garsą: melionas"><span aria-hidden="true">◖))</span> Garsas</button><span class="emotion-add-placeholder" aria-hidden="true"></span></div><div class="emotion-photo-placeholder" aria-hidden="true"></div><p>Melionas</p></article>
+					<article class="emotion-card emotion-card-placeholder"><div class="emotion-card-tools"><button class="emotion-audio" type="button" aria-label="Leisti garsą: arbūzas"><span aria-hidden="true">◖))</span> Garsas</button><span class="emotion-add-placeholder" aria-hidden="true"></span></div><div class="emotion-photo-placeholder" aria-hidden="true"></div><p>Arbūzas</p></article>
+					<article class="emotion-card emotion-card-placeholder"><div class="emotion-card-tools"><button class="emotion-audio" type="button" aria-label="Leisti garsą: slyva"><span aria-hidden="true">◖))</span> Garsas</button><span class="emotion-add-placeholder" aria-hidden="true"></span></div><div class="emotion-photo-placeholder" aria-hidden="true"></div><p>Slyva</p></article>
+					<article class="emotion-card emotion-card-placeholder"><div class="emotion-card-tools"><button class="emotion-audio" type="button" aria-label="Leisti garsą: avokadas"><span aria-hidden="true">◖))</span> Garsas</button><span class="emotion-add-placeholder" aria-hidden="true"></span></div><div class="emotion-photo-placeholder" aria-hidden="true"></div><p>Avokadas</p></article>
+					<article class="emotion-card emotion-card-placeholder"><div class="emotion-card-tools"><button class="emotion-audio" type="button" aria-label="Leisti garsą: kivis"><span aria-hidden="true">◖))</span> Garsas</button><span class="emotion-add-placeholder" aria-hidden="true"></span></div><div class="emotion-photo-placeholder" aria-hidden="true"></div><p>Kivis</p></article>
+					<article class="emotion-card emotion-card-placeholder"><div class="emotion-card-tools"><button class="emotion-audio" type="button" aria-label="Leisti garsą: mangas"><span aria-hidden="true">◖))</span> Garsas</button><span class="emotion-add-placeholder" aria-hidden="true"></span></div><div class="emotion-photo-placeholder" aria-hidden="true"></div><p>Mangas</p></article>
+					<article class="emotion-card emotion-card-placeholder"><div class="emotion-card-tools"><button class="emotion-audio" type="button" aria-label="Leisti garsą: ananasas"><span aria-hidden="true">◖))</span> Garsas</button><span class="emotion-add-placeholder" aria-hidden="true"></span></div><div class="emotion-photo-placeholder" aria-hidden="true"></div><p>Ananasas</p></article>
+					<article class="emotion-card emotion-card-placeholder"><div class="emotion-card-tools"><button class="emotion-audio" type="button" aria-label="Leisti garsą: granatas"><span aria-hidden="true">◖))</span> Garsas</button><span class="emotion-add-placeholder" aria-hidden="true"></span></div><div class="emotion-photo-placeholder" aria-hidden="true"></div><p>Granatas</p></article>
+					<article class="emotion-card emotion-card-placeholder"><div class="emotion-card-tools"><button class="emotion-audio" type="button" aria-label="Leisti garsą: persimonas"><span aria-hidden="true">◖))</span> Garsas</button><span class="emotion-add-placeholder" aria-hidden="true"></span></div><div class="emotion-photo-placeholder" aria-hidden="true"></div><p>Persimonas</p></article>
+				</template>
+				<template id="berry-cards">
+					<article class="emotion-card emotion-card-placeholder"><div class="emotion-card-tools"><button class="emotion-audio" type="button" aria-label="Leisti garsą: vyšnia"><span aria-hidden="true">◖))</span> Garsas</button><span class="emotion-add-placeholder" aria-hidden="true"></span></div><div class="emotion-photo-placeholder" aria-hidden="true"></div><p>Vyšnia</p></article>
+					<article class="emotion-card emotion-card-placeholder"><div class="emotion-card-tools"><button class="emotion-audio" type="button" aria-label="Leisti garsą: žemuogė"><span aria-hidden="true">◖))</span> Garsas</button><span class="emotion-add-placeholder" aria-hidden="true"></span></div><div class="emotion-photo-placeholder" aria-hidden="true"></div><p>Žemuogė</p></article>
+					<article class="emotion-card emotion-card-placeholder"><div class="emotion-card-tools"><button class="emotion-audio" type="button" aria-label="Leisti garsą: braškė"><span aria-hidden="true">◖))</span> Garsas</button><span class="emotion-add-placeholder" aria-hidden="true"></span></div><div class="emotion-photo-placeholder" aria-hidden="true"></div><p>Braškė</p></article>
+					<article class="emotion-card emotion-card-placeholder"><div class="emotion-card-tools"><button class="emotion-audio" type="button" aria-label="Leisti garsą: avietė"><span aria-hidden="true">◖))</span> Garsas</button><span class="emotion-add-placeholder" aria-hidden="true"></span></div><div class="emotion-photo-placeholder" aria-hidden="true"></div><p>Avietė</p></article>
+					<article class="emotion-card emotion-card-placeholder"><div class="emotion-card-tools"><button class="emotion-audio" type="button" aria-label="Leisti garsą: šilauogė"><span aria-hidden="true">◖))</span> Garsas</button><span class="emotion-add-placeholder" aria-hidden="true"></span></div><div class="emotion-photo-placeholder" aria-hidden="true"></div><p>Šilauogė</p></article>
+					<article class="emotion-card emotion-card-placeholder"><div class="emotion-card-tools"><button class="emotion-audio" type="button" aria-label="Leisti garsą: vynuogė"><span aria-hidden="true">◖))</span> Garsas</button><span class="emotion-add-placeholder" aria-hidden="true"></span></div><div class="emotion-photo-placeholder" aria-hidden="true"></div><p>Vynuogė</p></article>
+				</template>
+				<template id="vegetable-cards">
+					<article class="emotion-card emotion-card-placeholder"><div class="emotion-card-tools"><button class="emotion-audio" type="button" aria-label="Leisti garsą: bulvė"><span aria-hidden="true">◖))</span> Garsas</button><span class="emotion-add-placeholder" aria-hidden="true"></span></div><div class="emotion-photo-placeholder" aria-hidden="true"></div><p>Bulvė</p></article>
+					<article class="emotion-card emotion-card-placeholder"><div class="emotion-card-tools"><button class="emotion-audio" type="button" aria-label="Leisti garsą: saldi bulvė"><span aria-hidden="true">◖))</span> Garsas</button><span class="emotion-add-placeholder" aria-hidden="true"></span></div><div class="emotion-photo-placeholder" aria-hidden="true"></div><p>Saldi bulvė</p></article>
+					<article class="emotion-card emotion-card-placeholder"><div class="emotion-card-tools"><button class="emotion-audio" type="button" aria-label="Leisti garsą: morka"><span aria-hidden="true">◖))</span> Garsas</button><span class="emotion-add-placeholder" aria-hidden="true"></span></div><div class="emotion-photo-placeholder" aria-hidden="true"></div><p>Morka</p></article>
+					<article class="emotion-card emotion-card-placeholder"><div class="emotion-card-tools"><button class="emotion-audio" type="button" aria-label="Leisti garsą: burokėlis"><span aria-hidden="true">◖))</span> Garsas</button><span class="emotion-add-placeholder" aria-hidden="true"></span></div><div class="emotion-photo-placeholder" aria-hidden="true"></div><p>Burokėlis</p></article>
+					<article class="emotion-card emotion-card-placeholder"><div class="emotion-card-tools"><button class="emotion-audio" type="button" aria-label="Leisti garsą: ridikėlis"><span aria-hidden="true">◖))</span> Garsas</button><span class="emotion-add-placeholder" aria-hidden="true"></span></div><div class="emotion-photo-placeholder" aria-hidden="true"></div><p>Ridikėlis</p></article>
+					<article class="emotion-card emotion-card-placeholder"><div class="emotion-card-tools"><button class="emotion-audio" type="button" aria-label="Leisti garsą: česnakas"><span aria-hidden="true">◖))</span> Garsas</button><span class="emotion-add-placeholder" aria-hidden="true"></span></div><div class="emotion-photo-placeholder" aria-hidden="true"></div><p>Česnakas</p></article>
+					<article class="emotion-card emotion-card-placeholder"><div class="emotion-card-tools"><button class="emotion-audio" type="button" aria-label="Leisti garsą: svogūnas"><span aria-hidden="true">◖))</span> Garsas</button><span class="emotion-add-placeholder" aria-hidden="true"></span></div><div class="emotion-photo-placeholder" aria-hidden="true"></div><p>Svogūnas</p></article>
+					<article class="emotion-card emotion-card-placeholder"><div class="emotion-card-tools"><button class="emotion-audio" type="button" aria-label="Leisti garsą: pomidoras"><span aria-hidden="true">◖))</span> Garsas</button><span class="emotion-add-placeholder" aria-hidden="true"></span></div><div class="emotion-photo-placeholder" aria-hidden="true"></div><p>Pomidoras</p></article>
+					<article class="emotion-card emotion-card-placeholder"><div class="emotion-card-tools"><button class="emotion-audio" type="button" aria-label="Leisti garsą: agurkas"><span aria-hidden="true">◖))</span> Garsas</button><span class="emotion-add-placeholder" aria-hidden="true"></span></div><div class="emotion-photo-placeholder" aria-hidden="true"></div><p>Agurkas</p></article>
+					<article class="emotion-card emotion-card-placeholder"><div class="emotion-card-tools"><button class="emotion-audio" type="button" aria-label="Leisti garsą: salotos"><span aria-hidden="true">◖))</span> Garsas</button><span class="emotion-add-placeholder" aria-hidden="true"></span></div><div class="emotion-photo-placeholder" aria-hidden="true"></div><p>Salotos</p></article>
+					<article class="emotion-card emotion-card-placeholder"><div class="emotion-card-tools"><button class="emotion-audio" type="button" aria-label="Leisti garsą: paprika"><span aria-hidden="true">◖))</span> Garsas</button><span class="emotion-add-placeholder" aria-hidden="true"></span></div><div class="emotion-photo-placeholder" aria-hidden="true"></div><p>Paprika</p></article>
+					<article class="emotion-card emotion-card-placeholder"><div class="emotion-card-tools"><button class="emotion-audio" type="button" aria-label="Leisti garsą: cukinija"><span aria-hidden="true">◖))</span> Garsas</button><span class="emotion-add-placeholder" aria-hidden="true"></span></div><div class="emotion-photo-placeholder" aria-hidden="true"></div><p>Cukinija</p></article>
+					<article class="emotion-card emotion-card-placeholder"><div class="emotion-card-tools"><button class="emotion-audio" type="button" aria-label="Leisti garsą: moliūgas"><span aria-hidden="true">◖))</span> Garsas</button><span class="emotion-add-placeholder" aria-hidden="true"></span></div><div class="emotion-photo-placeholder" aria-hidden="true"></div><p>Moliūgas</p></article>
+					<article class="emotion-card emotion-card-placeholder"><div class="emotion-card-tools"><button class="emotion-audio" type="button" aria-label="Leisti garsą: kopūstas"><span aria-hidden="true">◖))</span> Garsas</button><span class="emotion-add-placeholder" aria-hidden="true"></span></div><div class="emotion-photo-placeholder" aria-hidden="true"></div><p>Kopūstas</p></article>
+					<article class="emotion-card emotion-card-placeholder"><div class="emotion-card-tools"><button class="emotion-audio" type="button" aria-label="Leisti garsą: brokolis"><span aria-hidden="true">◖))</span> Garsas</button><span class="emotion-add-placeholder" aria-hidden="true"></span></div><div class="emotion-photo-placeholder" aria-hidden="true"></div><p>Brokolis</p></article>
+					<article class="emotion-card emotion-card-placeholder"><div class="emotion-card-tools"><button class="emotion-audio" type="button" aria-label="Leisti garsą: žiedinis kopūstas"><span aria-hidden="true">◖))</span> Garsas</button><span class="emotion-add-placeholder" aria-hidden="true"></span></div><div class="emotion-photo-placeholder" aria-hidden="true"></div><p>Žiedinis kopūstas</p></article>
+					<article class="emotion-card emotion-card-placeholder"><div class="emotion-card-tools"><button class="emotion-audio" type="button" aria-label="Leisti garsą: žirniai"><span aria-hidden="true">◖))</span> Garsas</button><span class="emotion-add-placeholder" aria-hidden="true"></span></div><div class="emotion-photo-placeholder" aria-hidden="true"></div><p>Žirniai</p></article>
+					<article class="emotion-card emotion-card-placeholder"><div class="emotion-card-tools"><button class="emotion-audio" type="button" aria-label="Leisti garsą: kukurūzai"><span aria-hidden="true">◖))</span> Garsas</button><span class="emotion-add-placeholder" aria-hidden="true"></span></div><div class="emotion-photo-placeholder" aria-hidden="true"></div><p>Kukurūzai</p></article>
+				</template>
+				<template id="bread-cards">
+					<article class="emotion-card emotion-card-placeholder"><div class="emotion-card-tools"><button class="emotion-audio" type="button" aria-label="Leisti garsą: juoda duona"><span aria-hidden="true">◖))</span> Garsas</button><span class="emotion-add-placeholder" aria-hidden="true"></span></div><div class="emotion-photo-placeholder" aria-hidden="true"></div><p>Juoda duona</p></article>
+					<article class="emotion-card emotion-card-placeholder"><div class="emotion-card-tools"><button class="emotion-audio" type="button" aria-label="Leisti garsą: sumuštinių duona"><span aria-hidden="true">◖))</span> Garsas</button><span class="emotion-add-placeholder" aria-hidden="true"></span></div><div class="emotion-photo-placeholder" aria-hidden="true"></div><p>Sumuštinių duona</p></article>
+					<article class="emotion-card emotion-card-placeholder"><div class="emotion-card-tools"><button class="emotion-audio" type="button" aria-label="Leisti garsą: dešrainių bandelė"><span aria-hidden="true">◖))</span> Garsas</button><span class="emotion-add-placeholder" aria-hidden="true"></span></div><div class="emotion-photo-placeholder" aria-hidden="true"></div><p>Dešrainių bandelė</p></article>
+					<article class="emotion-card emotion-card-placeholder"><div class="emotion-card-tools"><button class="emotion-audio" type="button" aria-label="Leisti garsą: mėsainių bandelė"><span aria-hidden="true">◖))</span> Garsas</button><span class="emotion-add-placeholder" aria-hidden="true"></span></div><div class="emotion-photo-placeholder" aria-hidden="true"></div><p>Mėsainių bandelė</p></article>
+				</template>
+				<template id="egg-cards">
+					<article class="emotion-card emotion-card-placeholder"><div class="emotion-card-tools"><button class="emotion-audio" type="button" aria-label="Leisti garsą: kiaušiniai"><span aria-hidden="true">◖))</span> Garsas</button><span class="emotion-add-placeholder" aria-hidden="true"></span></div><div class="emotion-photo-placeholder" aria-hidden="true"></div><p>Kiaušiniai</p></article>
+					<article class="emotion-card emotion-card-placeholder"><div class="emotion-card-tools"><button class="emotion-audio" type="button" aria-label="Leisti garsą: putpelių kiaušiniai"><span aria-hidden="true">◖))</span> Garsas</button><span class="emotion-add-placeholder" aria-hidden="true"></span></div><div class="emotion-photo-placeholder" aria-hidden="true"></div><p>Putpelių kiaušiniai</p></article>
+				</template>
+				<template id="dairy-cards">
+					<article class="emotion-card emotion-card-placeholder"><div class="emotion-card-tools"><button class="emotion-audio" type="button" aria-label="Leisti garsą: jogurtas"><span aria-hidden="true">◖))</span> Garsas</button><span class="emotion-add-placeholder" aria-hidden="true"></span></div><div class="emotion-photo-placeholder" aria-hidden="true"></div><p>Jogurtas</p></article>
+					<article class="emotion-card emotion-card-placeholder"><div class="emotion-card-tools"><button class="emotion-audio" type="button" aria-label="Leisti garsą: grietinė"><span aria-hidden="true">◖))</span> Garsas</button><span class="emotion-add-placeholder" aria-hidden="true"></span></div><div class="emotion-photo-placeholder" aria-hidden="true"></div><p>Grietinė</p></article>
+					<article class="emotion-card emotion-card-placeholder"><div class="emotion-card-tools"><button class="emotion-audio" type="button" aria-label="Leisti garsą: užtepėlė"><span aria-hidden="true">◖))</span> Garsas</button><span class="emotion-add-placeholder" aria-hidden="true"></span></div><div class="emotion-photo-placeholder" aria-hidden="true"></div><p>Užtepėlė</p></article>
+					<article class="emotion-card emotion-card-placeholder"><div class="emotion-card-tools"><button class="emotion-audio" type="button" aria-label="Leisti garsą: pienas"><span aria-hidden="true">◖))</span> Garsas</button><span class="emotion-add-placeholder" aria-hidden="true"></span></div><div class="emotion-photo-placeholder" aria-hidden="true"></div><p>Pienas</p></article>
+					<article class="emotion-card emotion-card-placeholder"><div class="emotion-card-tools"><button class="emotion-audio" type="button" aria-label="Leisti garsą: grietinėlė"><span aria-hidden="true">◖))</span> Garsas</button><span class="emotion-add-placeholder" aria-hidden="true"></span></div><div class="emotion-photo-placeholder" aria-hidden="true"></div><p>Grietinėlė</p></article>
+					<article class="emotion-card emotion-card-placeholder"><div class="emotion-card-tools"><button class="emotion-audio" type="button" aria-label="Leisti garsą: sviestas"><span aria-hidden="true">◖))</span> Garsas</button><span class="emotion-add-placeholder" aria-hidden="true"></span></div><div class="emotion-photo-placeholder" aria-hidden="true"></div><p>Sviestas</p></article>
+					<article class="emotion-card emotion-card-placeholder"><div class="emotion-card-tools"><button class="emotion-audio" type="button" aria-label="Leisti garsą: sūris"><span aria-hidden="true">◖))</span> Garsas</button><span class="emotion-add-placeholder" aria-hidden="true"></span></div><div class="emotion-photo-placeholder" aria-hidden="true"></div><p>Sūris</p></article>
+					<article class="emotion-card emotion-card-placeholder"><div class="emotion-card-tools"><button class="emotion-audio" type="button" aria-label="Leisti garsą: varškė"><span aria-hidden="true">◖))</span> Garsas</button><span class="emotion-add-placeholder" aria-hidden="true"></span></div><div class="emotion-photo-placeholder" aria-hidden="true"></div><p>Varškė</p></article>
+				</template>
+				<template id="meat-cards">
+					<article class="emotion-card emotion-card-placeholder"><div class="emotion-card-tools"><button class="emotion-audio" type="button" aria-label="Leisti garsą: šoninė"><span aria-hidden="true">◖))</span> Garsas</button><span class="emotion-add-placeholder" aria-hidden="true"></span></div><div class="emotion-photo-placeholder" aria-hidden="true"></div><p>Šoninė</p></article>
+					<article class="emotion-card emotion-card-placeholder"><div class="emotion-card-tools"><button class="emotion-audio" type="button" aria-label="Leisti garsą: jautiena"><span aria-hidden="true">◖))</span> Garsas</button><span class="emotion-add-placeholder" aria-hidden="true"></span></div><div class="emotion-photo-placeholder" aria-hidden="true"></div><p>Jautiena</p></article>
+					<article class="emotion-card emotion-card-placeholder"><div class="emotion-card-tools"><button class="emotion-audio" type="button" aria-label="Leisti garsą: malta mėsa"><span aria-hidden="true">◖))</span> Garsas</button><span class="emotion-add-placeholder" aria-hidden="true"></span></div><div class="emotion-photo-placeholder" aria-hidden="true"></div><p>Malta mėsa</p></article>
+					<article class="emotion-card emotion-card-placeholder"><div class="emotion-card-tools"><button class="emotion-audio" type="button" aria-label="Leisti garsą: blauzdelės"><span aria-hidden="true">◖))</span> Garsas</button><span class="emotion-add-placeholder" aria-hidden="true"></span></div><div class="emotion-photo-placeholder" aria-hidden="true"></div><p>Blauzdelės</p></article>
+					<article class="emotion-card emotion-card-placeholder"><div class="emotion-card-tools"><button class="emotion-audio" type="button" aria-label="Leisti garsą: šonkauliukai"><span aria-hidden="true">◖))</span> Garsas</button><span class="emotion-add-placeholder" aria-hidden="true"></span></div><div class="emotion-photo-placeholder" aria-hidden="true"></div><p>Šonkauliukai</p></article>
+					<article class="emotion-card emotion-card-placeholder"><div class="emotion-card-tools"><button class="emotion-audio" type="button" aria-label="Leisti garsą: šviežios dešrelės"><span aria-hidden="true">◖))</span> Garsas</button><span class="emotion-add-placeholder" aria-hidden="true"></span></div><div class="emotion-photo-placeholder" aria-hidden="true"></div><p>Šviežios dešrelės</p></article>
+					<article class="emotion-card emotion-card-placeholder"><div class="emotion-card-tools"><button class="emotion-audio" type="button" aria-label="Leisti garsą: vištienos krūtinėlė"><span aria-hidden="true">◖))</span> Garsas</button><span class="emotion-add-placeholder" aria-hidden="true"></span></div><div class="emotion-photo-placeholder" aria-hidden="true"></div><p>Vištienos krūtinėlė</p></article>
+					<article class="emotion-card emotion-card-placeholder"><div class="emotion-card-tools"><button class="emotion-audio" type="button" aria-label="Leisti garsą: vištienos petukai"><span aria-hidden="true">◖))</span> Garsas</button><span class="emotion-add-placeholder" aria-hidden="true"></span></div><div class="emotion-photo-placeholder" aria-hidden="true"></div><p>Vištienos petukai</p></article>
+				</template>
+				<template id="fish-cards">
+					<article class="emotion-card emotion-card-placeholder"><div class="emotion-card-tools"><button class="emotion-audio" type="button" aria-label="Leisti garsą: lašiša"><span aria-hidden="true">◖))</span> Garsas</button><span class="emotion-add-placeholder" aria-hidden="true"></span></div><div class="emotion-photo-placeholder" aria-hidden="true"></div><p>Lašiša</p></article>
+					<article class="emotion-card emotion-card-placeholder"><div class="emotion-card-tools"><button class="emotion-audio" type="button" aria-label="Leisti garsą: menkė"><span aria-hidden="true">◖))</span> Garsas</button><span class="emotion-add-placeholder" aria-hidden="true"></span></div><div class="emotion-photo-placeholder" aria-hidden="true"></div><p>Menkė</p></article>
+					<article class="emotion-card emotion-card-placeholder"><div class="emotion-card-tools"><button class="emotion-audio" type="button" aria-label="Leisti garsą: krevetės"><span aria-hidden="true">◖))</span> Garsas</button><span class="emotion-add-placeholder" aria-hidden="true"></span></div><div class="emotion-photo-placeholder" aria-hidden="true"></div><p>Krevetės</p></article>
+					<article class="emotion-card emotion-card-placeholder"><div class="emotion-card-tools"><button class="emotion-audio" type="button" aria-label="Leisti garsą: kalmarai"><span aria-hidden="true">◖))</span> Garsas</button><span class="emotion-add-placeholder" aria-hidden="true"></span></div><div class="emotion-photo-placeholder" aria-hidden="true"></div><p>Kalmarai</p></article>
+					<article class="emotion-card emotion-card-placeholder"><div class="emotion-card-tools"><button class="emotion-audio" type="button" aria-label="Leisti garsą: tunas"><span aria-hidden="true">◖))</span> Garsas</button><span class="emotion-add-placeholder" aria-hidden="true"></span></div><div class="emotion-photo-placeholder" aria-hidden="true"></div><p>Tunas</p></article>
+				</template>
+				<template id="prepared-food-cards">
+					<article class="emotion-card emotion-card-placeholder"><div class="emotion-card-tools"><button class="emotion-audio" type="button" aria-label="Leisti garsą: dešra"><span aria-hidden="true">◖))</span> Garsas</button><span class="emotion-add-placeholder" aria-hidden="true"></span></div><div class="emotion-photo-placeholder" aria-hidden="true"></div><p>Dešra</p></article>
+					<article class="emotion-card emotion-card-placeholder"><div class="emotion-card-tools"><button class="emotion-audio" type="button" aria-label="Leisti garsą: virta dešra"><span aria-hidden="true">◖))</span> Garsas</button><span class="emotion-add-placeholder" aria-hidden="true"></span></div><div class="emotion-photo-placeholder" aria-hidden="true"></div><p>Virta dešra</p></article>
+					<article class="emotion-card emotion-card-placeholder"><div class="emotion-card-tools"><button class="emotion-audio" type="button" aria-label="Leisti garsą: pieniškos dešrelės"><span aria-hidden="true">◖))</span> Garsas</button><span class="emotion-add-placeholder" aria-hidden="true"></span></div><div class="emotion-photo-placeholder" aria-hidden="true"></div><p>Pieniškos dešrelės</p></article>
+					<article class="emotion-card emotion-card-placeholder"><div class="emotion-card-tools"><button class="emotion-audio" type="button" aria-label="Leisti garsą: kepsneliai"><span aria-hidden="true">◖))</span> Garsas</button><span class="emotion-add-placeholder" aria-hidden="true"></span></div><div class="emotion-photo-placeholder" aria-hidden="true"></div><p>Kepsneliai</p></article>
+					<article class="emotion-card emotion-card-placeholder"><div class="emotion-card-tools"><button class="emotion-audio" type="button" aria-label="Leisti garsą: kumpis"><span aria-hidden="true">◖))</span> Garsas</button><span class="emotion-add-placeholder" aria-hidden="true"></span></div><div class="emotion-photo-placeholder" aria-hidden="true"></div><p>Kumpis</p></article>
+					<article class="emotion-card emotion-card-placeholder"><div class="emotion-card-tools"><button class="emotion-audio" type="button" aria-label="Leisti garsą: paštetas"><span aria-hidden="true">◖))</span> Garsas</button><span class="emotion-add-placeholder" aria-hidden="true"></span></div><div class="emotion-photo-placeholder" aria-hidden="true"></div><p>Paštetas</p></article>
+					<article class="emotion-card emotion-card-placeholder"><div class="emotion-card-tools"><button class="emotion-audio" type="button" aria-label="Leisti garsą: koldūnai"><span aria-hidden="true">◖))</span> Garsas</button><span class="emotion-add-placeholder" aria-hidden="true"></span></div><div class="emotion-photo-placeholder" aria-hidden="true"></div><p>Koldūnai</p></article>
+					<article class="emotion-card emotion-card-placeholder"><div class="emotion-card-tools"><button class="emotion-audio" type="button" aria-label="Leisti garsą: blynai"><span aria-hidden="true">◖))</span> Garsas</button><span class="emotion-add-placeholder" aria-hidden="true"></span></div><div class="emotion-photo-placeholder" aria-hidden="true"></div><p>Blynai</p></article>
+					<article class="emotion-card emotion-card-placeholder"><div class="emotion-card-tools"><button class="emotion-audio" type="button" aria-label="Leisti garsą: silkė"><span aria-hidden="true">◖))</span> Garsas</button><span class="emotion-add-placeholder" aria-hidden="true"></span></div><div class="emotion-photo-placeholder" aria-hidden="true"></div><p>Silkė</p></article>
+					<article class="emotion-card emotion-card-placeholder"><div class="emotion-card-tools"><button class="emotion-audio" type="button" aria-label="Leisti garsą: krabų lazdelės"><span aria-hidden="true">◖))</span> Garsas</button><span class="emotion-add-placeholder" aria-hidden="true"></span></div><div class="emotion-photo-placeholder" aria-hidden="true"></div><p>Krabų lazdelės</p></article>
+					<article class="emotion-card emotion-card-placeholder"><div class="emotion-card-tools"><button class="emotion-audio" type="button" aria-label="Leisti garsą: ikrai"><span aria-hidden="true">◖))</span> Garsas</button><span class="emotion-add-placeholder" aria-hidden="true"></span></div><div class="emotion-photo-placeholder" aria-hidden="true"></div><p>Ikrai</p></article>
+					<article class="emotion-card emotion-card-placeholder"><div class="emotion-card-tools"><button class="emotion-audio" type="button" aria-label="Leisti garsą: žuvies piršteliai"><span aria-hidden="true">◖))</span> Garsas</button><span class="emotion-add-placeholder" aria-hidden="true"></span></div><div class="emotion-photo-placeholder" aria-hidden="true"></div><p>Žuvies piršteliai</p></article>
+				</template>
+				<template id="pasta-cards">
+					<article class="emotion-card emotion-card-placeholder"><div class="emotion-card-tools"><button class="emotion-audio" type="button" aria-label="Leisti garsą: spagečiai"><span aria-hidden="true">◖))</span> Garsas</button><span class="emotion-add-placeholder" aria-hidden="true"></span></div><div class="emotion-photo-placeholder" aria-hidden="true"></div><p>Spagečiai</p></article>
+					<article class="emotion-card emotion-card-placeholder"><div class="emotion-card-tools"><button class="emotion-audio" type="button" aria-label="Leisti garsą: rageliai"><span aria-hidden="true">◖))</span> Garsas</button><span class="emotion-add-placeholder" aria-hidden="true"></span></div><div class="emotion-photo-placeholder" aria-hidden="true"></div><p>Rageliai</p></article>
+					<article class="emotion-card emotion-card-placeholder"><div class="emotion-card-tools"><button class="emotion-audio" type="button" aria-label="Leisti garsą: sraigteliai"><span aria-hidden="true">◖))</span> Garsas</button><span class="emotion-add-placeholder" aria-hidden="true"></span></div><div class="emotion-photo-placeholder" aria-hidden="true"></div><p>Sraigteliai</p></article>
+					<article class="emotion-card emotion-card-placeholder"><div class="emotion-card-tools"><button class="emotion-audio" type="button" aria-label="Leisti garsą: lazanija"><span aria-hidden="true">◖))</span> Garsas</button><span class="emotion-add-placeholder" aria-hidden="true"></span></div><div class="emotion-photo-placeholder" aria-hidden="true"></div><p>Lazanija</p></article>
+					<article class="emotion-card emotion-card-placeholder"><div class="emotion-card-tools"><button class="emotion-audio" type="button" aria-label="Leisti garsą: kaspinėliai"><span aria-hidden="true">◖))</span> Garsas</button><span class="emotion-add-placeholder" aria-hidden="true"></span></div><div class="emotion-photo-placeholder" aria-hidden="true"></div><p>Kaspinėliai</p></article>
+					<article class="emotion-card emotion-card-placeholder"><div class="emotion-card-tools"><button class="emotion-audio" type="button" aria-label="Leisti garsą: talieteliai"><span aria-hidden="true">◖))</span> Garsas</button><span class="emotion-add-placeholder" aria-hidden="true"></span></div><div class="emotion-photo-placeholder" aria-hidden="true"></div><p>Talieteliai</p></article>
+					<article class="emotion-card emotion-card-placeholder"><div class="emotion-card-tools"><button class="emotion-audio" type="button" aria-label="Leisti garsą: vamzdeliai"><span aria-hidden="true">◖))</span> Garsas</button><span class="emotion-add-placeholder" aria-hidden="true"></span></div><div class="emotion-photo-placeholder" aria-hidden="true"></div><p>Vamzdeliai</p></article>
+					<article class="emotion-card emotion-card-placeholder"><div class="emotion-card-tools"><button class="emotion-audio" type="button" aria-label="Leisti garsą: vermišeliai"><span aria-hidden="true">◖))</span> Garsas</button><span class="emotion-add-placeholder" aria-hidden="true"></span></div><div class="emotion-photo-placeholder" aria-hidden="true"></div><p>Vermišeliai</p></article>
+				</template>
+				<template id="sauce-cards">
+					<article class="emotion-card emotion-card-placeholder"><div class="emotion-card-tools"><button class="emotion-audio" type="button" aria-label="Leisti garsą: pomidorų padažas"><span aria-hidden="true">◖))</span> Garsas</button><span class="emotion-add-placeholder" aria-hidden="true"></span></div><div class="emotion-photo-placeholder" aria-hidden="true"></div><p>Pomidorų padažas</p></article>
+					<article class="emotion-card emotion-card-placeholder"><div class="emotion-card-tools"><button class="emotion-audio" type="button" aria-label="Leisti garsą: majonezas"><span aria-hidden="true">◖))</span> Garsas</button><span class="emotion-add-placeholder" aria-hidden="true"></span></div><div class="emotion-photo-placeholder" aria-hidden="true"></div><p>Majonezas</p></article>
+					<article class="emotion-card emotion-card-placeholder"><div class="emotion-card-tools"><button class="emotion-audio" type="button" aria-label="Leisti garsą: garstyčios"><span aria-hidden="true">◖))</span> Garsas</button><span class="emotion-add-placeholder" aria-hidden="true"></span></div><div class="emotion-photo-placeholder" aria-hidden="true"></div><p>Garstyčios</p></article>
+					<article class="emotion-card emotion-card-placeholder"><div class="emotion-card-tools"><button class="emotion-audio" type="button" aria-label="Leisti garsą: soja"><span aria-hidden="true">◖))</span> Garsas</button><span class="emotion-add-placeholder" aria-hidden="true"></span></div><div class="emotion-photo-placeholder" aria-hidden="true"></div><p>Soja</p></article>
+					<article class="emotion-card emotion-card-placeholder"><div class="emotion-card-tools"><button class="emotion-audio" type="button" aria-label="Leisti garsą: kečupas"><span aria-hidden="true">◖))</span> Garsas</button><span class="emotion-add-placeholder" aria-hidden="true"></span></div><div class="emotion-photo-placeholder" aria-hidden="true"></div><p>Kečupas</p></article>
+					<article class="emotion-card emotion-card-placeholder"><div class="emotion-card-tools"><button class="emotion-audio" type="button" aria-label="Leisti garsą: saldžiarūgštis padažas"><span aria-hidden="true">◖))</span> Garsas</button><span class="emotion-add-placeholder" aria-hidden="true"></span></div><div class="emotion-photo-placeholder" aria-hidden="true"></div><p>Saldžiarūgštis padažas</p></article>
+					<article class="emotion-card emotion-card-placeholder"><div class="emotion-card-tools"><button class="emotion-audio" type="button" aria-label="Leisti garsą: alyvuogių aliejus"><span aria-hidden="true">◖))</span> Garsas</button><span class="emotion-add-placeholder" aria-hidden="true"></span></div><div class="emotion-photo-placeholder" aria-hidden="true"></div><p>Alyvuogių aliejus</p></article>
+					<article class="emotion-card emotion-card-placeholder"><div class="emotion-card-tools"><button class="emotion-audio" type="button" aria-label="Leisti garsą: actas"><span aria-hidden="true">◖))</span> Garsas</button><span class="emotion-add-placeholder" aria-hidden="true"></span></div><div class="emotion-photo-placeholder" aria-hidden="true"></div><p>Actas</p></article>
+				</template>
+				<template id="grain-cards">
+					<article class="emotion-card emotion-card-placeholder"><div class="emotion-card-tools"><button class="emotion-audio" type="button" aria-label="Leisti garsą: ryžiai"><span aria-hidden="true">◖))</span> Garsas</button><span class="emotion-add-placeholder" aria-hidden="true"></span></div><div class="emotion-photo-placeholder" aria-hidden="true"></div><p>Ryžiai</p></article>
+					<article class="emotion-card emotion-card-placeholder"><div class="emotion-card-tools"><button class="emotion-audio" type="button" aria-label="Leisti garsą: grikiai"><span aria-hidden="true">◖))</span> Garsas</button><span class="emotion-add-placeholder" aria-hidden="true"></span></div><div class="emotion-photo-placeholder" aria-hidden="true"></div><p>Grikiai</p></article>
+					<article class="emotion-card emotion-card-placeholder"><div class="emotion-card-tools"><button class="emotion-audio" type="button" aria-label="Leisti garsą: lęšiai"><span aria-hidden="true">◖))</span> Garsas</button><span class="emotion-add-placeholder" aria-hidden="true"></span></div><div class="emotion-photo-placeholder" aria-hidden="true"></div><p>Lęšiai</p></article>
+					<article class="emotion-card emotion-card-placeholder"><div class="emotion-card-tools"><button class="emotion-audio" type="button" aria-label="Leisti garsą: perlinės kruopos"><span aria-hidden="true">◖))</span> Garsas</button><span class="emotion-add-placeholder" aria-hidden="true"></span></div><div class="emotion-photo-placeholder" aria-hidden="true"></div><p>Perlinės kruopos</p></article>
+					<article class="emotion-card emotion-card-placeholder"><div class="emotion-card-tools"><button class="emotion-audio" type="button" aria-label="Leisti garsą: bulguras"><span aria-hidden="true">◖))</span> Garsas</button><span class="emotion-add-placeholder" aria-hidden="true"></span></div><div class="emotion-photo-placeholder" aria-hidden="true"></div><p>Bulguras</p></article>
+					<article class="emotion-card emotion-card-placeholder"><div class="emotion-card-tools"><button class="emotion-audio" type="button" aria-label="Leisti garsą: kuskusas"><span aria-hidden="true">◖))</span> Garsas</button><span class="emotion-add-placeholder" aria-hidden="true"></span></div><div class="emotion-photo-placeholder" aria-hidden="true"></div><p>Kuskusas</p></article>
+					<article class="emotion-card emotion-card-placeholder"><div class="emotion-card-tools"><button class="emotion-audio" type="button" aria-label="Leisti garsą: kvietiniai miltai"><span aria-hidden="true">◖))</span> Garsas</button><span class="emotion-add-placeholder" aria-hidden="true"></span></div><div class="emotion-photo-placeholder" aria-hidden="true"></div><p>Kvietiniai miltai</p></article>
+					<article class="emotion-card emotion-card-placeholder"><div class="emotion-card-tools"><button class="emotion-audio" type="button" aria-label="Leisti garsą: avižiniai dribsniai"><span aria-hidden="true">◖))</span> Garsas</button><span class="emotion-add-placeholder" aria-hidden="true"></span></div><div class="emotion-photo-placeholder" aria-hidden="true"></div><p>Avižiniai dribsniai</p></article>
+				</template>
+				<template id="spice-cards">
+					<article class="emotion-card emotion-card-placeholder"><div class="emotion-card-tools"><button class="emotion-audio" type="button" aria-label="Leisti garsą: druska"><span aria-hidden="true">◖))</span> Garsas</button><span class="emotion-add-placeholder" aria-hidden="true"></span></div><div class="emotion-photo-placeholder" aria-hidden="true"></div><p>Druska</p></article>
+					<article class="emotion-card emotion-card-placeholder"><div class="emotion-card-tools"><button class="emotion-audio" type="button" aria-label="Leisti garsą: pipirai"><span aria-hidden="true">◖))</span> Garsas</button><span class="emotion-add-placeholder" aria-hidden="true"></span></div><div class="emotion-photo-placeholder" aria-hidden="true"></div><p>Pipirai</p></article>
+					<article class="emotion-card emotion-card-placeholder"><div class="emotion-card-tools"><button class="emotion-audio" type="button" aria-label="Leisti garsą: cukrus"><span aria-hidden="true">◖))</span> Garsas</button><span class="emotion-add-placeholder" aria-hidden="true"></span></div><div class="emotion-photo-placeholder" aria-hidden="true"></div><p>Cukrus</p></article>
+					<article class="emotion-card emotion-card-placeholder"><div class="emotion-card-tools"><button class="emotion-audio" type="button" aria-label="Leisti garsą: krapai"><span aria-hidden="true">◖))</span> Garsas</button><span class="emotion-add-placeholder" aria-hidden="true"></span></div><div class="emotion-photo-placeholder" aria-hidden="true"></div><p>Krapai</p></article>
+					<article class="emotion-card emotion-card-placeholder"><div class="emotion-card-tools"><button class="emotion-audio" type="button" aria-label="Leisti garsą: petražolės"><span aria-hidden="true">◖))</span> Garsas</button><span class="emotion-add-placeholder" aria-hidden="true"></span></div><div class="emotion-photo-placeholder" aria-hidden="true"></div><p>Petražolės</p></article>
+					<article class="emotion-card emotion-card-placeholder"><div class="emotion-card-tools"><button class="emotion-audio" type="button" aria-label="Leisti garsą: bazilikas"><span aria-hidden="true">◖))</span> Garsas</button><span class="emotion-add-placeholder" aria-hidden="true"></span></div><div class="emotion-photo-placeholder" aria-hidden="true"></div><p>Bazilikas</p></article>
+					<article class="emotion-card emotion-card-placeholder"><div class="emotion-card-tools"><button class="emotion-audio" type="button" aria-label="Leisti garsą: raudonėlis"><span aria-hidden="true">◖))</span> Garsas</button><span class="emotion-add-placeholder" aria-hidden="true"></span></div><div class="emotion-photo-placeholder" aria-hidden="true"></div><p>Raudonėlis</p></article>
+					<article class="emotion-card emotion-card-placeholder"><div class="emotion-card-tools"><button class="emotion-audio" type="button" aria-label="Leisti garsą: mėta"><span aria-hidden="true">◖))</span> Garsas</button><span class="emotion-add-placeholder" aria-hidden="true"></span></div><div class="emotion-photo-placeholder" aria-hidden="true"></div><p>Mėta</p></article>
+					<article class="emotion-card emotion-card-placeholder"><div class="emotion-card-tools"><button class="emotion-audio" type="button" aria-label="Leisti garsą: rūkyta paprika"><span aria-hidden="true">◖))</span> Garsas</button><span class="emotion-add-placeholder" aria-hidden="true"></span></div><div class="emotion-photo-placeholder" aria-hidden="true"></div><p>Rūkyta paprika</p></article>
+					<article class="emotion-card emotion-card-placeholder"><div class="emotion-card-tools"><button class="emotion-audio" type="button" aria-label="Leisti garsą: česnakas"><span aria-hidden="true">◖))</span> Garsas</button><span class="emotion-add-placeholder" aria-hidden="true"></span></div><div class="emotion-photo-placeholder" aria-hidden="true"></div><p>Česnakas</p></article>
+				</template>
+				<template id="cooking-process-cards">
+					<article class="emotion-card emotion-card-placeholder"><div class="emotion-card-tools"><button class="emotion-audio" type="button" aria-label="Leisti garsą: plauti"><span aria-hidden="true">◖))</span> Garsas</button><span class="emotion-add-placeholder" aria-hidden="true"></span></div><div class="emotion-photo-placeholder" aria-hidden="true"></div><p>Plauti</p></article>
+					<article class="emotion-card emotion-card-placeholder"><div class="emotion-card-tools"><button class="emotion-audio" type="button" aria-label="Leisti garsą: skusti"><span aria-hidden="true">◖))</span> Garsas</button><span class="emotion-add-placeholder" aria-hidden="true"></span></div><div class="emotion-photo-placeholder" aria-hidden="true"></div><p>Skusti</p></article>
+					<article class="emotion-card emotion-card-placeholder"><div class="emotion-card-tools"><button class="emotion-audio" type="button" aria-label="Leisti garsą: plakti"><span aria-hidden="true">◖))</span> Garsas</button><span class="emotion-add-placeholder" aria-hidden="true"></span></div><div class="emotion-photo-placeholder" aria-hidden="true"></div><p>Plakti</p></article>
+					<article class="emotion-card emotion-card-placeholder"><div class="emotion-card-tools"><button class="emotion-audio" type="button" aria-label="Leisti garsą: tarkuoti"><span aria-hidden="true">◖))</span> Garsas</button><span class="emotion-add-placeholder" aria-hidden="true"></span></div><div class="emotion-photo-placeholder" aria-hidden="true"></div><p>Tarkuoti</p></article>
+					<article class="emotion-card emotion-card-placeholder"><div class="emotion-card-tools"><button class="emotion-audio" type="button" aria-label="Leisti garsą: kepti"><span aria-hidden="true">◖))</span> Garsas</button><span class="emotion-add-placeholder" aria-hidden="true"></span></div><div class="emotion-photo-placeholder" aria-hidden="true"></div><p>Kepti</p></article>
+					<article class="emotion-card emotion-card-placeholder"><div class="emotion-card-tools"><button class="emotion-audio" type="button" aria-label="Leisti garsą: virti"><span aria-hidden="true">◖))</span> Garsas</button><span class="emotion-add-placeholder" aria-hidden="true"></span></div><div class="emotion-photo-placeholder" aria-hidden="true"></div><p>Virti</p></article>
+					<article class="emotion-card emotion-card-placeholder"><div class="emotion-card-tools"><button class="emotion-audio" type="button" aria-label="Leisti garsą: pjaustyti"><span aria-hidden="true">◖))</span> Garsas</button><span class="emotion-add-placeholder" aria-hidden="true"></span></div><div class="emotion-photo-placeholder" aria-hidden="true"></div><p>Pjaustyti</p></article>
+					<article class="emotion-card emotion-card-placeholder"><div class="emotion-card-tools"><button class="emotion-audio" type="button" aria-label="Leisti garsą: kočioti"><span aria-hidden="true">◖))</span> Garsas</button><span class="emotion-add-placeholder" aria-hidden="true"></span></div><div class="emotion-photo-placeholder" aria-hidden="true"></div><p>Kočioti</p></article>
+					<article class="emotion-card emotion-card-placeholder"><div class="emotion-card-tools"><button class="emotion-audio" type="button" aria-label="Leisti garsą: orkaitė"><span aria-hidden="true">◖))</span> Garsas</button><span class="emotion-add-placeholder" aria-hidden="true"></span></div><div class="emotion-photo-placeholder" aria-hidden="true"></div><p>Orkaitė</p></article>
+					<article class="emotion-card emotion-card-placeholder"><div class="emotion-card-tools"><button class="emotion-audio" type="button" aria-label="Leisti garsą: maišyti"><span aria-hidden="true">◖))</span> Garsas</button><span class="emotion-add-placeholder" aria-hidden="true"></span></div><div class="emotion-photo-placeholder" aria-hidden="true"></div><p>Maišyti</p></article>
+					<article class="emotion-card emotion-card-placeholder"><div class="emotion-card-tools"><button class="emotion-audio" type="button" aria-label="Leisti garsą: sverti"><span aria-hidden="true">◖))</span> Garsas</button><span class="emotion-add-placeholder" aria-hidden="true"></span></div><div class="emotion-photo-placeholder" aria-hidden="true"></div><p>Sverti</p></article>
+				</template>
+				<template id="utensil-cards">
+					<article class="emotion-card emotion-card-placeholder"><div class="emotion-card-tools"><button class="emotion-audio" type="button" aria-label="Leisti garsą: lėkštė"><span aria-hidden="true">◖))</span> Garsas</button><span class="emotion-add-placeholder" aria-hidden="true"></span></div><div class="emotion-photo-placeholder" aria-hidden="true"></div><p>Lėkštė</p></article>
+					<article class="emotion-card emotion-card-placeholder"><div class="emotion-card-tools"><button class="emotion-audio" type="button" aria-label="Leisti garsą: dubenėlis"><span aria-hidden="true">◖))</span> Garsas</button><span class="emotion-add-placeholder" aria-hidden="true"></span></div><div class="emotion-photo-placeholder" aria-hidden="true"></div><p>Dubenėlis</p></article>
+					<article class="emotion-card emotion-card-placeholder"><div class="emotion-card-tools"><button class="emotion-audio" type="button" aria-label="Leisti garsą: puodelis"><span aria-hidden="true">◖))</span> Garsas</button><span class="emotion-add-placeholder" aria-hidden="true"></span></div><div class="emotion-photo-placeholder" aria-hidden="true"></div><p>Puodelis</p></article>
+					<article class="emotion-card emotion-card-placeholder"><div class="emotion-card-tools"><button class="emotion-audio" type="button" aria-label="Leisti garsą: stiklinė"><span aria-hidden="true">◖))</span> Garsas</button><span class="emotion-add-placeholder" aria-hidden="true"></span></div><div class="emotion-photo-placeholder" aria-hidden="true"></div><p>Stiklinė</p></article>
+					<article class="emotion-card emotion-card-placeholder"><div class="emotion-card-tools"><button class="emotion-audio" type="button" aria-label="Leisti garsą: šaukštelis"><span aria-hidden="true">◖))</span> Garsas</button><span class="emotion-add-placeholder" aria-hidden="true"></span></div><div class="emotion-photo-placeholder" aria-hidden="true"></div><p>Šaukštelis</p></article>
+					<article class="emotion-card emotion-card-placeholder"><div class="emotion-card-tools"><button class="emotion-audio" type="button" aria-label="Leisti garsą: šakutė"><span aria-hidden="true">◖))</span> Garsas</button><span class="emotion-add-placeholder" aria-hidden="true"></span></div><div class="emotion-photo-placeholder" aria-hidden="true"></div><p>Šakutė</p></article>
+					<article class="emotion-card emotion-card-placeholder"><div class="emotion-card-tools"><button class="emotion-audio" type="button" aria-label="Leisti garsą: šaukštas"><span aria-hidden="true">◖))</span> Garsas</button><span class="emotion-add-placeholder" aria-hidden="true"></span></div><div class="emotion-photo-placeholder" aria-hidden="true"></div><p>Šaukštas</p></article>
+					<article class="emotion-card emotion-card-placeholder"><div class="emotion-card-tools"><button class="emotion-audio" type="button" aria-label="Leisti garsą: peilis"><span aria-hidden="true">◖))</span> Garsas</button><span class="emotion-add-placeholder" aria-hidden="true"></span></div><div class="emotion-photo-placeholder" aria-hidden="true"></div><p>Peilis</p></article>
+					<article class="emotion-card emotion-card-placeholder"><div class="emotion-card-tools"><button class="emotion-audio" type="button" aria-label="Leisti garsą: servetėlė"><span aria-hidden="true">◖))</span> Garsas</button><span class="emotion-add-placeholder" aria-hidden="true"></span></div><div class="emotion-photo-placeholder" aria-hidden="true"></div><p>Servetėlė</p></article>
+					<article class="emotion-card emotion-card-placeholder"><div class="emotion-card-tools"><button class="emotion-audio" type="button" aria-label="Leisti garsą: padėklas"><span aria-hidden="true">◖))</span> Garsas</button><span class="emotion-add-placeholder" aria-hidden="true"></span></div><div class="emotion-photo-placeholder" aria-hidden="true"></div><p>Padėklas</p></article>
+				</template>
+				<div class="emotion-grid" aria-label="Kortelės">
+				</div>
+			</div>
+			<div class="search-results" id="search-results" hidden aria-live="polite"></div>
+		</section>
+
+		<nav class="tabbar" aria-label="Pagrindinė navigacija">
+			<button class="tabbar-item tabbar-item--back" id="tab-back" type="button" aria-label="Atgal">
+				<svg viewBox="0 0 24 24" aria-hidden="true">
+					<path d="M20.25 12H3.75" />
+					<path d="M10.5 5.25L3.75 12L10.5 18.75" />
+				</svg>
+				<span class="tabbar-label">Atgal</span>
+			</button>
+			<button class="tabbar-item" id="tab-home" type="button" aria-label="Pagrindinis" aria-current="page">
+				<svg viewBox="0 0 24 24" aria-hidden="true">
+					<path d="M1.5 20.25H22.5" />
+					<path d="M14.25 20.25V14.25H9.75V20.25" />
+					<path d="M3.75 10.9375V20.2478" />
+					<path d="M20.25 20.2478V10.9375" />
+					<path d="M2.25 12.4403L11.4694 3.21996C11.539 3.15023 11.6217 3.09491 11.7128 3.05717C11.8038 3.01943 11.9014 3 12 3C12.0986 3 12.1962 3.01943 12.2872 3.05717C12.3783 3.09491 12.461 3.15023 12.5306 3.21996L21.75 12.4403" />
+				</svg>
+				<span class="tabbar-label">Pagrindinis</span>
+			</button>
+		</nav>
+
+		<nav class="bottom-nav" aria-label="Kortelių kūrimas">
+			<div class="bottom-nav-actions">
+			<button class="nav-item nav-back" id="nav-back" type="button" aria-label="Atgal">
+				<span class="nav-back-icon" aria-hidden="true"><img src="NAVIGACIJOA IKONOS/ATGAL.svg" alt=""></span>
+				<span>Atgal</span>
+			</button>
+			<button class="nav-item nav-home" id="nav-home" type="button" aria-label="Pagrindinis">
+				<span class="nav-home-icon" aria-hidden="true"><img src="NAVIGACIJOA IKONOS/PRADŽIA.svg" alt=""></span>
+				<span>Pagrindinis</span>
+			</button>
+			</div>
+		</nav>
+
+		<dialog class="card-dialog" id="personal-card-dialog" aria-labelledby="personal-card-title-heading">
+			<form class="card-dialog-form" id="personal-card-form">
+				<header class="card-dialog-header">
+					<div>
+						<h2 id="personal-card-title-heading">Mano kortelė</h2>
+						<p>Išsaugoma tik šiame telefone</p>
+					</div>
+					<button class="card-dialog-close" id="close-personal-card-dialog" type="button" aria-label="Uždaryti">×</button>
+				</header>
+				<label class="card-form-field" for="personal-card-name">Kortelės pavadinimas
+					<input id="personal-card-name" name="name" type="text" maxlength="60" autocomplete="off" required>
+				</label>
+				<div class="card-photo-field">
+					<span class="card-form-label">Nuotrauka</span>
+					<div class="card-photo-controls">
+						<div class="card-photo-preview" id="personal-card-photo-preview" aria-label="Nuotraukos peržiūra"></div>
+						<label class="card-photo-select" for="personal-card-photo">Pasirinkti nuotrauką</label>
+						<input class="sr-only" id="personal-card-photo" name="photo" type="file" accept="image/*">
+					</div>
+				</div>
+				<div class="card-audio-field">
+					<span class="card-form-label">Garso įrašas</span>
+					<div class="card-audio-controls">
+						<label class="card-photo-select" for="personal-card-audio">Pasirinkti įrašą</label>
+						<input class="sr-only" id="personal-card-audio" name="audio" type="file" accept=".mp3,.mp4,audio/*,video/mp4">
+						<button class="card-photo-select" id="record-personal-card-audio" type="button">Įrašyti su mikrofonu</button>
+						<button class="card-photo-select" id="stop-personal-card-audio" type="button" hidden>Baigti įrašymą</button>
+						<video class="card-audio-preview" id="personal-card-audio-preview" controls playsinline hidden></video>
+					</div>
+				</div>
+			<p class="card-form-status" id="personal-card-status" role="status" aria-live="polite"></p>
+			<div class="card-dialog-actions">
+				<button class="card-cancel-button" id="cancel-personal-card" type="button">Atšaukti</button>
+				<button class="card-save-button" type="submit">Pridėti kortelę</button>
+			</div>
+			</form>
+		</dialog>
+	</main>
+	<script>
+		const categoriesTitle = document.querySelector("#categories-title");
+		const categoryList = document.querySelector(".category-list");
+		const emotionView = document.querySelector("#emotion-view");
+		const categoriesPanel = document.querySelector(".categories");
+		const emotionHeading = document.querySelector(".emotion-heading h2");
+		const emotionHeadingIcon = document.querySelector(".emotion-heading img");
+		const emotionGrid = document.querySelector(".emotion-grid");
+		const selectedWordsTray = document.querySelector("#selected-words");
+		const sentenceBar = document.querySelector("#sentence-bar");
+		const sentenceText = document.querySelector("#sentence-text");
+		const searchInput = document.querySelector(".search-box input");
+		const desktopSearchToggle = document.querySelector("#desktop-search-toggle");
+
+		const foodSubgroups = document.querySelector("#food-subgroups");
+		const cookingSubgroups = document.querySelector("#cooking-subgroups");
+		const ingredientSubgroups = document.querySelector("#ingredient-subgroups");
+		[
+			[document.querySelector(".category-row--food"), foodSubgroups],
+			[document.querySelector(".category-row--cooking"), cookingSubgroups]
+		].forEach(([categoryRow, subgroups]) => {
+			const summary = document.createElement("span");
+			summary.className = "category-subgroup-summary";
+			summary.textContent = Array.from(subgroups.querySelectorAll(".subcategory-label"), (label) => label.textContent.trim()).join(", ");
+			categoryRow.classList.add("has-subgroups-summary");
+			categoryRow.insertBefore(summary, categoryRow.querySelector(".chevron"));
+		});
+		const householdChoresCards = document.querySelector("#household-chores-cards");
+		const restCards = document.querySelector("#rest-cards");
+		const publicPlaceCards = document.querySelector("#public-place-cards");
+		const naturePlaceCards = document.querySelector("#nature-place-cards");
+		const sportCards = document.querySelector("#sport-cards");
+		const ingredientCardTemplates = {
+			"Vaisiai": document.querySelector("#fruit-cards"),
+			"Uogos": document.querySelector("#berry-cards"),
+			"Daržovės": document.querySelector("#vegetable-cards"),
+			"Duona": document.querySelector("#bread-cards"),
+			"Kiaušiniai": document.querySelector("#egg-cards"),
+			"Pienas": document.querySelector("#dairy-cards"),
+			"Mėsa": document.querySelector("#meat-cards"),
+			"Žuvis": document.querySelector("#fish-cards"),
+			"Paruošti produktai": document.querySelector("#prepared-food-cards"),
+			"Makaronai": document.querySelector("#pasta-cards"),
+			"Padažai": document.querySelector("#sauce-cards"),
+			"Kruopos": document.querySelector("#grain-cards"),
+			"Prieskoniai": document.querySelector("#spice-cards"),
+			"Gaminimo procesas": document.querySelector("#cooking-process-cards"),
+			"Indai": document.querySelector("#utensil-cards")
+		};
+		const appShell = document.querySelector(".app-shell");
+		let currentCategoryName = "";
+		let currentSubgroup = false;
+		let currentIngredientList = false;
+		let selectedWords = [];
+		let nextSelectedWordId = 0;
+		let personalCards = [];
+		let personalCardStorageError = null;
+		let personalCardDatabasePromise;
+		let personalCardPreviewUrl = "";
+		const personalCardDialog = document.querySelector("#personal-card-dialog");
+		const personalCardForm = document.querySelector("#personal-card-form");
+		const personalCardName = document.querySelector("#personal-card-name");
+		const personalCardPhoto = document.querySelector("#personal-card-photo");
+		const personalCardAudio = document.querySelector("#personal-card-audio");
+		const personalCardAudioPreview = document.querySelector("#personal-card-audio-preview");
+		const personalCardRecordButton = document.querySelector("#record-personal-card-audio");
+		const personalCardStopRecordingButton = document.querySelector("#stop-personal-card-audio");
+		const personalCardSubmitButton = personalCardForm.querySelector("[type='submit']");
+		const personalCardPhotoPreview = document.querySelector("#personal-card-photo-preview");
+		const personalCardStatus = document.querySelector("#personal-card-status");
+		const customCardObjectUrls = new Map();
+		const selectedWordObjectUrls = new Map();
+		let personalCardAudioPreviewUrl = "";
+		let personalCardRecordedAudio = null;
+		let personalCardRecordingSession = null;
+		let personalCardRecordingRequestId = 0;
+		let activeAudioPlayer = null;
+		let activeAudioUrl = "";
+		const emotionAudioFiles = new Map([
+			["panika", "garsai/emocijų garsai/panika.mp3"],
+			["piktas", "garsai/emocijų garsai/piktas.mp3"],
+			["liūdna", "garsai/emocijų garsai/LIŪDNA.mp3"],
+			["verkiu", "garsai/emocijų garsai/VERKIU.mp3"],
+			["irzlus", "garsai/emocijų garsai/irzlus.mp3"],
+			["pavargęs", "garsai/emocijų garsai/pavargęs.mp3"],
+			["nuobodu", "garsai/emocijų garsai/nuobodu.mp3"],
+			["nerimas", "garsai/emocijų garsai/nerimas.mp3"],
+			["ramybė", "garsai/emocijų garsai/ramybė.mp3"],
+			["laimė", "garsai/emocijų garsai/laimė.mp3"],
+			["patinka", "garsai/emocijų garsai/patinka.mp3"],
+			["įsimylėjęs", "garsai/emocijų garsai/įsimylėjęs.mp3"]
+		]);
+		const fruitImageFiles = new Map([
+			["obuolys", "nuotraukos/vaisiai/obuolys.jpg"],
+			["kriaušė", "nuotraukos/vaisiai/kriaušė.jpg"],
+			["bananas", "nuotraukos/vaisiai/bananas.jpg"],
+			["apelsinas", "nuotraukos/vaisiai/apelsinas.jpg"],
+			["mandarinas", "nuotraukos/vaisiai/mandarinas.jpg"],
+			["laimas", "nuotraukos/vaisiai/laimas.jpg"],
+			["greipfrutas", "nuotraukos/vaisiai/greipfrutas.jpg"],
+			["citrina", "nuotraukos/vaisiai/citrina.jpg"],
+			["pamelo", "nuotraukos/vaisiai/pamelo.jpg"],
+			["melionas", "nuotraukos/vaisiai/melionas.jpg"],
+			["arbūzas", "nuotraukos/vaisiai/ARBŪZAS.jpg"],
+			["slyva", "nuotraukos/vaisiai/slyva.jpg"],
+			["avokadas", "nuotraukos/vaisiai/avokadas.jpg"],
+			["kivis", "nuotraukos/vaisiai/kivis.jpg"],
+			["mangas", "nuotraukos/vaisiai/mangas.jpg"],
+			["ananasas", "nuotraukos/vaisiai/ananasas.jpg"],
+			["granatas", "nuotraukos/vaisiai/granatas.jpg"],
+			["persimonas", "nuotraukos/vaisiai/persimonas.jpg"]
+		]);
+		const berryImageFiles = new Map([
+			["vyšnia", "nuotraukos/uogos/vyšnia.jpg"],
+			["žemuogė", "nuotraukos/uogos/žemuogė.jpg"],
+			["braškė", "nuotraukos/uogos/braškės.jpg"],
+			["avietė", "nuotraukos/uogos/avietė.jpg"],
+			["šilauogė", "nuotraukos/uogos/šilauogė.jpg"],
+			["vynuogė", "nuotraukos/uogos/vynuogė.jpg"]
+		]);
+		const vegetableImageFiles = new Map([
+			["bulvė", "nuotraukos/daržovės/bulvė.jpg"],
+			["saldi bulvė", "nuotraukos/daržovės/saldi bulvė.jpg"],
+			["morka", "nuotraukos/daržovės/morka.jpg"],
+			["burokėlis", "nuotraukos/daržovės/burokėlis.jpg"],
+			["ridikėlis", "nuotraukos/daržovės/ridikėliai.jpg"],
+			["česnakas", "nuotraukos/daržovės/česnakas.jpg"],
+			["svogūnas", "nuotraukos/daržovės/svogūnas.jpg"],
+			["pomidoras", "nuotraukos/daržovės/pomidoras.jpg"],
+			["agurkas", "nuotraukos/daržovės/agurkai.jpg"],
+			["salotos", "nuotraukos/daržovės/salotos.jpg"],
+			["paprika", "nuotraukos/daržovės/paprika.jpg"],
+			["cukinija", "nuotraukos/daržovės/cukinija.jpg"],
+			["moliūgas", "nuotraukos/daržovės/moliūgas.jpg"],
+			["kopūstas", "nuotraukos/daržovės/kopūstas.jpg"],
+			["brokolis", "nuotraukos/daržovės/brokolis.jpg"],
+			["žiedinis kopūstas", "nuotraukos/daržovės/žiedinis kopūstas.jpg"],
+			["žirniai", "nuotraukos/daržovės/žirniai.jpg"],
+			["kukurūzai", "nuotraukos/daržovės/kukurūzai.jpg"]
+		]);
+		const dishImageFiles = new Map([
+			["kepti kiaušiniai", "nuotraukos/patiekalai/kepti kiaušiniai.jpeg"],
+			["virti kiaušiniai", "nuotraukos/patiekalai/virti kiaušiniai.jpeg"],
+			["omletas", "nuotraukos/patiekalai/omletas.jpeg"],
+			["salotos", "nuotraukos/patiekalai/salotos.jpeg"],
+			["kepsnys", "nuotraukos/patiekalai/kepsnys.jpeg"],
+			["burgeris", "nuotraukos/patiekalai/burgeris.jpeg"],
+			["dešrelės", "nuotraukos/patiekalai/dešrelės.jpeg"],
+			["maltinukas", "nuotraukos/patiekalai/maltinukas.jpeg"],
+			["sriuba", "nuotraukos/patiekalai/sriuba.jpeg"],
+			["lazanija", "nuotraukos/patiekalai/lazanija.jpeg"],
+			["spagečiai", "nuotraukos/patiekalai/spagečiai.jpeg"],
+			["pica", "nuotraukos/patiekalai/pica.jpeg"],
+			["blynai", "nuotraukos/patiekalai/blynai.jpeg"],
+			["lietiniai", "nuotraukos/patiekalai/lietiniai.jpeg"]
+		]);
+		const pastryImageFiles = new Map([
+			["juoda duona", "nuotraukos/kepiniai/juoda duona.jpeg"],
+			["duonelė", "nuotraukos/kepiniai/duonelė.jpeg"],
+			["sumuštinių duona", "nuotraukos/kepiniai/sumuštinių duona.jpeg"],
+			["ilgas batonas", "nuotraukos/kepiniai/ilgas batonas.jpeg"],
+			["kruasanas", "nuotraukos/kepiniai/kruasanas.jpeg"],
+			["bandelė", "nuotraukos/kepiniai/bandelė (2).jpeg"],
+			["tortas", "nuotraukos/kepiniai/tortas.jpeg"],
+			["keksiukas", "nuotraukos/kepiniai/keksiukas.jpeg"]
+		]);
+		const breadImageFiles = new Map([
+			["dešrainių bandelė", "nuotraukos/duona/dešrainių bandelė.jpg"],
+			["mėsainių bandelė", "nuotraukos/duona/mėsainių bandelė.jpg"]
+		]);
+		const eggImageFiles = new Map([
+			["kiaušiniai", "nuotraukos/kiaušiniai/kiaušiniai.jpg"],
+			["putpelių kiaušiniai", "nuotraukos/kiaušiniai/putpelių kiaušiniai.jpg"]
+		]);
+		const dairyImageFiles = new Map([
+			["grietinė", "nuotraukos/pienas/grietinė.jpg"],
+			["užtepėlė", "nuotraukos/pienas/užtepėlė.jpg"],
+			["pienas", "nuotraukos/pienas/pienas.jpg"],
+			["grietinėlė", "nuotraukos/pienas/grietinėlė.jpg"],
+			["sviestas", "nuotraukos/pienas/sviestas.jpg"],
+			["sūris", "nuotraukos/pienas/sūris.jpg"],
+			["varškė", "nuotraukos/pienas/varškė.jpg"]
+		]);
+		const meatImageFiles = new Map([
+			["šoninė", "nuotraukos/mėsa/šoninė.jpg"],
+			["jautiena", "nuotraukos/mėsa/jautinea.jpg"],
+			["malta mėsa", "nuotraukos/mėsa/malta mėsa.jpg"],
+			["blauzdelės", "nuotraukos/mėsa/blauzdeles.jpg"],
+			["šonkauliukai", "nuotraukos/mėsa/šonkauliukai.jpg"],
+			["šviežios dešrelės", "nuotraukos/mėsa/šviežios dešrelės.jpg"],
+			["vištienos krūtinėlė", "nuotraukos/mėsa/vištienos krutinėlė.jpg"],
+			["vištienos petukai", "nuotraukos/mėsa/vištienos petukai.jpg"]
+		]);
+		const pastaImageFiles = new Map([
+			["spagečiai", "nuotraukos/makaronai/spagečiai.jpg"],
+			["rageliai", "nuotraukos/makaronai/rageliai.jpg"],
+			["sraigteliai", "nuotraukos/makaronai/sraigteliai.jpg"],
+			["lazanija", "nuotraukos/makaronai/lazanija.jpg"],
+			["kaspinėliai", "nuotraukos/makaronai/kaspinėliai.jpg"],
+			["talieteliai", "nuotraukos/makaronai/talieteliai.jpg"],
+			["vamzdeliai", "nuotraukos/makaronai/vamzdeliai.jpg"],
+			["vermišeliai", "nuotraukos/makaronai/vermišeliai.jpg"]
+		]);
+		const sauceImageFiles = new Map([
+			["pomidorų padažas", "nuotraukos/padažai/pomidorų padažas.jpg"],
+			["majonezas", "nuotraukos/padažai/majonezas.jpg"],
+			["garstyčios", "nuotraukos/padažai/garstyčios.jpg"],
+			["soja", "nuotraukos/padažai/soja.jpg"],
+			["kečupas", "nuotraukos/padažai/kečupas.jpg"],
+			["saldžiarūgštis padažas", "nuotraukos/padažai/saldžiarūgštis padažas.jpg"],
+			["alyvuogių aliejus", "nuotraukos/padažai/alyvuogių aliejus.jpg"],
+			["actas", "nuotraukos/padažai/actas.jpg"]
+		]);
+		const spiceImageFiles = new Map([
+			["druska", "nuotraukos/prieskoniai/druska.jpg"],
+			["pipirai", "nuotraukos/prieskoniai/pipirai.jpg"],
+			["cukrus", "nuotraukos/prieskoniai/cukrus.jpg"],
+			["krapai", "nuotraukos/prieskoniai/krapai.jpg"],
+			["petražolės", "nuotraukos/prieskoniai/petražolės.jpg"],
+			["bazilikas", "nuotraukos/prieskoniai/bazilikas.jpg"],
+			["raudonėlis", "nuotraukos/prieskoniai/raudinėlis.jpg"],
+			["mėta", "nuotraukos/prieskoniai/mėta.jpg"],
+			["rūkyta paprika", "nuotraukos/prieskoniai/rūkyta paprika.jpg"],
+			["česnakas", "nuotraukos/daržovės/česnakas.jpg"]
+		]);
+		const preparedFoodImageFiles = new Map([
+			["dešra", "nuotraukos/paruošti produktai/dešra.jpg"],
+			["virta dešra", "nuotraukos/paruošti produktai/virta dešra.jpg"],
+			["pieniškos dešrelės", "nuotraukos/paruošti produktai/dešrelės.jpg"],
+			["kepsneliai", "nuotraukos/paruošti produktai/kepsneliai.jpg"],
+			["kumpis", "nuotraukos/paruošti produktai/kumpis.jpg"],
+			["paštetas", "nuotraukos/paruošti produktai/paštetas.jpg"],
+			["koldūnai", "nuotraukos/paruošti produktai/koldūnai.jpg"],
+			["blynai", "nuotraukos/paruošti produktai/blymai.jpg"],
+			["ikrai", "nuotraukos/paruošti produktai/ikrai.jpg"],
+			["silkė", "nuotraukos/paruošti produktai/silkė.jpg"],
+			["krabų lazdelės", "nuotraukos/paruošti produktai/krabų lkazdelės.jpg"],
+			["žuvies piršteliai", "nuotraukos/paruošti produktai/žuvies piršteliai.jpg"]
+		]);
+		const cookingProcessImageFiles = new Map([
+			["plauti", "nuotraukos/gaminimo procesas/plauti.jpg"],
+			["skusti", "nuotraukos/gaminimo procesas/skusti.jpg"],
+			["plakti", "nuotraukos/gaminimo procesas/plakti.jpg"],
+			["tarkuoti", "nuotraukos/gaminimo procesas/tarkuoti.jpg"],
+			["kepti", "nuotraukos/gaminimo procesas/kepti.jpg"],
+			["virti", "nuotraukos/gaminimo procesas/virti.jpg"],
+			["pjaustyti", "nuotraukos/gaminimo procesas/pjaustyti.jpg"],
+			["kočioti", "nuotraukos/gaminimo procesas/kočioti.jpg"],
+			["orkaitė", "nuotraukos/gaminimo procesas/orkaitė.jpg"],
+			["maišyti", "nuotraukos/gaminimo procesas/maišyti.jpg"],
+			["sverti", "nuotraukos/gaminimo procesas/sverti.jpg"]
+		]);
+		const utensilImageFiles = new Map([
+			["lėkštė", "nuotraukos/indai/lėkštė.jpg"],
+			["dubenėlis", "nuotraukos/indai/dubenėlis.jpg"],
+			["puodelis", "nuotraukos/indai/puodelis.jpg"],
+			["stiklinė", "nuotraukos/indai/stiklinė.jpg"],
+			["šaukštelis", "nuotraukos/indai/šaukštelis.jpg"],
+			["šakutė", "nuotraukos/indai/šakutė.jpg"],
+			["šaukštas", "nuotraukos/indai/šaukštas.jpg"],
+			["peilis", "nuotraukos/indai/peilis.jpg"],
+			["servetėlė", "nuotraukos/indai/servetėlės.jpg"],
+			["padėklas", "nuotraukos/indai/padėklas.jpg"]
+		]);
+		const snackImageFiles = new Map([
+			["trapučiai", "nuotraukos/užkandžiai/trapučiai.jpeg"],
+			["riešutai", "nuotraukos/užkandžiai/riešutai.jpeg"],
+			["džiovinti vaisiai", "nuotraukos/užkandžiai/džiovinti vaisiai.jpeg"],
+			["popkornai", "nuotraukos/užkandžiai/popkornai.jpeg"],
+			["traškučiai", "nuotraukos/užkandžiai/traškučiai.jpeg"],
+			["lazdelės", "nuotraukos/užkandžiai/lazdelės.jpeg"]
+		]);
+		const sweetsImageFiles = new Map([
+			["bandelė", "nuotraukos/saldumynai/bandelė (2).jpeg"],
+			["ledai", "nuotraukos/saldumynai/ledai.jpeg"],
+			["saldainis", "nuotraukos/saldumynai/saldainis.jpeg"],
+			["guminukai", "nuotraukos/saldumynai/guminukai.jpeg"],
+			["sausainis", "nuotraukos/saldumynai/sausainis.jpeg"],
+			["vaflis", "nuotraukos/saldumynai/vaflis.jpeg"],
+			["šokoladas", "nuotraukos/saldumynai/šokoladas.jpeg"],
+			["čiulpinukas", "nuotraukos/saldumynai/čiulpinukas.jpeg"]
+		]);
+		const drinkImageFiles = new Map([
+			["vanduo", "nuotraukos/gerti/vanduo.jpeg"],
+			["sultys", "nuotraukos/gerti/sultys.jpeg"],
+			["vanduo su citrina", "nuotraukos/gerti/vanduo su citrina.jpg"],
+			["gazuotas vanduo", "nuotraukos/gerti/gazuotas vanduo.jpeg"],
+			["limonadas", "nuotraukos/gerti/limonadas.jpg"],
+			["kokteilis", "nuotraukos/gerti/kokteilis.jpg"],
+			["kava", "nuotraukos/gerti/kava.jpg"],
+			["arbata", "nuotraukos/gerti/arbata.jpg"],
+			["kakava", "nuotraukos/gerti/kakava.jpg"],
+			["pienas", "nuotraukos/gerti/pienas.jpg"],
+			["kefyras", "nuotraukos/gerti/kefyras.jpg"],
+			["jogurtas", "nuotraukos/gerti/jogurtas.jpg"]
+		]);
+		const toiletImageFiles = new Map([
+			["tualetas", "nuotraukos/tualetas/tualetas.jpg"],
+			["tualetinis popierius", "nuotraukos/tualetas/tualetinis popierius.jpg"],
+			["tualeto šepetys", "nuotraukos/tualetas/tualeto šepetys.jpg"],
+			["oro gaiviklis", "nuotraukos/tualetas/oro gaiviklis.jpg"],
+			["nuleisti vandenį", "nuotraukos/tualetas/nuleisti vandeni.jpg"],
+			["plauti rankas", "nuotraukos/tualetas/plauti rankas.jpg"],
+			["skystas muilas", "nuotraukos/tualetas/skystas muilas.jpg"],
+			["rankšluostis", "nuotraukos/tualetas/rankšluostis.jpg"]
+		]);
+		const householdChoreImageFiles = new Map([
+			["plauti indus", "nuotraukos/namų ruoša/plauti indus.jpg"],
+			["plauti grindis", "nuotraukos/namų ruoša/plauti grindis.jpg"],
+			["išnešti šiukšles", "nuotraukos/namų ruoša/išnešti šiukšles.jpg"],
+			["valyti dulkes", "nuotraukos/namų ruoša/valyti dulkes.jpg"],
+			["skalbti", "nuotraukos/namų ruoša/skalbti.jpg"],
+			["džiovinti", "nuotraukos/namų ruoša/džiovinti.jpg"],
+			["laistyti gėles", "nuotraukos/namų ruoša/lastyti gėles.jpg"],
+			["siurbti", "nuotraukos/namų ruoša/siurbti grindis.jpg"]
+		]);
+		const restImageFiles = new Map([
+			["ausinės", "nuotraukos/poilsis/ausinės.jpg"],
+			["kvėpavimas", "nuotraukos/poilsis/kvėpavimas.jpg"],
+			["miegas", "nuotraukos/poilsis/miegas.jpg"],
+			["sėdmaišis", "nuotraukos/poilsis/sėdmaišis.jpg"]
+		]);
+		const entertainmentImageFiles = new Map([
+			["piešimas", "nuotraukos/pramogos/piešimas.jpg"],
+			["žaisti", "nuotraukos/pramogos/žaisti.jpg"],
+			["kompiuteris", "nuotraukos/pramogos/kompiuteris.jpg"],
+			["televizorius", "nuotraukos/pramogos/televizorius.jpg"],
+			["koncertas", "nuotraukos/pramogos/koncertas.jpg"],
+			["žaidimai", "nuotraukos/pramogos/žaidimai.jpg"],
+			["teatras", "nuotraukos/pramogos/teatras.jpg"],
+			["piknikas", "nuotraukos/pramogos/piknikas.jpg"]
+		]);
+		const homeLocationImageFiles = new Map([
+			["svetainė", "nuotraukos/namai/svetainė.jpg"],
+			["miegamasis", "nuotraukos/namai/miegamasis.jpg"],
+			["vonia", "nuotraukos/namai/vonia.jpg"],
+			["virtuvė", "nuotraukos/namai/virtuvė.jpg"],
+			["koridorius", "nuotraukos/namai/koridorius.jpg"],
+			["drabužinė", "nuotraukos/namai/drabužinė.jpg"]
+		]);
+		const publicPlaceImageFiles = new Map([
+			["mokykla", "nuotraukos/viešos erdvės/mokykla.jpg"],
+			["darželis", "nuotraukos/viešos erdvės/darželis.jpg"],
+			["parduotuvė", "nuotraukos/viešos erdvės/parduotuvė.jpg"],
+			["ligoninė", "nuotraukos/viešos erdvės/ligoninė.jpg"],
+			["dantistas", "nuotraukos/viešos erdvės/dantistas.jpg"],
+			["kirpykla", "nuotraukos/viešos erdvės/kirpykla.jpg"],
+			["kavinė", "nuotraukos/viešos erdvės/kavinė.jpg"],
+			["biblioteka", "nuotraukos/viešos erdvės/biblioteka.jpg"]
+		]);
+		const painImageFiles = new Map([
+			["dantys", "nuotraukos/skauda/dantys.jpg"],
+			["gerklė", "nuotraukos/skauda/gerklė.jpg"],
+			["pilvas", "nuotraukos/skauda/pilvas.jpg"],
+			["galva", "nuotraukos/skauda/galva.jpg"],
+			["koja", "nuotraukos/skauda/skauda koja.jpg"],
+			["nugara", "nuotraukos/skauda/nugara.jpg"],
+			["ausis", "nuotraukos/skauda/skauda ausis.jpg"],
+			["ranka", "nuotraukos/skauda/ranka.jpg"]
+		]);
+		const natureImageFiles = new Map([
+			["parkas", "nuotraukos/gamta/parkas.jpg"],
+			["žaidimų aikštelė", "nuotraukos/gamta/žaidimų aikštelė.jpg"],
+			["jūra", "nuotraukos/gamta/jūra.jpg"],
+			["ežeras", "nuotraukos/gamta/ežeras.jpg"],
+			["upė", "nuotraukos/gamta/upė.jpg"],
+			["miškas", "nuotraukos/gamta/miškas.jpg"]
+		]);
+		const transportImageFiles = new Map([
+			["dviratis", "nuotraukos/transportas/dviratis.jpg"],
+			["paspirtukas", "nuotraukos/transportas/paspirtukas.jpg"],
+			["automobilis", "nuotraukos/transportas/automobilis.jpg"],
+			["autobusas", "nuotraukos/transportas/autobusas.jpg"],
+			["traukinys", "nuotraukos/transportas/traukinys.jpg"],
+			["lėktuvas", "nuotraukos/transportas/lėktuvas.jpg"],
+			["laivas", "nuotraukos/transportas/laivas.jpg"]
+		]);
+		const sportImageFiles = new Map([
+			["bėgimas", "nuotraukos/sportas/bėgimas.jpg"],
+			["krepšinis", "nuotraukos/sportas/krepšinis.jpg"],
+			["futbolas", "nuotraukos/sportas/futbola.jpg"],
+			["plaukimas", "nuotraukos/sportas/plaukimas.jpg"],
+			["tenisas", "nuotraukos/sportas/tenisas.jpg"],
+			["tinklinis", "nuotraukos/sportas/tinklinis.jpg"],
+			["joga", "nuotraukos/sportas/joga.jpg"],
+			["dviratis", "nuotraukos/transportas/dviratis.jpg"],
+			["slidinėjimas", "nuotraukos/sportas/slidinėjimas.jpg"],
+			["riedučiai", "nuotraukos/sportas/riedučiai.jpg"]
+		]);
+		const personalItemImageFiles = new Map([
+			["kuprinė", "nuotraukos/asmeniniai daiktai/kuprinė.jpg"],
+			["puodelis", "nuotraukos/asmeniniai daiktai/puodelis.jpg"],
+			["raktai", "nuotraukos/asmeniniai daiktai/raktai.jpg"],
+			["piniginė", "nuotraukos/asmeniniai daiktai/piniginė.jpg"],
+			["akiniai", "nuotraukos/asmeniniai daiktai/akiniai.jpg"],
+			["skėtis", "nuotraukos/asmeniniai daiktai/skėtis.jpg"],
+			["maisto dėžutė", "nuotraukos/asmeniniai daiktai/maisto dėžutė.jpg"],
+			["telefonas", "nuotraukos/asmeniniai daiktai/telefonas.jpg"],
+			["ausinės", "nuotraukos/asmeniniai daiktai/ausinės.jpg"],
+			["žaislas", "nuotraukos/asmeniniai daiktai/žaislas.jpg"],
+			["laikrodis", "nuotraukos/asmeniniai daiktai/laikrodis.jpg"],
+			["užrašinė", "nuotraukos/asmeniniai daiktai/užrašinė.jpg"]
+		]);
+		const clothingImageFiles = new Map([
+			["apatiniai", "nuotraukos/apranga/apatiniai.jpg"],
+			["batai", "nuotraukos/apranga/batai.jpg"],
+			["džinsai", "nuotraukos/apranga/džinsai.jpg"],
+			["kepurė", "nuotraukos/apranga/krpurė.jpg"],
+			["kojinės", "nuotraukos/apranga/kojinės.jpg"],
+			["marškinėliai", "nuotraukos/apranga/marškinėliai.jpg"],
+			["megztinis", "nuotraukos/apranga/megstinis.jpg"],
+			["pirštinės", "nuotraukos/apranga/pirštinės.jpg"],
+			["naktiniai", "nuotraukos/apranga/pižama.jpg"],
+			["sijonas", "nuotraukos/apranga/sijonas.jpg"],
+			["striukė", "nuotraukos/apranga/striukė.jpg"],
+			["suknelė", "nuotraukos/apranga/suknelė.jpg"],
+			["šalikas", "nuotraukos/apranga/šalikas.jpg"],
+			["šortai", "nuotraukos/apranga/šortai.jpg"]
+		]);
+		const hygieneImageFiles = new Map([
+			["muilas", "nuotraukos/higiena/muilas.jpg"],
+			["šepetėlis", "nuotraukos/higiena/dantų šepetėlis.jpg"],
+			["dantų pasta", "nuotraukos/higiena/danntų pasta.jpg"],
+			["rankšluostis", "nuotraukos/higiena/rankšluostis.jpg"],
+			["tualetinis popierius", "nuotraukos/higiena/tualetinis popierius.jpg"],
+			["servetėlės", "nuotraukos/higiena/servetėlės.jpg"],
+			["kremas", "nuotraukos/higiena/kremas.jpg"],
+			["šampūnas", "nuotraukos/higiena/šampūnas.jpg"],
+			["dušo želė", "nuotraukos/higiena/dušo žėlė.jpg"],
+			["lūpų balzamas", "nuotraukos/higiena/lūpų balzamas.jpg"],
+			["dezodorantas", "nuotraukos/higiena/dezodorantas.jpg"],
+			["losjonas", "nuotraukos/higiena/losjonas.jpg"]
+		]);
+		const numberImageFiles = new Map([
+			["vienas", "nuotraukos/skaičiai/VIENAS.png"],
+			["du", "nuotraukos/skaičiai/DU.png"],
+			["trys", "nuotraukos/skaičiai/TRYS.png"],
+			["keturi", "nuotraukos/skaičiai/KETURI.png"],
+			["penki", "nuotraukos/skaičiai/PENKI.png"],
+			["šeši", "nuotraukos/skaičiai/ŠEŠI.png"],
+			["septyni", "nuotraukos/skaičiai/SEPTYNI.png"],
+			["aštuoni", "nuotraukos/skaičiai/A6TUONI.png"],
+			["devyni", "nuotraukos/skaičiai/DEVYNI.png"],
+			["dešimt", "nuotraukos/skaičiai/DE6IMT.png"]
+		]);
+		const fishImageFiles = new Map([
+			["lašiša", "nuotraukos/žuvis/lašiša.png"],
+			["menkė", "nuotraukos/žuvis/menkė.png"],
+			["krevetės", "nuotraukos/žuvis/krevetės.jpg"],
+			["kalmarai", "nuotraukos/žuvis/kalmarais.jpg"],
+			["tunas", "nuotraukos/žuvis/tunas.png"]
+		]);
+		const grainImageFiles = new Map([
+			["ryžiai", "nuotraukos/kruopos/ryžiai.png"],
+			["grikiai", "nuotraukos/kruopos/grikiai.png"],
+			["lęšiai", "nuotraukos/kruopos/lęšiai.png"],
+			["perlinės kruopos", "nuotraukos/kruopos/perlinės kruopos.png"],
+			["bulguras", "nuotraukos/kruopos/bulguras.jpg"],
+			["kuskusas", "nuotraukos/kruopos/kuskusas.png"],
+			["kvietiniai miltai", "nuotraukos/kruopos/miltai.jpg"],
+			["avižiniai dribsniai", "nuotraukos/kruopos/avižiniai dribsniia.jpg"]
+		]);
+		const communicationImageFiles = new Map([
+			["labas", "nuotraukos/bendraukime/labas.jpg"],
+			["taip", "nuotraukos/bendraukime/taip.jpg"],
+			["ne", "nuotraukos/bendraukime/ne.jpg"],
+			["stop", "nuotraukos/bendraukime/stop.jpg"],
+			["apsikabinkim", "nuotraukos/bendraukime/apsikabinkim.jpg"],
+			["viso gero", "nuotraukos/bendraukime/viso gero.jpg"],
+			["atsiprašau", "nuotraukos/bendraukime/atsiprašo.jpg"],
+			["ačiū", "nuotraukos/bendraukime/ačiū.jpg"]
+		]);
+		const dishAudioFiles = new Map([
+			["kepti kiaušiniai", "garsai/patiekalų garsai/kepti kiaušiniai.mp3"],
+			["virti kiaušiniai", "garsai/patiekalų garsai/virti kiaušiniai.mp3"],
+			["omletas", "garsai/patiekalų garsai/omletas.mp3"],
+			["salotos", "garsai/patiekalų garsai/salotos.mp3"],
+			["kepsnys", "garsai/patiekalų garsai/kepsnys.mp3"],
+			["burgeris", "garsai/patiekalų garsai/burgeris.mp3"],
+			["dešrelės", "garsai/patiekalų garsai/dešrelės.mp3"],
+			["maltinukas", "garsai/patiekalų garsai/maltinukas.mp3"],
+			["sriuba", "garsai/patiekalų garsai/sriuba.mp3"],
+			["lazanija", "garsai/patiekalų garsai/lazanija.mp3"],
+			["spagečiai", "garsai/patiekalų garsai/spagečiai.mp3"],
+			["pica", "garsai/patiekalų garsai/pica.mp3"],
+			["blynai", "garsai/patiekalų garsai/blynai.mp3"],
+			["lietiniai", "garsai/patiekalų garsai/lietiniai.mp3"],
+			["bandelė", "garsai/saldumynai garsai/bandelė.mp3"],
+			["duonelė", "garsai/kepiniai garsai/duonelė.mp3"],
+			["dešrainių bandelė", "garsai/kepiniai garsai/dešrainių bandelė.mp3"],
+			["mėsainių bandelė", "garsai/kepiniai garsai/mėsainių bandelė.mp3"],
+			["ilgas batonas", "garsai/kepiniai garsai/ilgas batonas.mp3"],
+			["juoda duona", "garsai/kepiniai garsai/juoda duona.mp3"],
+			["keksiukas", "garsai/kepiniai garsai/keksiukas.mp3"],
+			["kruasanas", "garsai/kepiniai garsai/kruasanas.mp3"],
+			["sumuštinių duona", "garsai/kepiniai garsai/sumuštinių duona.mp3"],
+			["tortas", "garsai/kepiniai garsai/tortas.mp3"],
+			["trapučiai", "garsai/užkandžų garsai/trapučiai.mp3"],
+			["riešutai", "garsai/užkandžų garsai/riešutai.mp3"],
+			["džiovinti vaisiai", "garsai/užkandžų garsai/džiovinti vaisiai.mp3"],
+			["popkornai", "garsai/užkandžų garsai/popkornai.mp3"],
+			["traškučiai", "garsai/užkandžų garsai/traškučiai.mp3"],
+			["lazdelės", "garsai/užkandžų garsai/lazdelės.mp3"],
+			["ledai", "garsai/saldumynai garsai/ledai.mp3"],
+			["saldainis", "garsai/saldumynai garsai/saldainis.mp3"],
+			["guminukai", "garsai/saldumynai garsai/guminukai.mp3"],
+			["sausainis", "garsai/saldumynai garsai/sausainis.mp3"],
+			["vaflis", "garsai/saldumynai garsai/vaflis.mp3"],
+			["čiulpinukas", "garsai/saldumynai garsai/čiulpinukas.mp3"],
+			["šokoladas", "garsai/saldumynai garsai/šokoladas.mp3"],
+			["vanduo", "garsai/gerti garsai/vanduo.mp3"],
+			["sultys", "garsai/gerti garsai/sultys.mp3"],
+			["vanduo su citrina", "garsai/gerti garsai/vanduo su citrina.mp3"],
+			["gazuotas vanduo", "garsai/gerti garsai/gazuotas vanduo.mp3"],
+			["limonadas", "garsai/gerti garsai/limonadas.mp3"],
+			["kokteilis", "garsai/gerti garsai/kokteilis.mp3"],
+			["kava", "garsai/gerti garsai/kava.mp3"],
+			["arbata", "garsai/gerti garsai/arbata.mp3"],
+			["kakava", "garsai/gerti garsai/kakava.mp3"],
+			["pienas", "garsai/gerti garsai/pienas.mp3"],
+			["tualetas", "garsai/tualetas garsai/tualetas.mp3"],
+			["tualetinis popierius", "garsai/tualetas garsai/tualetinis popierius.mp3"],
+			["tualeto šepetys", "garsai/tualetas garsai/tualeto šepetys.mp3"],
+			["oro gaiviklis", "garsai/tualetas garsai/oro gaiviklis.mp3"],
+			["nuleisti vandenį", "garsai/tualetas garsai/nuleisti vandenį.mp3"],
+			["plauti rankas", "garsai/tualetas garsai/plauti rankas.mp3"],
+			["skystas muilas", "garsai/tualetas garsai/skystas muilas.mp3"],
+			["rankšluostis", "garsai/tualetas garsai/rankšluostis.mp3"],
+			["labas", "garsai/bendraukime/labas.mp3"],
+			["taip", "garsai/bendraukime/taip.mp3"],
+			["ne", "garsai/bendraukime/ne.mp3"],
+			["stop", "garsai/bendraukime/stop.mp3"],
+			["apsikabinkim", "garsai/bendraukime/apsikabinkim.mp3"],
+			["viso gero", "garsai/bendraukime/viso gero.mp3"],
+			["atsiprašau", "garsai/bendraukime/atsiprašau.mp3"],
+			["ačiū", "garsai/bendraukime/ačiū.mp3"],
+			["dantys", "garsai/skauda/dantys.mp3"],
+			["gerklė", "garsai/skauda/gerklė.mp3"],
+			["pilvas", "garsai/skauda/pilvas.mp3"],
+			["galva", "garsai/skauda/galva.mp3"],
+			["koja", "garsai/skauda/koja.mp3"],
+			["nugara", "garsai/skauda/nugara.mp3"],
+			["ausis", "garsai/skauda/ausis.mp3"],
+			["ranka", "garsai/skauda/ranka.mp3"],
+			["išnešti šiukšles", "garsai/namų ruoša/išnešti šiukšles.mp3"],
+			["laistyti", "garsai/namų ruoša/laistyti.mp3"],
+			["plauti grindis", "garsai/namų ruoša/plauti grindis.mp3"],
+			["plauti indus", "garsai/namų ruoša/plauti indus.mp3"],
+			["siurbti", "garsai/namų ruoša/siurbti.mp3"],
+			["skalbti", "garsai/namų ruoša/skalbti.mp3"],
+			["valyti dulkes", "garsai/namų ruoša/valyti dulkes.mp3"],
+			["džiovinti", "garsai/namų ruoša/džiovinti.mp3"],
+			["laistyti gėles", "garsai/namų ruoša/laistyti gėles.mp3"],
+			["ausinės", "garsai/poilsis/ausinės.mp3"],
+			["kvėpavimas", "garsai/poilsis/kvėpavimas.mp3"],
+			["miegas", "garsai/poilsis/miegas.mp3"],
+			["sėdmaišis", "garsai/poilsis/sėdmaišis.mp3"],
+			["piešimas", "garsai/pramogos/piešimas.mp3"],
+			["žaisti", "garsai/pramogos/žaisti.mp3"],
+			["kompiuteris", "garsai/pramogos/kompiuteris.mp3"],
+			["televizorius", "garsai/pramogos/televizorius.mp3"],
+			["koncertas", "garsai/pramogos/koncertas.mp3"],
+			["žaidimai", "garsai/pramogos/žaidimai.mp3"],
+			["teatras", "garsai/pramogos/teatras.mp3"],
+			["piknikas", "garsai/pramogos/piknikas.mp3"],
+			["mokykla", "garsai/viešos erdvės/mokykla.mp3"],
+			["darželis", "garsai/viešos erdvės/darželis.mp3"],
+			["parduotuvė", "garsai/viešos erdvės/parduotuvė.mp3"],
+			["ligoninė", "garsai/viešos erdvės/ligoninė.mp3"],
+			["dantistas", "garsai/viešos erdvės/dantistas.mp3"],
+			["kirpykla", "garsai/viešos erdvės/kirpykla.mp3"],
+			["kavinė", "garsai/viešos erdvės/kavinė.mp3"],
+			["biblioteka", "garsai/viešos erdvės/biblioteka.mp3"],
+			["parkas", "garsai/gamta/parkas.mp3"],
+			["žaidimų aikštelė", "garsai/gamta/žaidimų aikštelė.mp3"],
+			["jūra", "garsai/gamta/jūra.mp3"],
+			["ežeras", "garsai/gamta/ežeras.mp3"],
+			["upė", "garsai/gamta/upė.mp3"],
+			["miškas", "garsai/gamta/miškas.mp3"],
+			["obuolys", "garsai/vaisiai/obuolys.mp3"],
+			["kriaušė", "garsai/vaisiai/kriaušė.mp3"],
+			["bananas", "garsai/vaisiai/bananas.mp3"],
+			["apelsinas", "garsai/vaisiai/apelsinas.mp3"],
+			["mandarinas", "garsai/vaisiai/mandarinas.mp3"],
+			["laimas", "garsai/vaisiai/laimas.mp3"],
+			["greipfrutas", "garsai/vaisiai/greipfrutas.mp3"],
+			["citrina", "garsai/vaisiai/citrina.mp3"],
+			["pamelo", "garsai/vaisiai/pamelo.mp3"],
+			["melionas", "garsai/vaisiai/melionas.mp3"],
+			["arbūzas", "garsai/vaisiai/arbūzas.mp3"],
+			["slyva", "garsai/vaisiai/slyva.mp3"],
+			["avokadas", "garsai/vaisiai/avokadas.mp3"],
+			["kivis", "garsai/vaisiai/kivis.mp3"],
+			["mangas", "garsai/vaisiai/mangas.mp3"],
+			["ananasas", "garsai/vaisiai/ananasas.mp3"],
+			["granatas", "garsai/vaisiai/granatas.mp3"],
+			["persimonas", "garsai/vaisiai/persimonas.mp3"],
+			["vyšnia", "garsai/uogos/vyšnia.mp3"],
+			["žemuogė", "garsai/uogos/žemuogė.mp3"],
+			["braškė", "garsai/uogos/braškė.mp3"],
+			["avietė", "garsai/uogos/avietė.mp3"],
+			["šilauogė", "garsai/uogos/šilauogė.mp3"],
+			["vynuogė", "garsai/uogos/vynuogė.mp3"],
+			["kiaušiniai", "garsai/kiaušiniai/kiaušiniai.mp3"],
+			["putpelių kiaušiniai", "garsai/kiaušiniai/putpelių kiaušiniai.mp3"],
+			["dviratis", "garsai/transportas/dviratis.mp3"],
+			["paspirtukas", "garsai/transportas/paspirtukas.mp3"],
+			["automobilis", "garsai/transportas/automobilis.mp3"],
+			["autobusas", "garsai/transportas/autobusas.mp3"],
+			["traukinys", "garsai/transportas/traukinys.mp3"],
+			["lėktuvas", "garsai/transportas/lėktuvas.mp3"],
+			["laivas", "garsai/transportas/laivas.mp3"],
+			["svetainė", "garsai/namai/svetainė.mp3"],
+			["miegamasis", "garsai/namai/miegamasis.mp3"],
+			["vonia", "garsai/namai/vonia.mp3"],
+			["virtuvė", "garsai/namai/virtuvė.mp3"],
+			["koridorius", "garsai/namai/koridorius.mp3"],
+			["drabužinė", "garsai/namai/drabužinė.mp3"]
+		]);
+		const vegetableAudioFiles = new Map([
+			["bulvė", "garsai/daržovės/bulvė.mp3"],
+			["saldi bulvė", "garsai/daržovės/saldi bulvė.mp3"],
+			["morka", "garsai/daržovės/morka.mp3"],
+			["burokėlis", "garsai/daržovės/burokėlis.mp3"],
+			["ridikėlis", "garsai/daržovės/ridikėlis.mp3"],
+			["česnakas", "garsai/daržovės/česnakas.mp3"],
+			["svogūnas", "garsai/daržovės/svogūnas.mp3"],
+			["pomidoras", "garsai/daržovės/pomidoras.mp3"],
+			["agurkas", "garsai/daržovės/agurkas.mp3"],
+			["salotos", "garsai/daržovės/salotos.mp3"],
+			["paprika", "garsai/daržovės/paprika.mp3"],
+			["cukinija", "garsai/daržovės/cukinija.mp3"],
+			["moliūgas", "garsai/daržovės/moliugas.mp3"],
+			["kopūstas", "garsai/daržovės/kopūstas.mp3"],
+			["brokolis", "garsai/daržovės/brokolis.mp3"],
+			["žiedinis kopūstas", "garsai/daržovės/žiedinis kopūstas.mp3"],
+			["žirniai", "garsai/daržovės/žirniai.mp3"],
+			["kukurūzai", "garsai/daržovės/kukurūzai.mp3"]
+		]);
+		const dairyAudioFiles = new Map([
+			["jogurtas", "garsai/pienas/jogurtas.mp3"],
+			["grietinė", "garsai/pienas/grietinė.mp3"],
+			["užtepėlė", "garsai/pienas/užtepėlė.mp3"],
+			["pienas", "garsai/pienas/pienas.mp3"],
+			["grietinėlė", "garsai/pienas/krietinėlė.mp3"],
+			["sviestas", "garsai/pienas/sviestas.mp3"],
+			["sūris", "garsai/pienas/sūris.mp3"],
+			["varškė", "garsai/pienas/varškė.mp3"]
+		]);
+		const meatAudioFiles = new Map([
+			["šoninė", "garsai/mėsa/šoninė.mp3"],
+			["jautiena", "garsai/mėsa/jautiena.mp3"],
+			["malta mėsa", "garsai/mėsa/malta mėsa.mp3"],
+			["blauzdelės", "garsai/mėsa/blauzdelės.mp3"],
+			["šonkauliukai", "garsai/mėsa/šonkauliukai.mp3"],
+			["šviežios dešrelės", "garsai/mėsa/šviežios dešrelės.mp3"],
+			["vištienos krūtinėlė", "garsai/mėsa/vištienos krutinėlė.mp3"],
+			["vištienos petukai", "garsai/mėsa/vištienos petukai.mp3"]
+		]);
+		const fishAudioFiles = new Map([
+			["lašiša", "garsai/žuvis/lašiša.mp3"],
+			["menkė", "garsai/žuvis/menkė.mp3"],
+			["krevetės", "garsai/žuvis/krevetės.mp3"],
+			["kalmarai", "garsai/žuvis/kalmarai.mp3"],
+			["tunas", "garsai/žuvis/tunas.mp3"]
+		]);
+		const pastaAudioFiles = new Map([
+			["spagečiai", "garsai/makaronai/spagečiai.mp3"],
+			["rageliai", "garsai/makaronai/rageliai.mp3"],
+			["sraigteliai", "garsai/makaronai/sraigteliai.mp3"],
+			["lazanija", "garsai/makaronai/lazanija.mp3"],
+			["kaspinėliai", "garsai/makaronai/kaspinėliai.mp3"],
+			["talieteliai", "garsai/makaronai/talieteliai.mp3"],
+			["vamzdeliai", "garsai/makaronai/vamzdeliai.mp3"],
+			["vermišeliai", "garsai/makaronai/vermišeliai.mp3"]
+		]);
+		const sauceAudioFiles = new Map([
+			["pomidorų padažas", "garsai/padažai/pomidorų padažas.mp3"],
+			["majonezas", "garsai/padažai/majonezas.mp3"],
+			["garstyčios", "garsai/padažai/garstyčios.mp3"],
+			["soja", "garsai/padažai/soja.mp3"],
+			["kečupas", "garsai/padažai/kečupas.mp3"],
+			["saldžiarūgštis padažas", "garsai/padažai/saldžiarūgštis padažas.mp3"],
+			["alyvuogių aliejus", "garsai/padažai/alyvuogių aliejus.mp3"],
+			["actas", "garsai/padažai/actas.mp3"]
+		]);
+		const grainAudioFiles = new Map([
+			["ryžiai", "garsai/kruopos/ryžiai.mp3"],
+			["grikiai", "garsai/kruopos/grikiai.mp3"],
+			["lęšiai", "garsai/kruopos/lęšiai.mp3"],
+			["perlinės kruopos", "garsai/kruopos/perlinės kruopos.mp3"],
+			["bulguras", "garsai/kruopos/bulguras.mp3"],
+			["kuskusas", "garsai/kruopos/kuskusas.mp3"],
+			["kvietiniai miltai", "garsai/kruopos/kvietiniai miltai.mp3"],
+			["avižiniai dribsniai", "garsai/kruopos/avižiniai dribsniai.mp3"]
+		]);
+		const spiceAudioFiles = new Map([
+			["druska", "garsai/prieskoniai/druska.mp3"],
+			["pipirai", "garsai/prieskoniai/pipirai.mp3"],
+			["cukrus", "garsai/prieskoniai/cukrus.mp3"],
+			["krapai", "garsai/prieskoniai/krapai.mp3"],
+			["petražolės", "garsai/prieskoniai/petražolės.mp3"],
+			["bazilikas", "garsai/prieskoniai/bazilikas.mp3"],
+			["raudonėlis", "garsai/prieskoniai/raudonėlis.mp3"],
+			["mėta", "garsai/prieskoniai/mėta.mp3"],
+			["rūkyta paprika", "garsai/prieskoniai/rūkyta paprika.mp3"],
+			["česnakas", "garsai/prieskoniai/česnakas.mp3"]
+		]);
+		const preparedFoodAudioFiles = new Map([
+			["dešra", "garsai/paruošti produktai/dešra.mp3"],
+			["virta dešra", "garsai/paruošti produktai/virta dešra.mp3"],
+			["pieniškos dešrelės", "garsai/paruošti produktai/pieniškos dešrelės.mp3"],
+			["kepsneliai", "garsai/paruošti produktai/kepsneliai.mp3"],
+			["kumpis", "garsai/paruošti produktai/kumpis.mp3"],
+			["paštetas", "garsai/paruošti produktai/paštetas.mp3"],
+			["koldūnai", "garsai/paruošti produktai/koldūnai.mp3"],
+			["blynai", "garsai/paruošti produktai/blynai.mp3"],
+			["silkė", "garsai/paruošti produktai/silkė.mp3"],
+			["krabų lazdelės", "garsai/paruošti produktai/krabų lazdelės.mp3"],
+			["ikrai", "garsai/paruošti produktai/ikrai.mp3"],
+			["žuvies piršteliai", "garsai/paruošti produktai/žuvies piršteliai.mp3"]
+		]);
+		const cookingProcessAudioFiles = new Map([
+			["plauti", "garsai/gaminimo procesas/plauti.mp3"],
+			["skusti", "garsai/gaminimo procesas/skusti.mp3"],
+			["plakti", "garsai/gaminimo procesas/plakti.mp3"],
+			["tarkuoti", "garsai/gaminimo procesas/tarkuoti.mp3"],
+			["kepti", "garsai/gaminimo procesas/kepti.mp3"],
+			["virti", "garsai/gaminimo procesas/virti.mp3"],
+			["pjaustyti", "garsai/gaminimo procesas/pjaustyti.mp3"],
+			["kočioti", "garsai/gaminimo procesas/kočioti.mp3"],
+			["orkaitė", "garsai/gaminimo procesas/orkaitė.mp3"],
+			["maišyti", "garsai/gaminimo procesas/maišyti.mp3"],
+			["sverti", "garsai/gaminimo procesas/sverti.mp3"]
+		]);
+		const utensilAudioFiles = new Map([
+			["lėkštė", "garsai/indai/lėkštė.mp3"],
+			["dubenėlis", "garsai/indai/dubenėlis.mp3"],
+			["puodelis", "garsai/indai/puodelis.mp3"],
+			["stiklinė", "garsai/indai/stiklinė.mp3"],
+			["šaukštelis", "garsai/indai/šaukštelis.mp3"],
+			["šakutė", "garsai/indai/šakutė.mp3"],
+			["šaukštas", "garsai/indai/šaukštas.mp3"],
+			["peilis", "garsai/indai/peilis.mp3"],
+			["servetėlė", "garsai/indai/servetėlė.mp3"],
+			["padėklas", "garsai/indai/padėklas.mp3"]
+		]);
+		const sportAudioFiles = new Map([
+			["bėgimas", "garsai/sportas/bėgimas.mp3"],
+			["krepšinis", "garsai/sportas/krepšinis.mp3"],
+			["futbolas", "garsai/sportas/futbolas.mp3"],
+			["plaukimas", "garsai/sportas/plaukimas.mp3"],
+			["tenisas", "garsai/sportas/tenisas.mp3"],
+			["tinklinis", "garsai/sportas/tinklinis.mp3"],
+			["joga", "garsai/sportas/joga.mp3"],
+			["dviratis", "garsai/sportas/dviratis.mp3"],
+			["slidinėjimas", "garsai/sportas/slidinėjimas.mp3"],
+			["riedučiai", "garsai/sportas/riedučiai.mp3"]
+		]);
+		const personalItemAudioFiles = new Map([
+			["kuprinė", "garsai/asmeniniai daiktai/KUPRINĖ.mp3"],
+			["puodelis", "garsai/asmeniniai daiktai/PUODELIS.mp3"],
+			["raktai", "garsai/asmeniniai daiktai/raktai.mp3"],
+			["piniginė", "garsai/asmeniniai daiktai/piniginė.mp3"],
+			["akiniai", "garsai/asmeniniai daiktai/akiniai.mp3"],
+			["skėtis", "garsai/asmeniniai daiktai/skėtis.mp3"],
+			["maisto dėžutė", "garsai/asmeniniai daiktai/maisto dėžutė.mp3"],
+			["telefonas", "garsai/asmeniniai daiktai/telefonas.mp3"],
+			["ausinės", "garsai/asmeniniai daiktai/ausinės.mp3"],
+			["žaislas", "garsai/asmeniniai daiktai/žaislas.mp3"],
+			["laikrodis", "garsai/asmeniniai daiktai/laikrodis.mp3"],
+			["užrašinė", "garsai/asmeniniai daiktai/užrašinė.mp3"]
+		]);
+		const clothingAudioFiles = new Map([
+			["marškinėliai", "garsai/apranga/marškinėliai.mp3"],
+			["džinsai", "garsai/apranga/džinsai.mp3"],
+			["striukė", "garsai/apranga/striukė.mp3"],
+			["kepurė", "garsai/apranga/kepurė.mp3"],
+			["šalikas", "garsai/apranga/šalikas.mp3"],
+			["pirštinės", "garsai/apranga/pirštinės.mp3"],
+			["batai", "garsai/apranga/batai.mp3"],
+			["megztinis", "garsai/apranga/megztinis.mp3"],
+			["suknelė", "garsai/apranga/suknelė.mp3"],
+			["šortai", "garsai/apranga/šortai.mp3"],
+			["sijonas", "garsai/apranga/sijonas.mp3"],
+			["kojinės", "garsai/apranga/kojinės.mp3"],
+			["apatiniai", "garsai/apranga/apatiniai.mp3"],
+			["naktiniai", "garsai/apranga/naktiniai.mp3"]
+		]);
+		const hygieneAudioFiles = new Map([
+			["dantų pasta", "garsai/higiena/dantų pasta.mp3"],
+			["dezodorantas", "garsai/higiena/dezodorantas.mp3"],
+			["dušo želė", "garsai/higiena/dušo žėlė.mp3"],
+			["kremas", "garsai/higiena/kremas.mp3"],
+			["losjonas", "garsai/higiena/losjonas.mp3"],
+			["lūpų balzamas", "garsai/higiena/lūpų balzamas.mp3"],
+			["muilas", "garsai/higiena/muilas.mp3"],
+			["rankšluostis", "garsai/higiena/rankšluostis.mp3"],
+			["servetėlės", "garsai/higiena/servetėlės.mp3"],
+			["šampūnas", "garsai/higiena/šampūnas.mp3"],
+			["šepetėlis", "garsai/higiena/šepetėlis.mp3"],
+			["šukos", "garsai/higiena/šukos.mp3"],
+			["tualetinis popierius", "garsai/higiena/tualetinis popieius.mp3"],
+			["žirklutės", "garsai/higiena/žirklutės.mp3"]
+		]);
+		const numberAudioFiles = new Map([
+			["vienas", "garsai/skaičiai/vienas.mp3"],
+			["du", "garsai/skaičiai/du.mp3"],
+			["trys", "garsai/skaičiai/trys.mp3"],
+			["keturi", "garsai/skaičiai/keturi.mp3"],
+			["penki", "garsai/skaičiai/penki.mp3"],
+			["šeši", "garsai/skaičiai/šeši.mp3"],
+			["septyni", "garsai/skaičiai/septyni.mp3"],
+			["aštuoni", "garsai/skaičiai/aštuoni.mp3"],
+			["devyni", "garsai/skaičiai/devyni.mp3"],
+			["dešimt", "garsai/skaičiai/dešimt.mp3"]
+		]);
+		const colorAudioFiles = new Map([
+			["balta", "garsai/spalvos/balta.mp3"],
+			["geltona", "garsai/spalvos/geltona.mp3"],
+			["oranžinė", "garsai/spalvos/oranžinė.mp3"],
+			["raudona", "garsai/spalvos/raudona.mp3"],
+			["žalia", "garsai/spalvos/žalia.mp3"],
+			["mėlyna", "garsai/spalvos/mėlyna.mp3"],
+			["violetinė", "garsai/spalvos/violetinė.mp3"],
+			["rožinė", "garsai/spalvos/rožinė.mp3"],
+			["pilka", "garsai/spalvos/pilka.mp3"],
+			["juoda", "garsai/spalvos/juoda.mp3"]
+		]);
+
+		function openPersonalCardDatabase() {
+			if (!("indexedDB" in window)) {
+				return Promise.reject(new Error("Vietinė saugykla šiame įrenginyje nepasiekiama."));
+			}
+			if (!personalCardDatabasePromise) {
+				personalCardDatabasePromise = new Promise((resolve, reject) => {
+					const request = window.indexedDB.open("voicer-personal-cards", 1);
+					request.onupgradeneeded = () => {
+						if (!request.result.objectStoreNames.contains("cards")) {
+							request.result.createObjectStore("cards", { keyPath: "id" });
+						}
+					};
+					request.onsuccess = () => resolve(request.result);
+					request.onerror = () => reject(request.error || new Error("Nepavyko atverti vietinės saugyklos."));
+				});
+			}
+			return personalCardDatabasePromise;
+		}
+
+		async function loadPersonalCards() {
+			const database = await openPersonalCardDatabase();
+			return new Promise((resolve, reject) => {
+				const request = database.transaction("cards", "readonly").objectStore("cards").getAll();
+				request.onsuccess = () => resolve(request.result.sort((left, right) => right.createdAt - left.createdAt));
+				request.onerror = () => reject(request.error || new Error("Nepavyko įkelti kortelių."));
+			});
+		}
+
+		async function savePersonalCard(card) {
+			const database = await openPersonalCardDatabase();
+			return new Promise((resolve, reject) => {
+				const transaction = database.transaction("cards", "readwrite");
+				transaction.objectStore("cards").put(card);
+				transaction.oncomplete = () => resolve();
+				transaction.onerror = () => reject(transaction.error || new Error("Nepavyko išsaugoti kortelės."));
+				transaction.onabort = () => reject(transaction.error || new Error("Kortelės išsaugoti nepavyko."));
+			});
+		}
+
+		const personalCardsReady = loadPersonalCards().then((cards) => {
+			personalCards = cards;
+			return cards;
+		}).catch((error) => {
+			personalCardStorageError = error;
+			return [];
+		});
+
+		function renderPersonalCards() {
+			customCardObjectUrls.forEach((url) => URL.revokeObjectURL(url));
+			customCardObjectUrls.clear();
+			if (personalCards.length === 0) {
+				const emptyMessage = document.createElement("p");
+				emptyMessage.className = "personal-cards-empty";
+				emptyMessage.textContent = personalCardStorageError ? "Vietinė saugykla nepasiekiama." : "Kortelių dar nėra.";
+				emotionGrid.replaceChildren(emptyMessage);
+			} else {
+				const cards = personalCards.map((personalCard) => {
+					const card = document.createElement("article");
+					card.className = "emotion-card personal-emotion-card";
+					card.dataset.personalCardId = personalCard.id;
+
+					const tools = document.createElement("div");
+					tools.className = "emotion-card-tools";
+
+					const audioButton = document.createElement("button");
+					audioButton.className = "emotion-audio";
+					audioButton.type = "button";
+					audioButton.setAttribute("aria-label", `Leisti garsą: ${personalCard.name.toLocaleLowerCase("lt-LT")}`);
+					audioButton.innerHTML = '<span aria-hidden="true">◖))</span> Garsas';
+					tools.append(audioButton);
+
+					const photo = document.createElement("div");
+					photo.className = "emotion-photo-placeholder personal-card-photo";
+					if (personalCard.photo instanceof Blob) {
+						const image = document.createElement("img");
+						image.src = URL.createObjectURL(personalCard.photo);
+						image.alt = "";
+						customCardObjectUrls.set(personalCard.id, image.src);
+						photo.append(image);
+					}
+
+					const label = document.createElement("p");
+					label.textContent = personalCard.name;
+					card.append(tools, photo, label);
+					return card;
+				});
+				emotionGrid.replaceChildren(...cards);
+			}
+			emotionGrid.hidden = false;
+			emotionGrid.setAttribute("aria-label", "Mano kortelės");
+		}
+
+		function showPhotoPreview(file) {
+			if (personalCardPreviewUrl) {
+				URL.revokeObjectURL(personalCardPreviewUrl);
+				personalCardPreviewUrl = "";
+			}
+			personalCardPhotoPreview.replaceChildren();
+			if (file) {
+				personalCardPreviewUrl = URL.createObjectURL(file);
+				const image = document.createElement("img");
+				image.src = personalCardPreviewUrl;
+				image.alt = "";
+				personalCardPhotoPreview.append(image);
+			}
+		}
+
+		function showAudioPreview(file) {
+			if (personalCardAudioPreviewUrl) {
+				URL.revokeObjectURL(personalCardAudioPreviewUrl);
+				personalCardAudioPreviewUrl = "";
+			}
+			personalCardAudioPreview.pause();
+			personalCardAudioPreview.removeAttribute("src");
+			personalCardAudioPreview.hidden = !file;
+			if (file) {
+				personalCardAudioPreviewUrl = URL.createObjectURL(file);
+				personalCardAudioPreview.src = personalCardAudioPreviewUrl;
+			}
+		}
+
+		function resetPersonalCardRecordingControls() {
+			personalCardAudio.disabled = false;
+			personalCardRecordButton.disabled = false;
+			personalCardRecordButton.hidden = false;
+			personalCardStopRecordingButton.disabled = false;
+			personalCardStopRecordingButton.hidden = true;
+			personalCardSubmitButton.disabled = false;
+		}
+
+		async function startPersonalCardRecording() {
+			if (!window.isSecureContext) {
+				personalCardStatus.textContent = "Mikrofonui reikia HTTPS arba localhost.";
+				return;
+			}
+			if (!navigator.mediaDevices?.getUserMedia || !window.MediaRecorder) {
+				personalCardStatus.textContent = "Ši naršyklė nepalaiko įrašymo per mikrofoną.";
+				return;
+			}
+
+			const requestId = ++personalCardRecordingRequestId;
+			personalCardRecordButton.disabled = true;
+			personalCardSubmitButton.disabled = true;
+			personalCardStatus.textContent = "Prašoma prieigos prie mikrofono...";
+			let stream = null;
+			let session = null;
+
+			try {
+				personalCardAudio.value = "";
+				personalCardRecordedAudio = null;
+				showAudioPreview(null);
+				stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+				if (requestId !== personalCardRecordingRequestId || !personalCardDialog.open) {
+					stream.getTracks().forEach((track) => track.stop());
+					return;
+				}
+
+				const mimeType = ["audio/webm;codecs=opus", "audio/webm", "audio/mp4"]
+					.find((type) => MediaRecorder.isTypeSupported(type));
+				const recorder = new MediaRecorder(stream, mimeType ? { mimeType } : undefined);
+				session = { recorder, stream, chunks: [], discard: false };
+				personalCardRecordingSession = session;
+				recorder.addEventListener("dataavailable", (event) => {
+					if (event.data.size > 0) {
+						session.chunks.push(event.data);
+					}
+				});
+				recorder.addEventListener("error", () => {
+					session.discard = true;
+					personalCardStatus.textContent = "Nepavyko įrašyti garso.";
+				}, { once: true });
+				recorder.addEventListener("stop", () => {
+					session.stream.getTracks().forEach((track) => track.stop());
+					if (personalCardRecordingSession === session) {
+						personalCardRecordingSession = null;
+					}
+					resetPersonalCardRecordingControls();
+					if (session.discard || !personalCardDialog.open) {
+						return;
+					}
+
+					const audioBlob = new Blob(session.chunks, {
+						type: recorder.mimeType || session.chunks[0]?.type || "audio/webm"
+					});
+					if (!audioBlob.size) {
+						personalCardStatus.textContent = "Nepavyko įrašyti garso.";
+						return;
+					}
+					personalCardRecordedAudio = audioBlob;
+					showAudioPreview(audioBlob);
+					personalCardStatus.textContent = "Įrašas paruoštas. Galite jį perklausyti.";
+				}, { once: true });
+
+				recorder.start();
+				personalCardRecordButton.hidden = true;
+				personalCardStopRecordingButton.hidden = false;
+				personalCardAudio.disabled = true;
+				personalCardStatus.textContent = "Įrašoma...";
+			} catch {
+				if (session) {
+					session.discard = true;
+					if (personalCardRecordingSession === session) {
+						personalCardRecordingSession = null;
+					}
+				}
+				stream?.getTracks().forEach((track) => track.stop());
+				if (requestId !== personalCardRecordingRequestId) {
+					return;
+				}
+				resetPersonalCardRecordingControls();
+				personalCardStatus.textContent = "Nepavyko pasiekti mikrofono. Patikrinkite naršyklės leidimus.";
+			}
+		}
+
+		function stopPersonalCardRecording() {
+			const session = personalCardRecordingSession;
+			if (!session || session.recorder.state !== "recording") {
+				return;
+			}
+			personalCardStopRecordingButton.disabled = true;
+			personalCardStatus.textContent = "Apdorojamas įrašas...";
+			session.recorder.stop();
+		}
+
+		const genitiveOverrides = new Map([
+			["vanduo", "vandens"],
+			["vanduo su citrina", "vandens su citrina"],
+			["sultys", "sulčių"],
+			["žuvis", "žuvies"],
+			["akis", "akies"],
+			["ausis", "ausies"],
+			["naktis", "nakties"],
+			["širdis", "širdies"],
+			["dantis", "danties"],
+			["durys", "durų"],
+			["pietūs", "pietų"]
+		]);
+
+		function toGenitive(word) {
+			const normalizedWord = word.toLocaleLowerCase("lt-LT");
+			if (genitiveOverrides.has(normalizedWord)) {
+				return genitiveOverrides.get(normalizedWord);
+			}
+
+			if (normalizedWord.endsWith("iai")) {
+				return `${normalizedWord.slice(0, -3)}ių`;
+			}
+			if (normalizedWord.endsWith("ai")) {
+				return `${normalizedWord.slice(0, -2)}ų`;
+			}
+			if (normalizedWord.endsWith("ės")) {
+				return `${normalizedWord.slice(0, -2)}ių`;
+			}
+			if (normalizedWord.endsWith("os")) {
+				return `${normalizedWord.slice(0, -2)}ų`;
+			}
+			if (normalizedWord.endsWith("ys")) {
+				return `${normalizedWord.slice(0, -2)}io`;
+			}
+			if (normalizedWord.endsWith("as")) {
+				return `${normalizedWord.slice(0, -2)}o`;
+			}
+			if (normalizedWord.endsWith("is")) {
+				return `${normalizedWord.slice(0, -2)}io`;
+			}
+			if (normalizedWord.endsWith("ė")) {
+				return `${normalizedWord.slice(0, -1)}ės`;
+			}
+			if (normalizedWord.endsWith("a")) {
+				return `${normalizedWord.slice(0, -1)}os`;
+			}
+			if (normalizedWord.endsWith("us")) {
+				return `${normalizedWord.slice(0, -2)}aus`;
+			}
+			return word;
+		}
+
+		function composeSentenceWords() {
+			return selectedWords.map(({ word }, index) => {
+				const previousWord = selectedWords[index - 1]?.word.toLocaleLowerCase("lt-LT");
+				return previousWord === "noriu" ? toGenitive(word) : word.toLocaleLowerCase("lt-LT");
+			});
+		}
+
+		function composeSentence() {
+			const sentence = composeSentenceWords().join(" ").trim();
+			if (!sentence) {
+				return "";
+			}
+			const punctuatedSentence = sentence.replace(/[.!?]+$/, "");
+			return `${punctuatedSentence.charAt(0).toLocaleUpperCase("lt-LT")}${punctuatedSentence.slice(1)}.`;
+		}
+
+		function renderSelectedWords() {
+			selectedWordObjectUrls.forEach((url) => URL.revokeObjectURL(url));
+			selectedWordObjectUrls.clear();
+			selectedWordsTray.replaceChildren(...selectedWords.map(({ id, word, photo: selectedPhoto }) => {
+				const card = document.createElement("div");
+				card.className = "selected-word";
+				card.setAttribute("role", "listitem");
+
+				const photo = document.createElement("div");
+				photo.className = "selected-word-photo";
+				photo.setAttribute("aria-hidden", "true");
+				let imageSource = selectedPhoto;
+				if (selectedPhoto instanceof Blob) {
+					imageSource = URL.createObjectURL(selectedPhoto);
+					selectedWordObjectUrls.set(id, imageSource);
+				}
+				if (imageSource) {
+					const image = document.createElement("img");
+					image.src = imageSource;
+					image.alt = "";
+					photo.append(image);
+				}
+
+				const label = document.createElement("p");
+				label.className = "selected-word-label";
+				label.textContent = word;
+
+				const removeButton = document.createElement("button");
+				removeButton.className = "selected-word-remove";
+				removeButton.type = "button";
+				removeButton.setAttribute("aria-label", `Pašalinti ${word}`);
+				removeButton.dataset.removeSelectedWord = String(id);
+				removeButton.innerHTML = '<span aria-hidden="true">×</span>';
+
+				card.append(photo, label, removeButton);
+
+				// Animacija scale down kai paspaudžiama
+				card.addEventListener("pointerdown", () => {
+					card.classList.add("active");
+				});
+				card.addEventListener("pointerup", () => {
+					card.classList.remove("active");
+				});
+				card.addEventListener("pointercancel", () => {
+					card.classList.remove("active");
+				});
+
+				return card;
+			}));
+
+			const hasWords = selectedWords.length > 0;
+			selectedWordsTray.hidden = !hasWords;
+			sentenceBar.hidden = !hasWords;
+			appShell.classList.toggle("has-sentence", hasWords);
+			sentenceText.textContent = composeSentence().toLocaleUpperCase("lt-LT");
+		}
+
+		function addSelectedWord(word, photo = null, audio = null, audioSource = "") {
+			const cleanWord = String(word || "").trim();
+			if (!cleanWord) {
+				return null;
+			}
+			const selectedWord = { id: ++nextSelectedWordId, word: cleanWord, photo, audio, audioSource };
+			selectedWords.push(selectedWord);
+			renderSelectedWords();
+			return selectedWord;
+		}
+
+		function stopAudioPlayback() {
+			if ("speechSynthesis" in window) {
+				window.speechSynthesis.cancel();
+			}
+			if (activeAudioPlayer) {
+				activeAudioPlayer.pause();
+				activeAudioPlayer.removeAttribute("src");
+				activeAudioPlayer.load();
+				activeAudioPlayer.remove();
+				activeAudioPlayer = null;
+			}
+			if (activeAudioUrl) {
+				URL.revokeObjectURL(activeAudioUrl);
+				activeAudioUrl = "";
+			}
+		}
+
+		function playAudioSource(audioSource, reusePlayer = false) {
+			if (!reusePlayer) {
+				stopAudioPlayback();
+			}
+			const canReusePlayer = reusePlayer && activeAudioPlayer && !(activeAudioPlayer instanceof HTMLVideoElement);
+			if (canReusePlayer && activeAudioUrl) {
+				URL.revokeObjectURL(activeAudioUrl);
+				activeAudioUrl = "";
+			}
+			return new Promise((resolve, reject) => {
+				const audioUrl = audioSource instanceof Blob ? URL.createObjectURL(audioSource) : "";
+				const player = canReusePlayer
+					? activeAudioPlayer
+					: audioSource instanceof Blob && audioSource.type.startsWith("video/")
+						? document.createElement("video")
+						: new Audio();
+				let finished = false;
+				activeAudioPlayer = player;
+				activeAudioUrl = audioUrl;
+				player.src = audioUrl || audioSource;
+				if (player instanceof HTMLVideoElement) {
+					player.playsInline = true;
+					player.setAttribute("aria-hidden", "true");
+					player.tabIndex = -1;
+					player.style.position = "fixed";
+					player.style.width = "1px";
+					player.style.height = "1px";
+					player.style.opacity = "0";
+					document.body.append(player);
+				}
+
+				const finish = (error) => {
+					if (finished) {
+						return;
+					}
+					finished = true;
+					if (audioUrl && (!reusePlayer || error)) {
+						URL.revokeObjectURL(audioUrl);
+					}
+					if (activeAudioPlayer === player && (!reusePlayer || error)) {
+						activeAudioPlayer = null;
+						activeAudioUrl = "";
+					}
+					if (!reusePlayer) {
+						player.remove();
+					}
+					if (error) {
+						reject(error);
+					} else {
+						resolve();
+					}
+				};
+
+				player.addEventListener("ended", () => finish(), { once: true });
+				player.addEventListener("error", () => finish(new Error("Nepavyko paleisti garso įrašo.")), { once: true });
+				player.play().catch(finish);
+			});
+		}
+
+		function playAudioBlob(audioBlob) {
+			return playAudioSource(audioBlob);
+		}
+
+		async function loadAudioSource(audioSource) {
+			if (!audioSource) {
+				return null;
+			}
+			try {
+				const response = await fetch(audioSource);
+				return response.ok ? await response.blob() : null;
+			} catch {
+				return null;
+			}
+		}
+
+		function loadPhraseAudio(phraseButton) {
+			return loadAudioSource(phraseButton.dataset.audioSrc);
+		}
+
+		async function speakSentence() {
+			const sentenceWords = composeSentenceWords();
+			stopAudioPlayback();
+			for (const [index, { audio, audioSource }] of selectedWords.entries()) {
+				const wordAudio = audio instanceof Blob ? audio : await loadAudioSource(audioSource);
+				if (wordAudio) {
+					try {
+						await playAudioSource(wordAudio, true);
+						continue;
+					} catch (error) {
+						// Fall back to the word's spoken form when its recording cannot be played.
+					}
+				}
+				await speakText(sentenceWords[index]);
+			}
+		}
+
+		function speakText(text) {
+			if (!text || !("speechSynthesis" in window) || !("SpeechSynthesisUtterance" in window)) {
+				return Promise.resolve();
+			}
+			stopAudioPlayback();
+			return new Promise((resolve) => {
+				const utterance = new SpeechSynthesisUtterance(text);
+				utterance.lang = "lt-LT";
+				utterance.onend = resolve;
+				utterance.onerror = resolve;
+				window.speechSynthesis.speak(utterance);
+			});
+		}
+
+		function getCardAudioSource(word) {
+			const normalizedWord = word.toLocaleLowerCase("lt-LT");
+			return emotionHeading.textContent === "Spalvos"
+				? colorAudioFiles.get(normalizedWord)
+				: emotionHeading.textContent === "Skaičiai"
+				? numberAudioFiles.get(normalizedWord)
+				: emotionHeading.textContent === "Mėsa"
+				? meatAudioFiles.get(normalizedWord)
+				: emotionHeading.textContent === "Žuvis"
+					? fishAudioFiles.get(normalizedWord)
+				: emotionHeading.textContent === "Sportas"
+					? sportAudioFiles.get(normalizedWord)
+				: emotionHeading.textContent === "Daiktai"
+					? personalItemAudioFiles.get(normalizedWord)
+				: emotionHeading.textContent === "Apranga"
+					? clothingAudioFiles.get(normalizedWord)
+				: emotionHeading.textContent === "Higiena"
+					? hygieneAudioFiles.get(normalizedWord)
+				: currentSubgroup && emotionHeading.textContent === "Makaronai"
+					? pastaAudioFiles.get(normalizedWord)
+				: currentSubgroup && emotionHeading.textContent === "Padažai"
+					? sauceAudioFiles.get(normalizedWord)
+				: currentSubgroup && emotionHeading.textContent === "Kruopos"
+					? grainAudioFiles.get(normalizedWord)
+				: currentSubgroup && emotionHeading.textContent === "Prieskoniai"
+					? spiceAudioFiles.get(normalizedWord)
+				: currentSubgroup && emotionHeading.textContent === "Paruošti produktai"
+					? preparedFoodAudioFiles.get(normalizedWord)
+				: currentSubgroup && emotionHeading.textContent === "Gaminimo procesas"
+					? cookingProcessAudioFiles.get(normalizedWord)
+				: currentSubgroup && emotionHeading.textContent === "Indai"
+					? utensilAudioFiles.get(normalizedWord)
+				: currentSubgroup && emotionHeading.textContent === "Daržovės"
+					? vegetableAudioFiles.get(normalizedWord)
+					: currentSubgroup && emotionHeading.textContent === "Pienas"
+						? dairyAudioFiles.get(normalizedWord)
+						: emotionAudioFiles.get(normalizedWord) || dishAudioFiles.get(normalizedWord);
+		}
+
+		function getCardImageSource(word) {
+			const normalizedWord = word.toLocaleLowerCase("lt-LT");
+			return emotionHeading.textContent === "Vaisiai"
+				? fruitImageFiles.get(normalizedWord) || ""
+				: emotionHeading.textContent === "Uogos"
+					? berryImageFiles.get(normalizedWord) || ""
+				: emotionHeading.textContent === "Daržovės"
+					? vegetableImageFiles.get(normalizedWord) || ""
+				: emotionHeading.textContent === "Duona"
+					? breadImageFiles.get(normalizedWord) || pastryImageFiles.get(normalizedWord) || ""
+				: emotionHeading.textContent === "Kiaušiniai"
+					? eggImageFiles.get(normalizedWord) || ""
+				: emotionHeading.textContent === "Pienas" && normalizedWord === "jogurtas"
+					? drinkImageFiles.get(normalizedWord) || ""
+				: emotionHeading.textContent === "Pienas"
+					? dairyImageFiles.get(normalizedWord) || ""
+				: emotionHeading.textContent === "Mėsa"
+					? meatImageFiles.get(normalizedWord) || ""
+				: emotionHeading.textContent === "Makaronai"
+					? pastaImageFiles.get(normalizedWord) || ""
+				: emotionHeading.textContent === "Padažai"
+					? sauceImageFiles.get(normalizedWord) || ""
+				: emotionHeading.textContent === "Prieskoniai"
+					? spiceImageFiles.get(normalizedWord) || ""
+				: emotionHeading.textContent === "Paruošti produktai"
+					? preparedFoodImageFiles.get(normalizedWord) || ""
+				: emotionHeading.textContent === "Gaminimo procesas"
+					? cookingProcessImageFiles.get(normalizedWord) || ""
+				: emotionHeading.textContent === "Indai"
+					? utensilImageFiles.get(normalizedWord) || ""
+				: emotionHeading.textContent === "Patiekalai"
+					? dishImageFiles.get(normalizedWord) || ""
+					: emotionHeading.textContent === "Kepiniai"
+						? pastryImageFiles.get(normalizedWord) || ""
+					: emotionHeading.textContent === "Užkandžiai"
+						? snackImageFiles.get(normalizedWord) || ""
+					: emotionHeading.textContent === "Saldumynai"
+						? sweetsImageFiles.get(normalizedWord) || ""
+					: emotionHeading.textContent === "Gerti"
+						? drinkImageFiles.get(normalizedWord) || ""
+					: emotionHeading.textContent === "Tualetas"
+						? toiletImageFiles.get(normalizedWord) || ""
+					: emotionHeading.textContent === "Bendravimas"
+						? communicationImageFiles.get(normalizedWord) || ""
+					: emotionHeading.textContent === "Namų ruoša"
+						? householdChoreImageFiles.get(normalizedWord) || ""
+					: emotionHeading.textContent === "Poilsis"
+						? restImageFiles.get(normalizedWord) || entertainmentImageFiles.get(normalizedWord) || ""
+					: emotionHeading.textContent === "Vietos"
+						? publicPlaceImageFiles.get(normalizedWord) || natureImageFiles.get(normalizedWord) || ""
+					: emotionHeading.textContent === "Skauda"
+						? painImageFiles.get(normalizedWord) || ""
+					: emotionHeading.textContent === "Sportas"
+						? sportImageFiles.get(normalizedWord) || ""
+					: emotionHeading.textContent === "Daiktai"
+						? personalItemImageFiles.get(normalizedWord) || ""
+					: emotionHeading.textContent === "Apranga"
+						? clothingImageFiles.get(normalizedWord) || ""
+					: emotionHeading.textContent === "Higiena"
+						? hygieneImageFiles.get(normalizedWord) || ""
+					: emotionHeading.textContent === "Skaičiai"
+						? numberImageFiles.get(normalizedWord) || ""
+					: emotionHeading.textContent === "Žuvis"
+						? fishImageFiles.get(normalizedWord) || ""
+					: emotionHeading.textContent === "Kruopos"
+						? grainImageFiles.get(normalizedWord) || ""
+					: "";
+		}
+
+		function prepareEmotionCards() {
+			emotionGrid.querySelectorAll(".emotion-card").forEach((card) => {
+				const word = card.querySelector("p")?.textContent.trim();
+				if (word) {
+					card.setAttribute("role", "group");
+					card.setAttribute("tabindex", "0");
+					card.setAttribute("aria-label", `${word}, pridėti prie sakinio`);
+					card.querySelectorAll(".emotion-add-placeholder, .emotion-add").forEach((control) => control.remove());
+					const imageSource = card.classList.contains("emotion-card--color-swatch")
+						? ""
+						: getCardImageSource(word);
+					const photoPlaceholder = card.querySelector(".emotion-photo-placeholder");
+					if (imageSource && photoPlaceholder && !photoPlaceholder.querySelector("img")) {
+						const image = document.createElement("img");
+						image.src = imageSource;
+						image.alt = "";
+						image.loading = "lazy";
+						photoPlaceholder.append(image);
+					}
+				}
+			});
+		}
+
+		const emotionCardObserver = new MutationObserver(prepareEmotionCards);
+		emotionCardObserver.observe(emotionGrid, { childList: true, subtree: true });
+		prepareEmotionCards();
+		const gertiCards = [
+			"Vanduo", "Sultys", "Vanduo su citrina", "Gazuotas vanduo",
+			"Limonadas", "Kokteilis", "Kava", "Arbata", "Kakava", "Pienas",
+			"Kefyras", "Jogurtas"
+		];
+		const tualetasCards = [
+			"Tualetas", "Tualetinis popierius", "Tualeto šepetys", "Oro gaiviklis",
+			"Nuleisti vandenį", "Plauti rankas", "Skystas muilas", "Rankšluostis"
+		];
+		const bendravimasCards = [
+			"Labas", "Taip", "Ne", "Stop", "Apsikabinkim", "Viso gero",
+			"Atsiprašau", "Ačiū"
+		];
+		const skaudaCards = [
+			"Dantys", "Gerklė", "Pilvas", "Galva", "Koja", "Nugara", "Ausis", "Ranka"
+		];
+		const personalItemsCards = [
+			"Kuprinė", "Puodelis", "Raktai", "Piniginė", "Akiniai",
+			"Skėtis", "Maisto dėžutė", "Telefonas", "Ausinės", "Žaislas",
+			"Laikrodis", "Užrašinė"
+		];
+		const clothingCards = [
+			"Marškinėliai", "Džinsai", "Striukė", "Kepurė",
+			"Šalikas", "Pirštinės", "Batai", "Megztinis",
+			"Suknelė", "Šortai", "Sijonas", "Kojinės",
+			"Apatiniai", "Naktiniai"
+		];
+		const hygieneCards = [
+			"Muilas", "Šepetėlis", "Dantų pasta", "Rankšluostis",
+			"Tualetinis popierius", "Servetėlės", "Kremas", "Šampūnas",
+			"Dušo želė", "Lūpų balzamas", "Dezodorantas", "Losjonas",
+			"Šukos", "Žirklutės"
+		];
+		const numberCards = [
+			"Vienas", "Du", "Trys", "Keturi",
+			"Penki", "Šeši", "Septyni", "Aštuoni",
+			"Devyni", "Dešimt"
+		];
+		const colorCards = [
+			"Balta", "Geltona", "Oranžinė", "Raudona",
+			"Žalia", "Mėlyna", "Violetinė", "Rožinė",
+			"Pilka", "Juoda"
+		];
+		const colorSwatches = new Map([
+			["Balta", "#ffffff"],
+			["Geltona", "#facc15"],
+			["Oranžinė", "#f97316"],
+			["Raudona", "#ef4444"],
+			["Žalia", "#22c55e"],
+			["Mėlyna", "#3b82f6"],
+			["Violetinė", "#8b5cf6"],
+			["Rožinė", "#ec4899"],
+			["Pilka", "#9ca3af"],
+			["Juoda", "#111827"]
+		]);
+		const timeCards = [
+			"Ryte", "Diena", "Vakaras", "Naktis",
+			"Valanda", "Minute", "Metai", "Savaitė",
+			"Pietūs", "Laikas"
+		];
+		function renderWordCards(words, swatches = null) {
+			if (!Array.isArray(words) || words.length === 0) {
+				return "";
+			}
+			return words.map((word) => {
+				const swatch = swatches?.get(word);
+				const swatchClass = swatch ? " emotion-card--color-swatch" : "";
+				const swatchStyle = swatch ? ` style="--color-swatch: ${swatch}"` : "";
+				return `
+				<article class="emotion-card emotion-card-placeholder${swatchClass}"${swatchStyle}>
+					<div class="emotion-card-tools">
+						<button class="emotion-audio" type="button" aria-label="Leisti garsą: ${word.toLowerCase()}">
+							<span aria-hidden="true">◖))</span> Garsas
+						</button>
+						<span class="emotion-add-placeholder" aria-hidden="true"></span>
+					</div>
+					<div class="emotion-photo-placeholder" aria-hidden="true"></div>
+					<p>${word}</p>
+				</article>
+			`;
+			}).join("");
+		}
+
+		function goBackToCategories() {
+			if (currentSubgroup && currentIngredientList) {
+				currentSubgroup = false;
+				emotionHeading.textContent = "Maisto produktai";
+				ingredientSubgroups.hidden = false;
+				emotionGrid.hidden = true;
+				return;
+			}
+
+			if (currentIngredientList) {
+				currentIngredientList = false;
+				emotionHeading.textContent = currentCategoryName;
+				cookingSubgroups.hidden = false;
+				emotionGrid.hidden = true;
+				return;
+			}
+
+			if (currentSubgroup) {
+				currentSubgroup = false;
+				emotionHeading.textContent = currentCategoryName;
+				foodSubgroups.hidden = currentCategoryName !== "Valgyti";
+				cookingSubgroups.hidden = currentCategoryName !== "Gaminti";
+				emotionGrid.hidden = true;
+				return;
+			}
+
+			emotionView.hidden = true;
+			categoriesTitle.hidden = false;
+			categoryList.hidden = false;
+			appShell.classList.remove("is-emotion-view");
+			appShell.classList.remove("is-personal-cards-view");
+			appShell.classList.remove("is-food-view");
+			appShell.classList.remove("is-drink-view");
+			appShell.classList.remove("is-toilet-view");
+			appShell.classList.remove("is-communication-view");
+			appShell.classList.remove("is-pain-view");
+			appShell.classList.remove("is-cooking-view");
+			appShell.classList.remove("is-sport-view");
+			appShell.classList.remove("is-personal-items-view");
+			appShell.classList.remove("is-colors-view");
+			appShell.classList.remove("is-numbers-view");
+			appShell.classList.remove("is-hygiene-view");
+			appShell.classList.remove("is-clothing-view");
+			categoriesPanel.setAttribute("aria-labelledby", "categories-title");
+		}
+
+		function showCategory(categoryRow) {
+			const categoryName = categoryRow.querySelectorAll(":scope > span")[1].textContent.trim();
+			const categoryIcon = categoryRow.querySelector(".category-icon img");
+
+			currentCategoryName = categoryName;
+			currentSubgroup = false;
+			currentIngredientList = false;
+			emotionView.classList.toggle("emotion-view--food", categoryName === "Valgyti");
+			emotionView.classList.toggle("emotion-view--drink", categoryName === "Gerti");
+			emotionView.classList.toggle("emotion-view--toilet", categoryName === "Tualetas");
+			emotionView.classList.toggle("emotion-view--communication", categoryName === "Bendravimas");
+			emotionView.classList.toggle("emotion-view--pain", categoryName === "Skauda");
+			emotionView.classList.toggle("emotion-view--chores", categoryName === "Namų ruoša");
+			emotionView.classList.toggle("emotion-view--rest", categoryName === "Poilsis");
+			emotionView.classList.toggle("emotion-view--locations", categoryName === "Vietos");
+			emotionView.classList.toggle("emotion-view--cooking", categoryName === "Gaminti");
+			emotionView.classList.toggle("emotion-view--sport", categoryName === "Sportas");
+			emotionView.classList.toggle("emotion-view--personal-items", categoryName === "Daiktai");
+			emotionView.classList.toggle("emotion-view--colors", categoryName === "Spalvos");
+			emotionView.classList.toggle("emotion-view--numbers", categoryName === "Skaičiai");
+			emotionView.classList.toggle("emotion-view--hygiene", categoryName === "Higiena");
+			emotionView.classList.toggle("emotion-view--clothing", categoryName === "Apranga");
+			appShell.classList.toggle("is-food-view", categoryName === "Valgyti");
+			appShell.classList.toggle("is-drink-view", categoryName === "Gerti");
+			appShell.classList.toggle("is-toilet-view", categoryName === "Tualetas");
+			appShell.classList.toggle("is-communication-view", categoryName === "Bendravimas");
+			appShell.classList.toggle("is-pain-view", categoryName === "Skauda");
+			appShell.classList.toggle("is-cooking-view", categoryName === "Gaminti");
+			appShell.classList.toggle("is-sport-view", categoryName === "Sportas");
+			appShell.classList.toggle("is-personal-items-view", categoryName === "Daiktai");
+			appShell.classList.toggle("is-colors-view", categoryName === "Spalvos");
+			appShell.classList.toggle("is-numbers-view", categoryName === "Skaičiai");
+			appShell.classList.toggle("is-hygiene-view", categoryName === "Higiena");
+			appShell.classList.toggle("is-clothing-view", categoryName === "Apranga");
+			emotionHeading.textContent = categoryName;
+			emotionHeadingIcon.src = categoryIcon.src;
+			appShell.classList.toggle("is-personal-cards-view", categoryName === "Mano kortelės");
+			foodSubgroups.hidden = categoryName !== "Valgyti";
+			cookingSubgroups.hidden = categoryName !== "Gaminti";
+			ingredientSubgroups.hidden = true;
+			emotionGrid.hidden = categoryName === "Valgyti" || categoryName === "Gaminti";
+			if (categoryName === "Mano kortelės") {
+				renderPersonalCards();
+			} else if (categoryName === "Namų ruoša") {
+				emotionGrid.replaceChildren(householdChoresCards.content.cloneNode(true));
+			} else if (categoryName === "Poilsis") {
+				emotionGrid.replaceChildren(restCards.content.cloneNode(true));
+			} else if (categoryName === "Vietos") {
+				emotionGrid.replaceChildren(
+					publicPlaceCards.content.cloneNode(true),
+					naturePlaceCards.content.cloneNode(true)
+				);
+			} else if (categoryName === "Sportas") {
+				emotionGrid.replaceChildren(sportCards.content.cloneNode(true));
+			} else if (categoryName === "Daiktai") {
+				emotionGrid.innerHTML = renderWordCards(personalItemsCards);
+			} else if (categoryName === "Apranga") {
+				emotionGrid.innerHTML = renderWordCards(clothingCards);
+			} else if (categoryName === "Higiena") {
+				emotionGrid.innerHTML = renderWordCards(hygieneCards);
+			} else if (categoryName === "Gerti") {
+				emotionGrid.innerHTML = renderWordCards(gertiCards);
+			} else if (categoryName === "Tualetas") {
+				emotionGrid.innerHTML = renderWordCards(tualetasCards);
+			} else if (categoryName === "Bendravimas") {
+				emotionGrid.innerHTML = renderWordCards(bendravimasCards);
+			} else if (categoryName === "Skauda") {
+				emotionGrid.innerHTML = renderWordCards(skaudaCards);
+			} else if (categoryName === "Skaičiai") {
+				emotionGrid.innerHTML = renderWordCards(numberCards);
+			} else if (categoryName === "Spalvos") {
+				emotionGrid.innerHTML = renderWordCards(colorCards, colorSwatches);
+			} else if (categoryName === "Laikas") {
+				emotionGrid.innerHTML = renderWordCards(timeCards);
+			} else if (categoryName !== "Valgyti" && categoryName !== "Gaminti") {
+				emotionGrid.innerHTML = renderWordCards(Array.from({ length: 12 }, () => "Žodis"));
+			}
+			emotionGrid.setAttribute("aria-label", `${categoryName} kortelės`);
+
+			categoriesTitle.hidden = true;
+			categoryList.hidden = true;
+			emotionView.hidden = false;
+			appShell.classList.add("is-emotion-view");
+			categoriesPanel.setAttribute("aria-labelledby", "emotion-title");
+			window.scrollTo({ top: 0, behavior: "smooth" });
+		}
+
+		document.getElementById("emotion-back").addEventListener("click", goBackToCategories);
+		document.getElementById("nav-back").addEventListener("click", goBackToCategories);
+		document.getElementById("tab-back").addEventListener("click", goBackToCategories);
+
+		function goHome() {
+			emotionView.hidden = true;
+			categoriesTitle.hidden = false;
+			categoryList.hidden = false;
+			appShell.classList.remove("is-emotion-view");
+			appShell.classList.remove("is-personal-cards-view");
+			appShell.classList.remove("is-food-view");
+			appShell.classList.remove("is-drink-view");
+			appShell.classList.remove("is-toilet-view");
+			appShell.classList.remove("is-communication-view");
+			appShell.classList.remove("is-pain-view");
+			appShell.classList.remove("is-cooking-view");
+			appShell.classList.remove("is-sport-view");
+			appShell.classList.remove("is-personal-items-view");
+			appShell.classList.remove("is-colors-view");
+			appShell.classList.remove("is-numbers-view");
+			appShell.classList.remove("is-hygiene-view");
+			appShell.classList.remove("is-clothing-view");
+			categoriesPanel.setAttribute("aria-labelledby", "categories-title");
+		}
+
+		document.getElementById("desktop-home").addEventListener("click", goHome);
+		document.getElementById("nav-home").addEventListener("click", goHome);
+		document.getElementById("tab-home").addEventListener("click", goHome);
+
+		function normalizeSearchText(text) {
+			return text.toLocaleLowerCase("lt-LT").normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+		}
+
+		const searchResults = document.querySelector("#search-results");
+		const subgroupContainers = [foodSubgroups, cookingSubgroups, ingredientSubgroups];
+		let searchIndex = null;
+		let isBuildingSearchIndex = false;
+		let currentSearchMatches = [];
+		const searchObjectUrls = [];
+
+		function collectVisibleCards(entries) {
+			prepareEmotionCards();
+			const label = currentCategoryName === emotionHeading.textContent
+				? currentCategoryName
+				: `${currentCategoryName} › ${emotionHeading.textContent}`;
+			emotionGrid.querySelectorAll(".emotion-card:not([data-personal-card-id])").forEach((card) => {
+				const word = card.querySelector("p")?.textContent.trim();
+				if (!word || word === "Žodis") {
+					return;
+				}
+				entries.push({
+					word,
+					norm: normalizeSearchText(word),
+					image: card.querySelector(".emotion-photo-placeholder img")?.getAttribute("src") || "",
+					audio: getCardAudioSource(word) || "",
+					label
+				});
+			});
+		}
+
+		function crawlRows(rows, entries) {
+			rows.forEach((row) => {
+				if (row.hasAttribute("data-local-cards")) {
+					return;
+				}
+				row.click();
+				if (!emotionGrid.hidden) {
+					collectVisibleCards(entries);
+				} else {
+					const container = subgroupContainers.find((subgroups) => !subgroups.hidden);
+					if (container) {
+						crawlRows(Array.from(container.querySelectorAll(".subcategory-row")), entries);
+					}
+				}
+				goBackToCategories();
+			});
+		}
+
+		function ensureSearchIndex() {
+			if (searchIndex) {
+				return;
+			}
+			isBuildingSearchIndex = true;
+			const scrollTop = window.scrollY;
+			const entries = [];
+			try {
+				if (!emotionView.hidden) {
+					goHome();
+				}
+				crawlRows(Array.from(document.querySelectorAll(".category-row")), entries);
+			} finally {
+				isBuildingSearchIndex = false;
+				window.scrollTo({ top: scrollTop, behavior: "instant" });
+			}
+			const seen = new Set();
+			searchIndex = entries.filter(({ norm, image, label }) => {
+				const key = `${norm}|${image}|${label}`;
+				return seen.has(key) ? false : Boolean(seen.add(key));
+			});
+		}
+
+		function renderSearchResults(matches) {
+			searchObjectUrls.splice(0).forEach((url) => URL.revokeObjectURL(url));
+			if (matches.length === 0) {
+				const empty = document.createElement("p");
+				empty.className = "search-results-empty";
+				empty.textContent = "Nieko nerasta.";
+				searchResults.replaceChildren(empty);
+				return;
+			}
+			searchResults.replaceChildren(...matches.map((entry, index) => {
+				const row = document.createElement("div");
+				row.className = "search-result";
+				row.dataset.index = String(index);
+
+				const main = document.createElement("button");
+				main.type = "button";
+				main.className = "search-result-main";
+				main.setAttribute("aria-label", `Pridėti ${entry.word} prie sakinio`);
+
+				const thumb = document.createElement("span");
+				thumb.className = "search-result-thumb";
+				let imageSource = entry.image;
+				if (entry.personal?.photo instanceof Blob) {
+					imageSource = URL.createObjectURL(entry.personal.photo);
+					searchObjectUrls.push(imageSource);
+				}
+				if (imageSource) {
+					const image = document.createElement("img");
+					image.src = imageSource;
+					image.alt = "";
+					image.loading = "lazy";
+					thumb.append(image);
+				}
+
+				const copy = document.createElement("span");
+				copy.className = "search-result-copy";
+				const word = document.createElement("span");
+				word.className = "search-result-word";
+				word.textContent = entry.word;
+				const label = document.createElement("span");
+				label.className = "search-result-label";
+				label.textContent = entry.label;
+				copy.append(word, label);
+				main.append(thumb, copy);
+
+				const audioButton = document.createElement("button");
+				audioButton.type = "button";
+				audioButton.className = "search-result-audio";
+				audioButton.setAttribute("aria-label", `Leisti garsą: ${entry.word.toLocaleLowerCase("lt-LT")}`);
+				audioButton.innerHTML = '<img src="NAVIGACIJOA IKONOS/SpeakerSimpleHigh.svg?v=3" alt="">';
+
+				row.append(main, audioButton);
+				return row;
+			}));
+		}
+
+		function applySearch() {
+			const query = normalizeSearchText(searchInput.value.trim());
+			appShell.classList.toggle("is-search-results", Boolean(query));
+			searchResults.hidden = !query;
+			if (!query) {
+				searchResults.replaceChildren();
+				currentSearchMatches = [];
+				return;
+			}
+			ensureSearchIndex();
+			const personalEntries = personalCards.map((personal) => ({
+				word: personal.name,
+				norm: normalizeSearchText(personal.name),
+				image: "",
+				audio: "",
+				label: "Mano kortelės",
+				personal
+			}));
+			const rank = ({ norm }) => norm.startsWith(query) ? 0 : norm.split(/\s+/).some((part) => part.startsWith(query)) ? 1 : 2;
+			const candidates = [...personalEntries, ...searchIndex].filter(({ norm }) => norm.includes(query));
+			const hasWordStart = candidates.some((entry) => rank(entry) < 2);
+			currentSearchMatches = candidates
+				.filter((entry) => !hasWordStart || rank(entry) < 2)
+				.sort((a, b) => rank(a) - rank(b) || a.word.localeCompare(b.word, "lt-LT"))
+				.slice(0, 80);
+			renderSearchResults(currentSearchMatches);
+		}
+
+		searchResults.addEventListener("click", (event) => {
+			const row = event.target.closest(".search-result");
+			const entry = row && currentSearchMatches[Number(row.dataset.index)];
+			if (!entry) {
+				return;
+			}
+			if (event.target.closest(".search-result-audio")) {
+				if (entry.personal?.audio instanceof Blob) {
+					playAudioBlob(entry.personal.audio).catch(() => speakText(entry.word));
+				} else if (entry.audio) {
+					loadAudioSource(entry.audio)
+						.then((audioBlob) => audioBlob ? playAudioBlob(audioBlob) : speakText(entry.word))
+						.catch(() => speakText(entry.word));
+				} else {
+					speakText(entry.word);
+				}
+				return;
+			}
+			addSelectedWord(entry.word, entry.personal?.photo || entry.image || null, entry.personal?.audio || null, entry.personal ? "" : entry.audio);
+		});
+
+		const tabSearchInput = document.querySelector("#tab-search-input");
+		const tabHome = document.querySelector("#tab-home");
+
+		function clearSearch() {
+			tabHome.setAttribute("aria-current", "page");
+			searchInput.value = "";
+			tabSearchInput.value = "";
+			applySearch();
+		}
+
+		desktopSearchToggle.addEventListener("click", () => searchInput.focus());
+		searchInput.addEventListener("input", applySearch);
+		tabSearchInput.addEventListener("input", () => {
+			searchInput.value = tabSearchInput.value;
+			applySearch();
+		});
+		[searchInput, tabSearchInput].forEach((input) => input.addEventListener("keydown", (event) => {
+			if (input === searchInput && event.key === "Escape") {
+				event.preventDefault();
+				searchInput.value = "";
+				tabSearchInput.value = "";
+				applySearch();
+				return;
+			}
+			if (event.key === "Enter") {
+				input.blur();
+			}
+		}));
+		document.addEventListener("click", (event) => {
+			if (!isBuildingSearchIndex && event.target.closest("#emotion-back, #nav-back, #tab-back, #nav-home, #desktop-home, #tab-home")) {
+				clearSearch();
+			}
+		}, true);
+
+		document.querySelectorAll(".category-row").forEach((categoryRow) => {
+			categoryRow.addEventListener("click", async () => {
+				if (categoryRow.hasAttribute("data-local-cards")) {
+					personalCards = await personalCardsReady;
+				}
+				showCategory(categoryRow);
+			});
+		});
+
+		document.querySelectorAll(".subcategory-row").forEach((subcategoryRow) => {
+			subcategoryRow.addEventListener("click", () => {
+				const subgroupName = subcategoryRow.querySelectorAll(":scope > span")[1].textContent.trim();
+				const ingredientCardTemplate = ingredientCardTemplates[subgroupName];
+				if ((subcategoryRow.closest("#ingredient-subgroups") || subcategoryRow.closest("#cooking-subgroups")) && ingredientCardTemplate) {
+					currentSubgroup = true;
+					currentIngredientList = Boolean(subcategoryRow.closest("#ingredient-subgroups"));
+					emotionHeading.textContent = subgroupName;
+					cookingSubgroups.hidden = true;
+					ingredientSubgroups.hidden = true;
+					emotionGrid.hidden = false;
+					emotionGrid.replaceChildren(ingredientCardTemplate.content.cloneNode(true));
+					emotionGrid.setAttribute("aria-label", `${subgroupName} kortelės`);
+					return;
+				}
+				if (subgroupName === "Maisto produktai") {
+					currentIngredientList = true;
+					cookingSubgroups.hidden = true;
+					ingredientSubgroups.hidden = false;
+					emotionGrid.hidden = true;
+					emotionHeading.textContent = subgroupName;
+					return;
+				}
+				currentSubgroup = true;
+				if (!subcategoryRow.closest("#ingredient-subgroups")) {
+					currentIngredientList = false;
+				}
+				const subgroupCards = {
+					"Patiekalai": [
+						"Kepti kiaušiniai", "Virti kiaušiniai", "Omletas", "Salotos",
+						"Kepsnys", "Burgeris", "Dešrelės", "Maltinukas",
+						"Sriuba", "Lazanija", "Spagečiai", "Pica", "Blynai", "Lietiniai"
+					],
+					"Kepiniai": [
+						"Juoda duona", "Duonelė", "Sumuštinių duona", "Ilgas batonas",
+						"Kruasanas", "Bandelė", "Tortas", "Keksiukas"
+					],
+					"Saldumynai": [
+						"Bandelė", "Ledai", "Saldainis", "Guminukai",
+						"Sausainis", "Vaflis", "Šokoladas", "Čiulpinukas"
+					],
+					"Užkandžiai": [
+						"Trapučiai", "Riešutai", "Džiovinti vaisiai",
+						"Popkornai", "Traškučiai", "Lazdelės"
+					],
+					"Skaičiai": numberCards,
+					"Spalvos": colorCards
+				};
+				if (subgroupName === "Skaičiai") {
+					emotionHeading.textContent = subgroupName;
+					foodSubgroups.hidden = true;
+					cookingSubgroups.hidden = true;
+					ingredientSubgroups.hidden = true;
+					emotionGrid.hidden = false;
+					emotionGrid.innerHTML = renderWordCards(numberCards);
+					emotionGrid.setAttribute("aria-label", `${subgroupName} kortelės`);
+					return;
+				}
+				if (subgroupName === "Spalvos") {
+					emotionHeading.textContent = subgroupName;
+					foodSubgroups.hidden = true;
+					cookingSubgroups.hidden = true;
+					ingredientSubgroups.hidden = true;
+					emotionGrid.hidden = false;
+					emotionGrid.innerHTML = renderWordCards(colorCards, colorSwatches);
+					emotionGrid.setAttribute("aria-label", `${subgroupName} kortelės`);
+					return;
+				}
+				const words = subgroupCards[subgroupName] || Array.from({ length: 12 }, () => "Žodis");
+				emotionHeading.textContent = subgroupName;
+				foodSubgroups.hidden = true;
+				cookingSubgroups.hidden = true;
+				ingredientSubgroups.hidden = true;
+				emotionGrid.hidden = false;
+				emotionGrid.innerHTML = renderWordCards(words);
+				emotionGrid.setAttribute("aria-label", `${emotionHeading.textContent} kortelės`);
+			});
+		});
+
+		emotionGrid.addEventListener("click", (event) => {
+			const card = event.target.closest(".emotion-card");
+			if (!card) {
+				return;
+			}
+			const word = card.querySelector("p")?.textContent.trim();
+			const personalCard = personalCards.find(({ id }) => id === card.dataset.personalCardId);
+			if (event.target.closest(".emotion-audio")) {
+				if (personalCard?.audio instanceof Blob) {
+					playAudioBlob(personalCard.audio).catch(() => speakText(word));
+				} else {
+					const cardAudioSource = getCardAudioSource(word);
+					if (cardAudioSource) {
+						loadAudioSource(cardAudioSource)
+							.then((audioBlob) => audioBlob ? playAudioBlob(audioBlob) : speakText(word))
+							.catch(() => speakText(word));
+					} else {
+						speakText(word);
+					}
+				}
+				return;
+			}
+			addSelectedWord(word, personalCard?.photo || getCardImageSource(word) || null, personalCard?.audio || null, personalCard ? "" : getCardAudioSource(word) || "");
+		});
+
+		emotionGrid.addEventListener("keydown", (event) => {
+			if (!event.target.matches(".emotion-card") || (event.key !== "Enter" && event.key !== " ")) {
+				return;
+			}
+			event.preventDefault();
+			const card = event.target;
+			const personalCard = personalCards.find(({ id }) => id === card.dataset.personalCardId);
+			const word = card.querySelector("p")?.textContent.trim();
+			addSelectedWord(word, personalCard?.photo || getCardImageSource(word) || null, personalCard?.audio || null, personalCard ? "" : getCardAudioSource(word) || "");
+		});
+
+		document.querySelector(".quick-phrases").addEventListener("click", async (event) => {
+			const phraseButton = event.target.closest(".phrase-chip");
+			const phrase = phraseButton?.querySelector(".phrase-chip-label")?.textContent;
+			if (phrase) {
+				addSelectedWord(phrase, null, await loadPhraseAudio(phraseButton));
+			}
+		});
+
+		selectedWordsTray.addEventListener("click", (event) => {
+			const removeButton = event.target.closest("[data-remove-selected-word]");
+			if (!removeButton) {
+				return;
+			}
+			const selectedWordId = Number(removeButton.dataset.removeSelectedWord);
+			const wordCard = removeButton.closest(".selected-word");
+			if (wordCard) {
+				wordCard.classList.add("removing");
+				setTimeout(() => {
+					selectedWords = selectedWords.filter(({ id }) => id !== selectedWordId);
+					renderSelectedWords();
+				}, 150);
+			} else {
+				selectedWords = selectedWords.filter(({ id }) => id !== selectedWordId);
+				renderSelectedWords();
+			}
+		});
+
+		document.getElementById("sentence-speak").addEventListener("click", () => {
+			speakSentence();
+		});
+
+		document.getElementById("sentence-clear").addEventListener("click", () => {
+			selectedWords = [];
+			renderSelectedWords();
+		});
+
+		document.querySelectorAll("[data-create-card]").forEach((createButton) => createButton.addEventListener("click", async () => {
+			await personalCardsReady;
+			personalCardStatus.textContent = personalCardStorageError ? "Šiame įrenginyje nepavyko atverti vietinės saugyklos." : "";
+			personalCardDialog.showModal();
+			personalCardName.focus();
+		}));
+
+		personalCardPhoto.addEventListener("change", () => {
+			showPhotoPreview(personalCardPhoto.files[0]);
+		});
+
+		personalCardAudio.addEventListener("change", () => {
+			personalCardRecordedAudio = null;
+			showAudioPreview(personalCardAudio.files[0]);
+		});
+
+		personalCardRecordButton.addEventListener("click", startPersonalCardRecording);
+		personalCardStopRecordingButton.addEventListener("click", stopPersonalCardRecording);
+
+		document.getElementById("close-personal-card-dialog").addEventListener("click", () => personalCardDialog.close());
+		document.getElementById("cancel-personal-card").addEventListener("click", () => personalCardDialog.close());
+		personalCardDialog.addEventListener("close", () => {
+			personalCardRecordingRequestId += 1;
+			if (personalCardRecordingSession) {
+				personalCardRecordingSession.discard = true;
+				if (personalCardRecordingSession.recorder.state !== "inactive") {
+					personalCardRecordingSession.recorder.stop();
+				}
+				personalCardRecordingSession.stream.getTracks().forEach((track) => track.stop());
+				personalCardRecordingSession = null;
+			}
+			personalCardRecordedAudio = null;
+			personalCardForm.reset();
+			personalCardStatus.textContent = "";
+			showPhotoPreview(null);
+			showAudioPreview(null);
+			resetPersonalCardRecordingControls();
+		});
+
+		personalCardForm.addEventListener("submit", async (event) => {
+			event.preventDefault();
+			const name = personalCardName.value.trim();
+			if (!name) {
+				personalCardName.focus();
+				return;
+			}
+
+			const personalCard = {
+				id: window.crypto?.randomUUID?.() || `${Date.now()}-${Math.random().toString(16).slice(2)}`,
+				name,
+				photo: personalCardPhoto.files[0] || null,
+				audio: personalCardRecordedAudio || personalCardAudio.files[0] || null,
+				createdAt: Date.now()
+			};
+
+			try {
+				await savePersonalCard(personalCard);
+				personalCards = [personalCard, ...personalCards];
+				personalCardDialog.close();
+				await personalCardsReady;
+				showCategory(document.querySelector("[data-local-cards]"));
+			} catch (error) {
+				personalCardStatus.textContent = "Nepavyko išsaugoti kortelės šiame telefone.";
+			}
+		});
+
+		if ("serviceWorker" in navigator && window.isSecureContext) {
+			navigator.serviceWorker.register("./service-worker.js").catch((error) => {
+				console.error("Nepavyko įjungti Voicer veikimo be interneto:", error);
+			});
+		}
+	</script>
+</body>
+</html>

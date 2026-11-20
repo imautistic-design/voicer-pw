@@ -1,8 +1,48 @@
-const CACHE_NAME = "voicer-pwa-v279";
+const CACHE_NAME = "voicer-pwa-v405";
 const APP_SHELL = [
 	"./",
 	"./index.html",
-	"./style.css?v=240",
+	"./voicer.html",
+	"./apie.html",
+	"./app.html",
+	"./website.css?v=87",
+	"./website.js?v=7",
+	"./manifest.webmanifest",
+	"./logo/app-icon-192.png",
+	"./logo/app-icon-512.png",
+	"./vizualas puslapiui/VOIVER LOGO.png",
+	"./vizualas puslapiui/facebook.svg",
+	"./vizualas puslapiui/instagram.svg",
+	"./vizualas puslapiui/patreon.svg",
+	"./vizualas puslapiui/mielas.svg",
+	"./vizualas puslapiui/komunikabilus.svg",
+	"./vizualas puslapiui/draugiškas.svg",
+	"./vizualas puslapiui/kūrybiškas.svg",
+	"./vizualas puslapiui/lankstus.svg",
+	"./vizualas puslapiui/išreikšk save lengviau.png",
+	"./vizualas puslapiui/suprask kitus.png",
+	"./vizualas puslapiui/susikurk savo.png",
+	"./vizualas puslapiui/paremk.png",
+	"./vizualas puslapiui/ikelk savo idėja.png",
+	"./vizualas puslapiui/pasidalink.png",
+	"./vizualas puslapiui/Kurti paprastus įrankius, kasdieniam gyvenimui..jpg",
+	"./vizualas puslapiui/Suprasti tikrus poreikius, bei unikalų bendravimo būdą..jpg",
+	"./vizualas puslapiui/Palengvinti galimybę būti savarankiškiem.jpg",
+	"./vizualas puslapiui/PALAIKYK I’M AUTISTIC AUGIMĄ.jpg",
+	"./vizualas puslapiui/kor.png",
+	"./vizualas puslapiui/Greitai atsiras naujiena.jpg",
+	"./style.css?v=482",
+	"./NAVIGACIJOA IKONOS/ATGAL.svg",
+	"./NAVIGACIJOA IKONOS/PRADŽIA.svg",
+	"./veiksmai ikonos/eiti.png",
+	"./veiksmai ikonos/gerti.png",
+	"./veiksmai ikonos/ne.png",
+	"./veiksmai ikonos/noriu.png",
+	"./veiksmai ikonos/padėk.png",
+	"./veiksmai ikonos/taip.png",
+	"./veiksmai ikonos/valgyti.png",
+	"./veiksmai ikonos/važiuoti.png",
+	"./veiksmai ikonos/veiksmai.png",
 	"./kategorijų iliustracijos/valgyti.png",
 	"./kategorijų iliustracijos/gerti.png",
 	"./kategorijų iliustracijos/tualetas.png",
@@ -669,8 +709,8 @@ const APP_SHELL = [
 	"./IKONOS POGRUPIAI/HIGIENA.svg",
 	"./IKONOS POGRUPIAI/DEŠRELĖS.svg",
 	"./NAVIGACIJOA IKONOS/emocijjos.svg",
-	"./NAVIGACIJOA IKONOS/megstamiausi.svg",
-	"./NAVIGACIJOA IKONOS/SpeakerSimpleHigh.svg"
+	"./NAVIGACIJOA IKONOS/megstamiausi.svg?v=2",
+	"./NAVIGACIJOA IKONOS/SpeakerSimpleHigh.svg?v=3"
 ];
 
 self.addEventListener("install", (event) => {
@@ -705,7 +745,19 @@ self.addEventListener("fetch", (event) => {
 				return cachedResponse;
 			}
 
-			return fetch(event.request).catch(() => caches.match("./index.html"));
+			if (event.request.mode === "navigate") {
+				return fetch(event.request).catch(() => {
+					const appPath = new URL("./app.html", self.location.href).pathname;
+					const voicerPath = new URL("./voicer.html", self.location.href).pathname;
+					const aboutPath = new URL("./apie.html", self.location.href).pathname;
+					const fallback = requestUrl.pathname === appPath
+						? "./app.html"
+						: requestUrl.pathname === voicerPath ? "./voicer.html"
+							: requestUrl.pathname === aboutPath ? "./apie.html" : "./index.html";
+					return caches.match(fallback);
+				});
+			}
+			return fetch(event.request);
 		})
 	);
 });
