@@ -118,7 +118,6 @@ const APP_SHELL = [
 	"./kategorijų iliustracijos/prieskoniai.png",
 	"./kategorijų iliustracijos/GAMINIAI.png",
 	"./kategoriju-ikonos/pridėti kortelę.png",
-	"./LABAS KA NORĖTUM PASASKYT.png",
 	"./garsai/noriu.mp3",
 	"./garsai/eiti.mp3",
 	"./garsai/padėk.mp3",
