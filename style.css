@@ -3926,7 +3926,7 @@ button:active {
 @media (max-width: 759px) {
 	:root {
 		--figma-ink: #0d1339;
-		--figma-muted: #7c89a6;
+		--figma-muted: #5f6c8a;
 		--figma-line: #eceff4;
 		--figma-bg: #fbfcfd;
 		--figma-surface: #fafcfd;
@@ -4938,7 +4938,7 @@ button:active {
 @media (min-width: 760px) {
 	:root {
 		--figma-ink: #0d1339;
-		--figma-muted: #7c89a6;
+		--figma-muted: #5f6c8a;
 		--figma-line: #eceff4;
 		--figma-bg: #fbfcfd;
 		--figma-surface: #fafcfd;
@@ -6350,7 +6350,7 @@ body .app-shell .scenario-bar.scenario-bar--help:focus-visible {
 }
 
 .help-icon {
-	color: #F98585;
+	color: #d94f4f;
 	font-size: 28px;
 	font-weight: 400;
 	line-height: 1;
@@ -6639,7 +6639,7 @@ body .app-shell .selected-word--icon .selected-word-photo img {
 	}
 
 	body .app-shell .bottom-nav .nav-item > span:not(.nav-icon):not(.nav-back-icon):not(.nav-home-icon):not(.nav-create-icon) {
-		font-size: 12px;
+		font-size: 13px;
 	}
 
 	body .app-shell .bottom-nav .nav-create {
@@ -6657,8 +6657,8 @@ body .app-shell .selected-word--icon .selected-word-photo img {
 
 	body .app-shell .bottom-nav .nav-create > span:not(.nav-create-icon) {
 		max-width: none;
-		color: var(--figma-muted, #7c89a6);
-		font-size: 12px;
+		color: var(--figma-muted, #5f6c8a);
+		font-size: 13px;
 	}
 
 	body .app-shell .bottom-nav .bottom-nav-actions .nav-item.nav-create > span.nav-create-icon {

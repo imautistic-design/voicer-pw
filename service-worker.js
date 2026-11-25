@@ -1,4 +1,4 @@
-const CACHE_NAME = "voicer-pwa-v488";
+const CACHE_NAME = "voicer-pwa-v489";
 const APP_SHELL = [
 	"./",
 	"./index.html",
@@ -37,7 +37,7 @@ const APP_SHELL = [
 	"./vizualas puslapiui/voicer-kortelės-kortelės.png",
 	"./vizualas puslapiui/voicer-kortelės-kortelės-telefonas.png",
 	"./vizualas puslapiui/Greitai atsiras naujiena.jpg",
-	"./style.css?v=574",
+	"./style.css?v=575",
 	"./NAVIGACIJOA IKONOS/ATGAL.svg",
 	"./NAVIGACIJOA IKONOS/PRADŽIA.svg",
 	"./kategorijų iliustracijos/mano korteles.png",
