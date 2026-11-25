@@ -4,13 +4,24 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="theme-color" content="#FBFCFD">
+	<meta name="robots" content="noindex">
+	<meta name="description" content="Voicer – bendravimo kortelės ir sakinių redaktorius.">
 	<title>Voicer — bendravimo kortelės</title>
 	<link rel="manifest" href="manifest.webmanifest">
 	<link rel="apple-touch-icon" href="logo/app-icon-192.png">
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-	<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&display=swap" rel="stylesheet">
-	<link rel="stylesheet" href="style.css?v=482">
+	<link href="https://fonts.googleapis.com/css2?	family=Nunito:wght@400;700;800;900&display=swap" rel="stylesheet">
+		<link rel="stylesheet" href="style.css?v=574">
+	<script>
+		try {
+			if (window.localStorage.getItem("voicer.lock")) {
+				document.documentElement.classList.add("is-locked");
+			}
+		} catch {
+			// Without localStorage the app lock cannot be configured.
+		}
+	</script>
 </head>
 <body>
 	<main class="app-shell">
@@ -29,6 +40,7 @@
 						<svg class="category-add-icon" viewBox="0 0 24 24" aria-hidden="true">
 							<path d="M12 5v14M5 12h14" />
 						</svg>
+						<span class="desktop-add-label">Susikurti kortelę</span>
 					</button>
 					<label class="search-box" id="desktop-search-box">
 						<span class="sr-only">Ieškoti žodyno kortelių</span>
@@ -38,6 +50,20 @@
 						<svg class="search-icon" viewBox="0 0 24 24" aria-hidden="true">
 							<circle cx="10.8" cy="10.8" r="6.3" />
 							<path d="m15.5 15.5 4.2 4.2" />
+						</svg>
+					</button>
+					<button class="desktop-tool" id="desktop-need-time" type="button" aria-label="Laikas" aria-haspopup="dialog">
+						<svg viewBox="0 0 24 24" aria-hidden="true">
+							<circle cx="12" cy="12" r="8" />
+							<path d="M12 8v4l3 2" />
+						</svg>
+						<span>Laikas</span>
+					</button>
+					<button class="desktop-tool desktop-tool--icon" id="desktop-settings" type="button" aria-label="Nustatymai" aria-haspopup="dialog">
+						<svg viewBox="0 0 24 24" aria-hidden="true">
+							<path d="M4 7h10M18 7h2M4 17h2M10 17h10" />
+							<circle cx="16" cy="7" r="2" />
+							<circle cx="8" cy="17" r="2" />
 						</svg>
 					</button>
 					<button class="emotion-back" id="emotion-back" type="button" aria-label="Atgal">
@@ -51,18 +77,22 @@
 				<img src="vizualas puslapiui/VOIVER LOGO.png" alt="" width="417" height="184">
 			</a>
 			<div class="mobile-toolbar-row">
+				<a class="app-site-link app-site-link--mobile-inline" href="index.html" aria-label="Grįžti į I'm Autistic svetainę">
+					<img src="vizualas puslapiui/VOIVER LOGO.png" alt="" width="417" height="184">
+				</a>
 				<div class="category-feature-row">
+					<input class="tabbar-field" id="tab-search-input" type="search" placeholder="Ieškoti žodžio..." aria-label="Ieškoti žodyno kortelių" autocomplete="off" enterkeyhint="search">
 					<span class="category-search-icon" aria-hidden="true">
 						<svg viewBox="0 0 24 24">
 							<circle cx="10.8" cy="10.8" r="6.3" />
 							<path d="m15.5 15.5 4.2 4.2" />
 						</svg>
 					</span>
-					<input class="tabbar-field" id="tab-search-input" type="search" placeholder="Ieškoti" aria-label="Ieškoti žodyno kortelių" autocomplete="off" enterkeyhint="search">
 				</div>
-				<button class="category-add-button" id="create-card-button" type="button" aria-label="Sukurti kortelę" data-create-card>
-					<svg class="category-add-icon" viewBox="0 0 24 24" aria-hidden="true">
-						<path d="M12 5v14M5 12h14" />
+				<button class="need-time-button" id="need-time-button" type="button" aria-label="Reikia laiko" aria-haspopup="dialog">
+					<svg viewBox="0 0 24 24" aria-hidden="true">
+						<circle cx="12" cy="12" r="8" />
+						<path d="M12 8v4l3 2" />
 					</svg>
 				</button>
 			</div>
@@ -75,7 +105,12 @@
 				</button>
 				<section class="sentence-bar" id="sentence-bar" aria-label="Sakinys" aria-live="polite" hidden>
 					<p class="sentence-text" id="sentence-text"></p>
-					<button class="sentence-speak" id="sentence-speak" type="button" aria-label="Ištarti sakinį">
+					<button class="sentence-show" id="sentence-show" type="button" aria-label="Rodyti kitam" title="Rodyti kitam">
+						<svg viewBox="0 0 24 24" aria-hidden="true">
+							<path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5" />
+						</svg>
+					</button>
+					<button class="sentence-speak" id="sentence-speak" type="button" aria-label="Ištarti sakinį" title="Ištarti sakinį">
 						<img src="NAVIGACIJOA IKONOS/SpeakerSimpleHigh.svg?v=3" alt="">
 					</button>
 				</section>
@@ -83,45 +118,48 @@
 					<section class="composer" aria-label="Sakinio redaktorius">
 						<div class="selected-words" id="selected-words" role="list" aria-label="Pasirinktos kortelės" hidden></div>
 					</section>
-					<details class="quick-phrase-dropdown">
-						<summary>
-							<img class="quick-phrase-icon" src="veiksmai ikonos/veiksmai.png" alt="" aria-hidden="true">
-							<span>Veiksmai</span>
-							<span class="quick-phrase-chevron" aria-hidden="true">›</span>
-						</summary>
-						<div class="quick-phrases" aria-label="Greitos frazės">
-							<button class="phrase-chip" type="button" data-audio-src="garsai/noriu.mp3"><img src="veiksmai ikonos/noriu.png" alt=""> <span class="phrase-chip-label">NORIU</span> <b aria-hidden="true"><img src="ikonos/Plus.svg" alt=""></b></button>
-							<button class="phrase-chip" type="button" data-audio-src="garsai/padėk.mp3"><img src="veiksmai ikonos/padėk.png" alt=""> <span class="phrase-chip-label">PADĖK</span> <b aria-hidden="true"><img src="ikonos/Plus.svg" alt=""></b></button>
-							<button class="phrase-chip" type="button" data-audio-src="garsai/taip.mp3"><img src="veiksmai ikonos/taip.png" alt=""> <span class="phrase-chip-label">TAIP</span> <b aria-hidden="true"><img src="ikonos/Plus.svg" alt=""></b></button>
-							<button class="phrase-chip" type="button" data-audio-src="garsai/ne.mp3"><img src="veiksmai ikonos/ne.png" alt=""> <span class="phrase-chip-label">NE</span> <b aria-hidden="true"><img src="ikonos/Plus.svg" alt=""></b></button>
-							<button class="phrase-chip" type="button" data-audio-src="garsai/eiti.mp3"><img src="veiksmai ikonos/eiti.png" alt=""> <span class="phrase-chip-label">EITI</span> <b aria-hidden="true"><img src="ikonos/Plus.svg" alt=""></b></button>
-							<button class="phrase-chip" type="button"><img src="veiksmai ikonos/važiuoti.png" alt=""> <span class="phrase-chip-label">VAŽIUOTI</span> <b aria-hidden="true"><img src="ikonos/Plus.svg" alt=""></b></button>
-							<button class="phrase-chip" type="button"><img src="veiksmai ikonos/valgyti.png" alt=""> <span class="phrase-chip-label">VALGYTI</span> <b aria-hidden="true"><img src="ikonos/Plus.svg" alt=""></b></button>
-							<button class="phrase-chip" type="button"><img src="veiksmai ikonos/gerti.png" alt=""> <span class="phrase-chip-label">GERTI</span> <b aria-hidden="true"><img src="ikonos/Plus.svg" alt=""></b></button>
-						</div>
-					</details>
 				</div>
 			</div>
 		</header>
 
 		<section class="categories" aria-labelledby="categories-title">
 			<h1 class="sr-only" id="categories-title">Kategorijos</h1>
+			<div class="home-intro">
+				<div class="home-heading">
+					<p class="home-greeting">Sveikas <img src="kategorijų iliustracijos/bendravimas.png" alt=""></p>
+					<button class="home-settings" id="open-settings" type="button" aria-label="Nustatymai" aria-haspopup="dialog">
+						<svg viewBox="0 0 24 24" aria-hidden="true">
+							<path d="M4 7h10M18 7h2M4 17h2M10 17h10" />
+							<circle cx="16" cy="7" r="2" />
+							<circle cx="8" cy="17" r="2" />
+						</svg>
+					</button>
+				</div>
+				<p class="home-prompt">Ką norėtum pasakyti?</p>
+				<div class="quick-sentences" id="quick-sentences" aria-label="Greiti sakiniai"></div>
+				<div class="category-chips" id="category-chips" aria-label="Kategorijų nuorodos"></div>
+				<div class="frequent" id="frequent" hidden>
+					<p class="frequent-title">Dažniausios</p>
+					<div class="frequent-row" id="frequent-row"></div>
+				</div>
+				<div class="home-tiles" id="home-tiles" aria-label="Kategorijos"></div>
+			</div>
 			<div class="category-list">
-				<button class="category-row category-row--local-cards" type="button" data-local-cards><span class="category-icon"><img src="nuotraukos/asmeniniai daiktai/piniginė.jpg" alt=""></span><span class="category-copy"><span class="category-symbol" aria-hidden="true"></span><span class="category-label">Mano kortelės</span></span><span class="chevron">›</span></button>
+				<button class="category-row category-row--local-cards" type="button" data-local-cards><span class="category-icon"><img src="kategorijų iliustracijos/mano korteles.png" alt=""></span><span class="category-copy"><span class="category-symbol" aria-hidden="true"></span><span class="category-label">Mano kortelės</span></span><span class="chevron">›</span></button>
 				<button class="category-row category-row--food" type="button"><span class="category-icon"><img src="kategorijų iliustracijos/valgyti.png" alt=""></span><span class="category-copy"><span class="category-symbol" aria-hidden="true"></span><span class="category-label">Valgyti</span></span><span class="chevron">›</span></button>
 				<button class="category-row category-row--drink" type="button"><span class="category-icon"><img src="kategorijų iliustracijos/gerti.png" alt=""></span><span class="category-copy"><span class="category-symbol" aria-hidden="true"></span><span class="category-label">Gerti</span></span><span class="chevron">›</span></button>
 				<button class="category-row category-row--toilet" type="button"><span class="category-icon"><img src="kategorijų iliustracijos/tualetas.png" alt=""></span><span class="category-copy"><span class="category-symbol" aria-hidden="true"></span><span class="category-label">Tualetas</span></span><span class="chevron">›</span></button>
 				<button class="category-row category-row--communication" type="button"><span class="category-icon"><img src="kategorijų iliustracijos/bendravimas.png" alt=""></span><span class="category-copy"><span class="category-symbol" aria-hidden="true"></span><span class="category-label">Bendravimas</span></span><span class="chevron">›</span></button>
 				<button class="category-row category-row--pain" type="button"><span class="category-icon"><img src="kategorijų iliustracijos/skauda.png" alt=""></span><span class="category-copy"><span class="category-symbol" aria-hidden="true"></span><span class="category-label">Skauda</span></span><span class="chevron">›</span></button>
 				<button class="category-row category-row--chores" type="button"><span class="category-icon"><img src="kategorijų iliustracijos/namų ruoša.png" alt=""></span><span class="category-copy"><span class="category-symbol" aria-hidden="true"></span><span class="category-label">Namų ruoša</span></span><span class="chevron">›</span></button>
-				<button class="category-row category-row--rest" type="button"><span class="category-icon"><img src="kategorijų iliustracijos/poilsis.png" alt=""></span><span class="category-copy"><span class="category-symbol" aria-hidden="true"></span><span class="category-label">Poilsis</span></span><span class="chevron">›</span></button>
-				<button class="category-row category-row--locations" type="button"><span class="category-icon"><img src="kategorijų iliustracijos/vietos.png" alt=""></span><span class="category-copy"><span class="category-symbol" aria-hidden="true"></span><span class="category-label">Vietos</span></span><span class="chevron">›</span></button>
+				<button class="category-row category-row--rest" type="button"><span class="category-icon"><img src="kategorijų iliustracijos/POLSIS.png" alt=""></span><span class="category-copy"><span class="category-symbol" aria-hidden="true"></span><span class="category-label">Poilsis</span></span><span class="chevron">›</span></button>
+				<button class="category-row category-row--locations" type="button"><span class="category-icon"><img src="kategorijų iliustracijos/vieta.png" alt=""></span><span class="category-copy"><span class="category-symbol" aria-hidden="true"></span><span class="category-label">Vietos</span></span><span class="chevron">›</span></button>
 				<button class="category-row category-row--cooking" type="button"><span class="category-icon"><img src="kategorijų iliustracijos/gaminti.png" alt=""></span><span class="category-copy"><span class="category-symbol" aria-hidden="true"></span><span class="category-label">Gaminti</span></span><span class="chevron">›</span></button>
 				<button class="category-row category-row--sport" type="button"><span class="category-icon"><img src="kategorijų iliustracijos/sportas.png" alt=""></span><span class="category-copy"><span class="category-symbol" aria-hidden="true"></span><span class="category-label">Sportas</span></span><span class="chevron">›</span></button>
 				<button class="category-row category-row--personal-items" type="button"><span class="category-icon"><img src="kategorijų iliustracijos/daiktai.png" alt=""></span><span class="category-copy"><span class="category-symbol" aria-hidden="true"></span><span class="category-label">Daiktai</span></span><span class="chevron">›</span></button>
 				<button class="category-row category-row--clothing" type="button"><span class="category-icon"><img src="kategorijų iliustracijos/apranga.png" alt=""></span><span class="category-copy"><span class="category-symbol" aria-hidden="true"></span><span class="category-label">Apranga</span></span><span class="chevron">›</span></button>
 				<button class="category-row category-row--hygiene" type="button"><span class="category-icon"><img src="kategorijų iliustracijos/higiena.png" alt=""></span><span class="category-copy"><span class="category-symbol" aria-hidden="true"></span><span class="category-label">Higiena</span></span><span class="chevron">›</span></button>
-				<button class="category-row category-row--numbers" type="button"><span class="category-icon"><img src="kategorijų iliustracijos/skaičiai.png" alt=""></span><span class="category-copy"><span class="category-symbol" aria-hidden="true"></span><span class="category-label">Skaičiai</span></span><span class="chevron">›</span></button>
+				<button class="category-row category-row--numbers" type="button"><span class="category-icon"><img src="kategorijų iliustracijos/kikis.png" alt=""></span><span class="category-copy"><span class="category-symbol" aria-hidden="true"></span><span class="category-label">Skaičiai</span></span><span class="chevron">›</span></button>
 				<button class="category-row category-row--colors" type="button"><span class="category-icon"><img src="kategorijų iliustracijos/spalvos.png" alt=""></span><span class="category-copy"><span class="category-symbol" aria-hidden="true"></span><span class="category-label">Spalvos</span></span><span class="chevron">›</span></button>
 			</div>
 
@@ -132,43 +170,43 @@
 				</div>
 				<div class="category-subgroups" id="food-subgroups" hidden aria-label="Valgyti pogrupiai">
 					<button class="subcategory-row subcategory-row--meals" type="button">
-						<span class="subcategory-icon"><img src="nuotraukos/patiekalai/pica.jpeg" alt=""></span><span class="subcategory-copy"><span class="subcategory-symbol" aria-hidden="true"></span><span class="subcategory-label">Patiekalai</span></span><span class="chevron">›</span>
+						<span class="subcategory-icon"><img src="kategorijų iliustracijos/patiekalai.png" alt=""></span><span class="subcategory-copy"><span class="subcategory-symbol" aria-hidden="true"></span><span class="subcategory-label">Patiekalai</span></span><span class="chevron">›</span>
 					</button>
 					<button class="subcategory-row subcategory-row--pastries" type="button">
-						<span class="subcategory-icon"><img src="nuotraukos/kepiniai/kruasanas.jpeg" alt=""></span><span class="subcategory-copy"><span class="subcategory-symbol" aria-hidden="true"></span><span class="subcategory-label">Kepiniai</span></span><span class="chevron">›</span>
+						<span class="subcategory-icon"><img src="kategorijų iliustracijos/kepiniai.png" alt=""></span><span class="subcategory-copy"><span class="subcategory-symbol" aria-hidden="true"></span><span class="subcategory-label">Kepiniai</span></span><span class="chevron">›</span>
 					</button>
 					<button class="subcategory-row subcategory-row--snacks" type="button">
-						<span class="subcategory-icon"><img src="nuotraukos/užkandžiai/traškučiai.jpeg" alt=""></span><span class="subcategory-copy"><span class="subcategory-symbol" aria-hidden="true"></span><span class="subcategory-label">Užkandžiai</span></span><span class="chevron">›</span>
+						<span class="subcategory-icon"><img src="kategorijų iliustracijos/užkandžiai.png" alt=""></span><span class="subcategory-copy"><span class="subcategory-symbol" aria-hidden="true"></span><span class="subcategory-label">Užkandžiai</span></span><span class="chevron">›</span>
 					</button>
 					<button class="subcategory-row subcategory-row--sweets" type="button">
-						<span class="subcategory-icon"><img src="nuotraukos/saldumynai/šokoladas.jpeg" alt=""></span><span class="subcategory-copy"><span class="subcategory-symbol" aria-hidden="true"></span><span class="subcategory-label">Saldumynai</span></span><span class="chevron">›</span>
+						<span class="subcategory-icon"><img src="kategorijų iliustracijos/saldumynai.png" alt=""></span><span class="subcategory-copy"><span class="subcategory-symbol" aria-hidden="true"></span><span class="subcategory-label">Saldumynai</span></span><span class="chevron">›</span>
 					</button>
 				</div>
 				<div class="category-subgroups" id="cooking-subgroups" hidden aria-label="Gaminimo pogrupiai">
 					<button class="subcategory-row subcategory-row--ingredients" type="button">
-						<span class="subcategory-icon"><img src="kategorijų iliustracijos/maisto produktai.png" alt=""></span><span class="subcategory-copy"><span class="subcategory-symbol" aria-hidden="true"></span><span class="subcategory-label">Maisto produktai</span></span><span class="chevron">›</span>
+						<span class="subcategory-icon"><img src="kategorijų iliustracijos/PRODUKTAI.png" alt=""></span><span class="subcategory-copy"><span class="subcategory-symbol" aria-hidden="true"></span><span class="subcategory-label">Maisto produktai</span></span><span class="chevron">›</span>
 					</button>
 					<button class="subcategory-row subcategory-row--cooking-process" type="button">
-						<span class="subcategory-icon"><img src="kategorijų iliustracijos/gaminimo procesas.png" alt=""></span><span class="subcategory-copy"><span class="subcategory-symbol" aria-hidden="true"></span><span class="subcategory-label">Gaminimo procesas</span></span><span class="chevron">›</span>
+						<span class="subcategory-icon"><img src="kategorijų iliustracijos/GAMIIMO PROCESAS.png" alt=""></span><span class="subcategory-copy"><span class="subcategory-symbol" aria-hidden="true"></span><span class="subcategory-label">Gaminimo procesas</span></span><span class="chevron">›</span>
 					</button>
 					<button class="subcategory-row subcategory-row--utensils" type="button">
-						<span class="subcategory-icon"><img src="kategorijų iliustracijos/indai.png" alt=""></span><span class="subcategory-copy"><span class="subcategory-symbol" aria-hidden="true"></span><span class="subcategory-label">Indai</span></span><span class="chevron">›</span>
+						<span class="subcategory-icon"><img src="kategorijų iliustracijos/SERVIRAVIMAS.png" alt=""></span><span class="subcategory-copy"><span class="subcategory-symbol" aria-hidden="true"></span><span class="subcategory-label">Indai</span></span><span class="chevron">›</span>
 					</button>
 				</div>
 				<div class="category-subgroups" id="ingredient-subgroups" hidden aria-label="Maisto produktų pogrupiai">
-					<button class="subcategory-row subcategory-row--fruit" type="button"><span class="subcategory-icon"><img src="nuotraukos/vaisiai/obuolys.jpg" alt=""></span><span class="subcategory-copy"><span class="subcategory-symbol" aria-hidden="true"></span><span class="subcategory-label">Vaisiai</span></span><span class="chevron">›</span></button>
-					<button class="subcategory-row subcategory-row--berries" type="button"><span class="subcategory-icon"><img src="nuotraukos/uogos/braškės.jpg" alt=""></span><span class="subcategory-copy"><span class="subcategory-symbol" aria-hidden="true"></span><span class="subcategory-label">Uogos</span></span><span class="chevron">›</span></button>
-					<button class="subcategory-row subcategory-row--vegetables" type="button"><span class="subcategory-icon"><img src="nuotraukos/daržovės/pomidoras.jpg" alt=""></span><span class="subcategory-copy"><span class="subcategory-symbol" aria-hidden="true"></span><span class="subcategory-label">Daržovės</span></span><span class="chevron">›</span></button>
-					<button class="subcategory-row subcategory-row--bread" type="button"><span class="subcategory-icon"><img src="nuotraukos/kepiniai/juoda duona.jpeg" alt=""></span><span class="subcategory-copy"><span class="subcategory-symbol" aria-hidden="true"></span><span class="subcategory-label">Duona</span></span><span class="chevron">›</span></button>
-					<button class="subcategory-row subcategory-row--eggs" type="button"><span class="subcategory-icon"><img src="nuotraukos/kiaušiniai/kiaušiniai.jpg" alt=""></span><span class="subcategory-copy"><span class="subcategory-symbol" aria-hidden="true"></span><span class="subcategory-label">Kiaušiniai</span></span><span class="chevron">›</span></button>
-					<button class="subcategory-row subcategory-row--dairy" type="button"><span class="subcategory-icon"><img src="nuotraukos/pienas/pienas.jpg" alt=""></span><span class="subcategory-copy"><span class="subcategory-symbol" aria-hidden="true"></span><span class="subcategory-label">Pienas</span></span><span class="chevron">›</span></button>
-					<button class="subcategory-row subcategory-row--meat" type="button"><span class="subcategory-icon"><img src="nuotraukos/mėsa/jautinea.jpg" alt=""></span><span class="subcategory-copy"><span class="subcategory-symbol" aria-hidden="true"></span><span class="subcategory-label">Mėsa</span></span><span class="chevron">›</span></button>
-					<button class="subcategory-row subcategory-row--fish" type="button"><span class="subcategory-icon"><img src="nuotraukos/žuvis/krevetės.jpg" alt=""></span><span class="subcategory-copy"><span class="subcategory-symbol" aria-hidden="true"></span><span class="subcategory-label">Žuvis</span></span><span class="chevron">›</span></button>
-					<button class="subcategory-row subcategory-row--pasta" type="button"><span class="subcategory-icon"><img src="nuotraukos/makaronai/spagečiai.jpg" alt=""></span><span class="subcategory-copy"><span class="subcategory-symbol" aria-hidden="true"></span><span class="subcategory-label">Makaronai</span></span><span class="chevron">›</span></button>
-					<button class="subcategory-row subcategory-row--sauces" type="button"><span class="subcategory-icon"><img src="nuotraukos/padažai/kečupas.jpg" alt=""></span><span class="subcategory-copy"><span class="subcategory-symbol" aria-hidden="true"></span><span class="subcategory-label">Padažai</span></span><span class="chevron">›</span></button>
-					<button class="subcategory-row subcategory-row--grains" type="button"><span class="subcategory-icon"><img src="nuotraukos/kruopos/bulguras.jpg" alt=""></span><span class="subcategory-copy"><span class="subcategory-symbol" aria-hidden="true"></span><span class="subcategory-label">Kruopos</span></span><span class="chevron">›</span></button>
-					<button class="subcategory-row subcategory-row--spices" type="button"><span class="subcategory-icon"><img src="nuotraukos/prieskoniai/petražolės.jpg" alt=""></span><span class="subcategory-copy"><span class="subcategory-symbol" aria-hidden="true"></span><span class="subcategory-label">Prieskoniai</span></span><span class="chevron">›</span></button>
-					<button class="subcategory-row subcategory-row--prepared-foods" type="button"><span class="subcategory-icon"><img src="nuotraukos/paruošti produktai/dešra.jpg" alt=""></span><span class="subcategory-copy"><span class="subcategory-symbol" aria-hidden="true"></span><span class="subcategory-label">Paruošti produktai</span></span><span class="chevron">›</span></button>
+					<button class="subcategory-row subcategory-row--fruit" type="button"><span class="subcategory-icon"><img src="kategorijų iliustracijos/VAISIAI.png" alt=""></span><span class="subcategory-copy"><span class="subcategory-symbol" aria-hidden="true"></span><span class="subcategory-label">Vaisiai</span></span><span class="chevron">›</span></button>
+					<button class="subcategory-row subcategory-row--berries" type="button"><span class="subcategory-icon"><img src="kategorijų iliustracijos/UOGOS.png" alt=""></span><span class="subcategory-copy"><span class="subcategory-symbol" aria-hidden="true"></span><span class="subcategory-label">Uogos</span></span><span class="chevron">›</span></button>
+					<button class="subcategory-row subcategory-row--vegetables" type="button"><span class="subcategory-icon"><img src="kategorijų iliustracijos/DARŽOBĖS.png" alt=""></span><span class="subcategory-copy"><span class="subcategory-symbol" aria-hidden="true"></span><span class="subcategory-label">Daržovės</span></span><span class="chevron">›</span></button>
+					<button class="subcategory-row subcategory-row--bread" type="button"><span class="subcategory-icon"><img src="kategorijų iliustracijos/DUONA.png" alt=""></span><span class="subcategory-copy"><span class="subcategory-symbol" aria-hidden="true"></span><span class="subcategory-label">Duona</span></span><span class="chevron">›</span></button>
+					<button class="subcategory-row subcategory-row--eggs" type="button"><span class="subcategory-icon"><img src="kategorijų iliustracijos/KIAUŠINIAI.png" alt=""></span><span class="subcategory-copy"><span class="subcategory-symbol" aria-hidden="true"></span><span class="subcategory-label">Kiaušiniai</span></span><span class="chevron">›</span></button>
+					<button class="subcategory-row subcategory-row--dairy" type="button"><span class="subcategory-icon"><img src="kategorijų iliustracijos/PIENAS.png" alt=""></span><span class="subcategory-copy"><span class="subcategory-symbol" aria-hidden="true"></span><span class="subcategory-label">Pienas</span></span><span class="chevron">›</span></button>
+					<button class="subcategory-row subcategory-row--meat" type="button"><span class="subcategory-icon"><img src="kategorijų iliustracijos/MĖSA.png" alt=""></span><span class="subcategory-copy"><span class="subcategory-symbol" aria-hidden="true"></span><span class="subcategory-label">Mėsa</span></span><span class="chevron">›</span></button>
+					<button class="subcategory-row subcategory-row--fish" type="button"><span class="subcategory-icon"><img src="kategorijų iliustracijos/ŽUVIS.png" alt=""></span><span class="subcategory-copy"><span class="subcategory-symbol" aria-hidden="true"></span><span class="subcategory-label">Žuvis</span></span><span class="chevron">›</span></button>
+					<button class="subcategory-row subcategory-row--pasta" type="button"><span class="subcategory-icon"><img src="kategorijų iliustracijos/Makaronai.png" alt=""></span><span class="subcategory-copy"><span class="subcategory-symbol" aria-hidden="true"></span><span class="subcategory-label">Makaronai</span></span><span class="chevron">›</span></button>
+					<button class="subcategory-row subcategory-row--sauces" type="button"><span class="subcategory-icon"><img src="kategorijų iliustracijos/padažai.png" alt=""></span><span class="subcategory-copy"><span class="subcategory-symbol" aria-hidden="true"></span><span class="subcategory-label">Padažai</span></span><span class="chevron">›</span></button>
+					<button class="subcategory-row subcategory-row--grains" type="button"><span class="subcategory-icon"><img src="kategorijų iliustracijos/kruopos.png" alt=""></span><span class="subcategory-copy"><span class="subcategory-symbol" aria-hidden="true"></span><span class="subcategory-label">Kruopos</span></span><span class="chevron">›</span></button>
+					<button class="subcategory-row subcategory-row--spices" type="button"><span class="subcategory-icon"><img src="kategorijų iliustracijos/prieskoniai.png" alt=""></span><span class="subcategory-copy"><span class="subcategory-symbol" aria-hidden="true"></span><span class="subcategory-label">Prieskoniai</span></span><span class="chevron">›</span></button>
+					<button class="subcategory-row subcategory-row--prepared-foods" type="button"><span class="subcategory-icon"><img src="kategorijų iliustracijos/GAMINIAI.png" alt=""></span><span class="subcategory-copy"><span class="subcategory-symbol" aria-hidden="true"></span><span class="subcategory-label">Paruošti produktai</span></span><span class="chevron">›</span></button>
 				</div>
 				<template id="household-chores-cards">
 					<article class="emotion-card emotion-card-placeholder"><div class="emotion-card-tools"><button class="emotion-audio" type="button" aria-label="Leisti garsą: plauti indus"><span aria-hidden="true">◖))</span> Garsas</button><span class="emotion-add-placeholder" aria-hidden="true"></span></div><div class="emotion-photo-placeholder" aria-hidden="true"></div><p>Plauti indus</p></article>
@@ -439,12 +477,35 @@
 				<span class="nav-back-icon" aria-hidden="true"><img src="NAVIGACIJOA IKONOS/ATGAL.svg" alt=""></span>
 				<span>Atgal</span>
 			</button>
+			<button class="nav-item nav-create" id="create-card-button" type="button" data-create-card>
+				<span class="nav-create-icon" aria-hidden="true"></span>
+				<span>Susikurti kortelę</span>
+			</button>
 			<button class="nav-item nav-home" id="nav-home" type="button" aria-label="Pagrindinis">
 				<span class="nav-home-icon" aria-hidden="true"><img src="NAVIGACIJOA IKONOS/PRADŽIA.svg" alt=""></span>
 				<span>Pagrindinis</span>
 			</button>
 			</div>
 		</nav>
+
+		<div class="sheet" id="sheet" hidden>
+			<div class="sheet-backdrop" data-sheet-close></div>
+			<section class="sheet-panel" role="dialog" aria-modal="true" aria-labelledby="sheet-title">
+				<div class="sheet-handle" aria-hidden="true"></div>
+				<header class="sheet-header">
+					<button class="sheet-back" id="sheet-back" type="button" aria-label="Atgal" hidden>
+						<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.25 12H3.75M10.5 5.25 3.75 12l6.75 6.75" /></svg>
+					</button>
+					<h2 id="sheet-title"></h2>
+				</header>
+				<div class="sheet-body" id="sheet-body"></div>
+			</section>
+		</div>
+
+		<div class="show-screen" id="show-screen" role="dialog" aria-modal="true" aria-label="Rodyti kitam" tabindex="-1" hidden>
+			<p class="show-text" id="show-text"></p>
+			<span class="show-hint">Bakstelėk, kad uždarytum</span>
+		</div>
 
 		<dialog class="card-dialog" id="personal-card-dialog" aria-labelledby="personal-card-title-heading">
 			<form class="card-dialog-form" id="personal-card-form">
@@ -484,6 +545,147 @@
 			</form>
 		</dialog>
 	</main>
+
+	<dialog class="card-dialog" id="secret-dialog" aria-labelledby="secret-title">
+		<form class="card-dialog-form" id="secret-form">
+			<header class="card-dialog-header">
+				<div>
+					<h2 id="secret-title"></h2>
+					<p id="secret-text"></p>
+				</div>
+			</header>
+			<label class="card-form-field" for="secret-input">PIN kodas arba slaptažodis
+				<input id="secret-input" type="password" autocomplete="off">
+			</label>
+			<label class="card-form-field" id="secret-confirm-field" for="secret-confirm" hidden>Pakartokite
+				<input id="secret-confirm" type="password" autocomplete="off">
+			</label>
+			<p class="card-form-status" id="secret-status" role="status" aria-live="polite"></p>
+			<div class="card-dialog-actions">
+				<button class="card-cancel-button" id="secret-cancel" type="button">Atšaukti</button>
+				<button class="card-save-button" id="secret-submit" type="submit">Tęsti</button>
+			</div>
+		</form>
+	</dialog>
+
+	<dialog class="card-dialog" id="phrase-dialog" aria-labelledby="phrase-dialog-title">
+		<form class="card-dialog-form" id="phrase-form">
+			<header class="card-dialog-header">
+				<div>
+					<h2 id="phrase-dialog-title">Sava frazė</h2>
+					<p>Įrašykite frazę ir pasirinkite, kur ji bus</p>
+				</div>
+				<button class="card-dialog-close" id="close-phrase-dialog" type="button" aria-label="Uždaryti">×</button>
+			</header>
+			<label class="card-form-field" for="phrase-text">Frazė
+				<input id="phrase-text" type="text" maxlength="120" autocomplete="off" placeholder="Pavyzdžiui, Noriu ledų." required>
+			</label>
+			<label class="card-form-field" for="phrase-target">Kur ją dėti
+				<select id="phrase-target"></select>
+			</label>
+			<label class="card-form-field" id="phrase-group-field" for="phrase-group" hidden>Naujos grupės pavadinimas
+				<input id="phrase-group" type="text" maxlength="40" autocomplete="off" placeholder="Pavyzdžiui, Pas senelius">
+			</label>
+			<div class="phrase-icon-field">
+				<span class="card-form-label">Ikonėlė</span>
+				<button class="phrase-icon-toggle" id="phrase-icon-toggle" type="button" aria-expanded="false" aria-controls="phrase-icon-picker">
+					<span class="phrase-icon-preview" id="phrase-icon-preview" aria-hidden="true"></span>
+					<span class="phrase-icon-name" id="phrase-icon-name">Be ikonėlės</span>
+					<span class="phrase-icon-chevron" aria-hidden="true">›</span>
+				</button>
+				<div class="phrase-icon-picker" id="phrase-icon-picker" hidden>
+					<input class="phrase-icon-search" id="phrase-icon-search" type="search" placeholder="Ieškoti ikonėlės..." aria-label="Ieškoti ikonėlės" autocomplete="off">
+					<div class="phrase-icon-grid" id="phrase-icon-grid"></div>
+				</div>
+			</div>
+			<div class="card-audio-field" id="phrase-audio-field">
+				<span class="card-form-label">Garso įrašas (neprivalomas)</span>
+				<div class="card-audio-controls">
+					<button class="card-photo-select" id="record-phrase-audio" type="button">Įrašyti su mikrofonu</button>
+					<button class="card-photo-select" id="stop-phrase-audio" type="button" hidden>Baigti įrašymą</button>
+					<label class="card-photo-select" for="phrase-audio-file">Pasirinkti failą</label>
+					<input class="sr-only" id="phrase-audio-file" type="file" accept=".mp3,audio/*">
+					<button class="card-photo-select" id="clear-phrase-audio" type="button" hidden>Pašalinti įrašą</button>
+					<audio class="card-audio-preview" id="phrase-audio-preview" controls hidden></audio>
+				</div>
+			</div>
+			<div class="phrase-mine" id="phrase-mine" hidden>
+				<span class="card-form-label">Mano greiti sakiniai</span>
+				<ul class="phrase-mine-list" id="phrase-mine-list"></ul>
+			</div>
+			<p class="card-form-status" id="phrase-status" role="status" aria-live="polite"></p>
+			<div class="card-dialog-actions">
+				<button class="card-cancel-button" id="cancel-phrase" type="button">Atšaukti</button>
+				<button class="card-save-button" type="submit">Pridėti</button>
+			</div>
+		</form>
+	</dialog>
+
+	<input class="sr-only" id="backup-file" type="file" tabindex="-1" aria-hidden="true">
+
+	<dialog class="card-dialog" id="contact-dialog" aria-labelledby="contact-dialog-title">
+		<form class="card-dialog-form" id="contact-form">
+			<header class="card-dialog-header">
+				<div>
+					<h2 id="contact-dialog-title">Kam skambinti</h2>
+					<p>Saugoma tik šiame telefone</p>
+				</div>
+				<button class="card-dialog-close" id="close-contact-dialog" type="button" aria-label="Uždaryti">×</button>
+			</header>
+			<label class="card-form-field" for="contact-phone">Telefono numeris
+				<input id="contact-phone" type="tel" inputmode="tel" maxlength="30" autocomplete="off" placeholder="Pavyzdžiui, 8 600 00000" required>
+			</label>
+			<label class="card-form-field" for="contact-name">Kas tai (neprivaloma)
+				<input id="contact-name" type="text" maxlength="40" autocomplete="off" placeholder="Pavyzdžiui, Mama">
+			</label>
+			<label class="card-form-field" for="contact-note">Papildoma informacija (neprivaloma)
+				<textarea id="contact-note" rows="3" maxlength="200" placeholder="Pavyzdžiui, adresas ar ką žinoti apie mane"></textarea>
+			</label>
+			<p class="card-form-status" id="contact-status" role="status" aria-live="polite"></p>
+			<div class="card-dialog-actions">
+				<button class="card-cancel-button card-delete-button" id="delete-contact" type="button" hidden>Ištrinti</button>
+				<button class="card-cancel-button" id="cancel-contact" type="button">Atšaukti</button>
+				<button class="card-save-button" type="submit">Išsaugoti</button>
+			</div>
+		</form>
+	</dialog>
+
+	<dialog class="card-dialog" id="scenario-dialog" aria-labelledby="scenario-dialog-title">
+		<form class="card-dialog-form" id="scenario-form">
+			<header class="card-dialog-header">
+				<div>
+					<h2 id="scenario-dialog-title">Mano situacija</h2>
+					<p>Kiekvieną frazę rašykite naujoje eilutėje</p>
+				</div>
+				<button class="card-dialog-close" id="close-scenario-dialog" type="button" aria-label="Uždaryti">×</button>
+			</header>
+			<label class="card-form-field" for="scenario-title">Pavadinimas
+				<input id="scenario-title" type="text" maxlength="40" autocomplete="off" placeholder="Pavyzdžiui, Pas kirpėją" required>
+			</label>
+			<label class="card-form-field" for="scenario-phrases">Frazės
+				<textarea id="scenario-phrases" rows="8" placeholder="Prašau trumpiau.&#10;Ačiū, viskas gerai."></textarea>
+			</label>
+			<p class="card-form-status" id="scenario-status" role="status" aria-live="polite"></p>
+			<div class="card-dialog-actions">
+				<button class="card-cancel-button card-delete-button" id="delete-scenario" type="button" hidden>Ištrinti</button>
+				<button class="card-cancel-button" id="cancel-scenario" type="button">Atšaukti</button>
+				<button class="card-save-button" type="submit">Išsaugoti</button>
+			</div>
+		</form>
+	</dialog>
+
+	<div class="lock-screen" id="lock-screen" role="dialog" aria-modal="true" aria-labelledby="lock-title">
+		<form class="lock-form" id="lock-form">
+			<img src="vizualas puslapiui/VOIVER LOGO.png" alt="" width="417" height="184">
+			<h2 id="lock-title">Voicer užrakintas</h2>
+			<p>Įveskite PIN kodą arba slaptažodį.</p>
+			<input id="lock-input" type="password" autocomplete="current-password" aria-label="PIN kodas arba slaptažodis" required>
+			<p class="card-form-status" id="lock-status" role="status" aria-live="polite"></p>
+			<button class="card-save-button" type="submit">Atrakinti</button>
+			<button class="lock-reset" id="lock-reset" type="button">Pamiršau – ištrinti korteles ir atstatyti</button>
+		</form>
+	</div>
+	<script src="icon-library.js"></script>
 	<script>
 		const categoriesTitle = document.querySelector("#categories-title");
 		const categoryList = document.querySelector(".category-list");
@@ -541,6 +743,9 @@
 		let nextSelectedWordId = 0;
 		let personalCards = [];
 		let personalCardStorageError = null;
+		let encryptionKey = null;
+		// Recordings the user made for their own phrases, keyed by phrase text.
+		let phraseAudio = new Map();
 		let personalCardDatabasePromise;
 		let personalCardPreviewUrl = "";
 		const personalCardDialog = document.querySelector("#personal-card-dialog");
@@ -1320,7 +1525,8 @@
 			}
 			if (!personalCardDatabasePromise) {
 				personalCardDatabasePromise = new Promise((resolve, reject) => {
-					const request = window.indexedDB.open("voicer-personal-cards", 1);
+					// No version: works for every database version this app has used.
+					const request = window.indexedDB.open("voicer-personal-cards");
 					request.onupgradeneeded = () => {
 						if (!request.result.objectStoreNames.contains("cards")) {
 							request.result.createObjectStore("cards", { keyPath: "id" });
@@ -1333,33 +1539,293 @@
 			return personalCardDatabasePromise;
 		}
 
-		async function loadPersonalCards() {
-			const database = await openPersonalCardDatabase();
-			return new Promise((resolve, reject) => {
-				const request = database.transaction("cards", "readonly").objectStore("cards").getAll();
-				request.onsuccess = () => resolve(request.result.sort((left, right) => right.createdAt - left.createdAt));
-				request.onerror = () => reject(request.error || new Error("Nepavyko įkelti kortelių."));
-			});
+		// Phrase recordings live in their own database so that upgrading it can never block the personal cards database.
+		let phraseAudioDatabasePromise = null;
+
+		function openPhraseAudioDatabase() {
+			if (!("indexedDB" in window)) {
+				return Promise.reject(new Error("Vietinė saugykla šiame įrenginyje nepasiekiama."));
+			}
+			if (!phraseAudioDatabasePromise) {
+				phraseAudioDatabasePromise = new Promise((resolve, reject) => {
+					const request = window.indexedDB.open("voicer-phrase-audio", 1);
+					request.onupgradeneeded = () => {
+						request.result.createObjectStore("phraseAudio", { keyPath: "phrase" });
+					};
+					request.onsuccess = () => resolve(request.result);
+					request.onerror = () => reject(request.error || new Error("Nepavyko atverti vietinės saugyklos."));
+				});
+			}
+			return phraseAudioDatabasePromise;
 		}
 
-		async function savePersonalCard(card) {
+		const textEncoder = new TextEncoder();
+		const textDecoder = new TextDecoder();
+		const KEY_ITERATIONS = 310000;
+		const MAX_KEY_ITERATIONS = 2000000;
+		const LOCK_CHECK_TEXT = "voicer-lock-v1";
+		const BACKUP_MAGIC = "VOICERBK";
+		const BACKUP_HEADER_SIZE = 10;
+		const cryptoAvailable = Boolean(window.crypto?.subtle);
+
+		function randomBytes(length) {
+			return window.crypto.getRandomValues(new Uint8Array(length));
+		}
+
+		function bytesToBase64(bytes) {
+			return btoa(String.fromCharCode(...bytes));
+		}
+
+		function base64ToBytes(text) {
+			return Uint8Array.from(atob(text), (character) => character.charCodeAt(0));
+		}
+
+		async function deriveKey(secret, salt, iterations) {
+			const material = await window.crypto.subtle.importKey("raw", textEncoder.encode(secret), "PBKDF2", false, ["deriveKey"]);
+			return window.crypto.subtle.deriveKey(
+				{ name: "PBKDF2", salt, iterations, hash: "SHA-256" },
+				material,
+				{ name: "AES-GCM", length: 256 },
+				false,
+				["encrypt", "decrypt"]
+			);
+		}
+
+		async function encryptBytes(key, bytes) {
+			const iv = randomBytes(12);
+			const data = new Uint8Array(await window.crypto.subtle.encrypt({ name: "AES-GCM", iv }, key, bytes));
+			return { iv, data };
+		}
+
+		async function decryptBytes(key, iv, data) {
+			return new Uint8Array(await window.crypto.subtle.decrypt({ name: "AES-GCM", iv }, key, data));
+		}
+
+		async function blobToBytes(blob) {
+			return blob instanceof Blob ? new Uint8Array(await blob.arrayBuffer()) : new Uint8Array(0);
+		}
+
+		// Card layout: 4-byte header length, JSON header, photo bytes, audio bytes.
+		async function packCard(card) {
+			const photo = await blobToBytes(card.photo);
+			const audio = await blobToBytes(card.audio);
+			const header = textEncoder.encode(JSON.stringify({
+				id: card.id,
+				name: card.name,
+				createdAt: card.createdAt,
+				hasPhoto: card.photo instanceof Blob,
+				photoType: card.photo?.type || "",
+				photoSize: photo.length,
+				hasAudio: card.audio instanceof Blob,
+				audioType: card.audio?.type || "",
+				audioSize: audio.length
+			}));
+			const packed = new Uint8Array(4 + header.length + photo.length + audio.length);
+			new DataView(packed.buffer).setUint32(0, header.length);
+			packed.set(header, 4);
+			packed.set(photo, 4 + header.length);
+			packed.set(audio, 4 + header.length + photo.length);
+			return packed;
+		}
+
+		function unpackCard(bytes) {
+			const headerLength = bytes.length >= 4 ? new DataView(bytes.buffer, bytes.byteOffset).getUint32(0) : -1;
+			if (headerLength < 0 || 4 + headerLength > bytes.length) {
+				throw new Error("Sugadinta kortelė.");
+			}
+			const meta = JSON.parse(textDecoder.decode(bytes.subarray(4, 4 + headerLength)));
+			const photoSize = Number(meta.photoSize) || 0;
+			const audioSize = Number(meta.audioSize) || 0;
+			const photoStart = 4 + headerLength;
+			const audioStart = photoStart + photoSize;
+			if (typeof meta.id !== "string" || typeof meta.name !== "string" || audioStart + audioSize > bytes.length) {
+				throw new Error("Sugadinta kortelė.");
+			}
+			return {
+				id: meta.id,
+				name: meta.name.slice(0, 60),
+				photo: meta.hasPhoto ? new Blob([bytes.subarray(photoStart, audioStart)], { type: String(meta.photoType || "") }) : null,
+				audio: meta.hasAudio ? new Blob([bytes.subarray(audioStart, audioStart + audioSize)], { type: String(meta.audioType || "") }) : null,
+				createdAt: Number(meta.createdAt) || Date.now()
+			};
+		}
+
+		async function toStoredRecord(card, key = encryptionKey) {
+			if (!key) {
+				return card;
+			}
+			const { iv, data } = await encryptBytes(key, await packCard(card));
+			return { id: card.id, createdAt: card.createdAt, iv, data };
+		}
+
+		async function fromStoredRecord(record) {
+			if (!record.iv) {
+				return record;
+			}
+			if (!encryptionKey) {
+				throw new Error("Kortelės užrakintos.");
+			}
+			return unpackCard(await decryptBytes(encryptionKey, record.iv, record.data));
+		}
+
+		async function loadPersonalCards() {
+			const database = await openPersonalCardDatabase();
+			const records = await new Promise((resolve, reject) => {
+				const request = database.transaction("cards", "readonly").objectStore("cards").getAll();
+				request.onsuccess = () => resolve(request.result);
+				request.onerror = () => reject(request.error || new Error("Nepavyko įkelti kortelių."));
+			});
+			const results = await Promise.allSettled(records.map(fromStoredRecord));
+			return results
+				.filter((result) => result.status === "fulfilled")
+				.map((result) => result.value)
+				.sort((left, right) => right.createdAt - left.createdAt);
+		}
+
+		async function putPersonalCardRecords(records) {
+			if (records.length === 0) {
+				return;
+			}
 			const database = await openPersonalCardDatabase();
 			return new Promise((resolve, reject) => {
 				const transaction = database.transaction("cards", "readwrite");
-				transaction.objectStore("cards").put(card);
+				records.forEach((record) => transaction.objectStore("cards").put(record));
 				transaction.oncomplete = () => resolve();
 				transaction.onerror = () => reject(transaction.error || new Error("Nepavyko išsaugoti kortelės."));
 				transaction.onabort = () => reject(transaction.error || new Error("Kortelės išsaugoti nepavyko."));
 			});
 		}
 
-		const personalCardsReady = loadPersonalCards().then((cards) => {
-			personalCards = cards;
-			return cards;
-		}).catch((error) => {
-			personalCardStorageError = error;
-			return [];
-		});
+		async function savePersonalCard(card) {
+			await putPersonalCardRecords([await toStoredRecord(card)]);
+		}
+
+		async function phraseAudioRecord(phrase, blob, key = encryptionKey) {
+			if (!key) {
+				return { phrase, type: blob.type, audio: blob };
+			}
+			const { iv, data } = await encryptBytes(key, await blobToBytes(blob));
+			return { phrase, type: blob.type, iv, data };
+		}
+
+		async function putPhraseAudioRecords(records) {
+			if (records.length === 0) {
+				return;
+			}
+			const database = await openPhraseAudioDatabase();
+			return new Promise((resolve, reject) => {
+				const transaction = database.transaction("phraseAudio", "readwrite");
+				records.forEach((record) => transaction.objectStore("phraseAudio").put(record));
+				transaction.oncomplete = () => resolve();
+				transaction.onerror = () => reject(transaction.error || new Error("Nepavyko išsaugoti garso."));
+				transaction.onabort = () => reject(transaction.error || new Error("Garso išsaugoti nepavyko."));
+			});
+		}
+
+		async function savePhraseAudio(phrase, blob) {
+			await putPhraseAudioRecords([await phraseAudioRecord(phrase, blob)]);
+			phraseAudio.set(phrase, blob);
+		}
+
+		async function deletePhraseAudio(phrase) {
+			phraseAudio.delete(phrase);
+			try {
+				const database = await openPhraseAudioDatabase();
+				await new Promise((resolve, reject) => {
+					const transaction = database.transaction("phraseAudio", "readwrite");
+					transaction.objectStore("phraseAudio").delete(phrase);
+					transaction.oncomplete = () => resolve();
+					transaction.onerror = () => reject(transaction.error);
+				});
+			} catch {
+				// The recording is already gone from memory; storage cleanup is best effort.
+			}
+		}
+
+		async function loadAllPhraseAudio() {
+			const database = await openPhraseAudioDatabase();
+			const records = await new Promise((resolve, reject) => {
+				const request = database.transaction("phraseAudio", "readonly").objectStore("phraseAudio").getAll();
+				request.onsuccess = () => resolve(request.result);
+				request.onerror = () => reject(request.error);
+			});
+			const loaded = new Map();
+			for (const record of records) {
+				try {
+					if (record.iv) {
+						if (encryptionKey) {
+							const bytes = await decryptBytes(encryptionKey, record.iv, record.data);
+							loaded.set(record.phrase, new Blob([bytes], { type: record.type || "audio/webm" }));
+						}
+					} else if (record.audio instanceof Blob) {
+						loaded.set(record.phrase, record.audio);
+					}
+				} catch {
+					// Skip recordings that cannot be read.
+				}
+			}
+			return loaded;
+		}
+
+		// Ready-made recordings of built-in phrases: "<folder>/<phrase without punctuation, lowercase>.mp3".
+		// The first folder that has the file wins; the name is also tried without Lithuanian diacritics.
+		const PHRASE_AUDIO_FOLDERS = ["garsai frazėms", "situacijų garsai"];
+		const phraseFileCache = new Map();
+
+		function phraseFileSource(phrase) {
+			return `phrase:${phrase}`;
+		}
+
+		function phraseFileCandidates(phrase) {
+			const name = phrase.toLocaleLowerCase("lt-LT").replace(/[?!.,:;"“”„/\\*<>|]+/g, "").replace(/\s+/g, " ").trim();
+			if (!name) {
+				return [];
+			}
+			const plain = name.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+			const spoken = name.replace(/\b(5|10)\b/, (digits) => ({ 5: "penkios", 10: "dešimt" })[digits]);
+			const names = [...new Set([name, plain, spoken, spoken.normalize("NFD").replace(/[\u0300-\u036f]/g, "")])];
+			return PHRASE_AUDIO_FOLDERS.flatMap((folder) => names.map((file) => encodeURI(`${folder}/${file}.mp3`)));
+		}
+
+		function loadPhraseFile(phrase) {
+			if (!phraseFileCache.has(phrase)) {
+				phraseFileCache.set(phrase, (async () => {
+					for (const source of phraseFileCandidates(phrase)) {
+						const blob = await loadAudioSource(source);
+						if (blob) {
+							return blob;
+						}
+					}
+					return null;
+				})());
+			}
+			return phraseFileCache.get(phrase);
+		}
+
+		async function sayPhrase(phrase) {
+			const recording = phraseAudio.get(phrase) || await loadPhraseFile(phrase);
+			if (recording) {
+				try {
+					await playAudioBlob(recording);
+					return;
+				} catch {
+					// Fall back to the synthesized voice.
+				}
+			}
+			await speakText(phrase);
+		}
+
+		// Asks the browser not to evict local data; resolves to true, false, or null when unsupported.
+		async function requestPersistentStorage() {
+			try {
+				if (!navigator.storage?.persisted) {
+					return null;
+				}
+				return (await navigator.storage.persisted()) || (await navigator.storage.persist());
+			} catch {
+				return null;
+			}
+		}
 
 		function renderPersonalCards() {
 			customCardObjectUrls.forEach((url) => URL.revokeObjectURL(url));
@@ -1623,12 +2089,18 @@
 					imageSource = URL.createObjectURL(selectedPhoto);
 					selectedWordObjectUrls.set(id, imageSource);
 				}
+				const isIcon = !imageSource && Boolean(phraseIconSource(word));
+				if (isIcon) {
+					imageSource = phraseIconSource(word);
+				}
 				if (imageSource) {
 					const image = document.createElement("img");
 					image.src = imageSource;
 					image.alt = "";
 					photo.append(image);
 				}
+				card.classList.toggle("selected-word--text", !imageSource);
+				card.classList.toggle("selected-word--icon", isIcon);
 
 				const label = document.createElement("p");
 				label.className = "selected-word-label";
@@ -1662,9 +2134,20 @@
 			sentenceBar.hidden = !hasWords;
 			appShell.classList.toggle("has-sentence", hasWords);
 			sentenceText.textContent = composeSentence().toLocaleUpperCase("lt-LT");
+			syncSelectedCards();
 		}
 
-		function addSelectedWord(word, photo = null, audio = null, audioSource = "") {
+		function syncSelectedCards() {
+			const chosen = new Set(selectedWords.map(({ word }) => word.toLocaleLowerCase("lt-LT")));
+			emotionGrid.querySelectorAll(".emotion-card").forEach((card) => {
+				const word = card.querySelector("p")?.textContent.trim().toLocaleLowerCase("lt-LT");
+				card.classList.toggle("is-selected", chosen.has(word));
+			});
+		}
+
+		new MutationObserver(syncSelectedCards).observe(emotionGrid, { childList: true });
+
+		function addSelectedWord(word, photo = null, audio = null, audioSource = "", track = true) {
 			const cleanWord = String(word || "").trim();
 			if (!cleanWord) {
 				return null;
@@ -1672,6 +2155,10 @@
 			const selectedWord = { id: ++nextSelectedWordId, word: cleanWord, photo, audio, audioSource };
 			selectedWords.push(selectedWord);
 			renderSelectedWords();
+			if (track && !(photo instanceof Blob) && !(audio instanceof Blob)) {
+				recordUsage(cleanWord, photo, audioSource);
+				renderFrequent();
+			}
 			return selectedWord;
 		}
 
@@ -1712,6 +2199,7 @@
 				activeAudioPlayer = player;
 				activeAudioUrl = audioUrl;
 				player.src = audioUrl || audioSource;
+				player.volume = document.body.classList.contains("calm") ? 0.7 : 1;
 				if (player instanceof HTMLVideoElement) {
 					player.playsInline = true;
 					player.setAttribute("aria-hidden", "true");
@@ -1759,16 +2247,15 @@
 			if (!audioSource) {
 				return null;
 			}
+			if (audioSource.startsWith("phrase:")) {
+				return loadPhraseFile(audioSource.slice("phrase:".length));
+			}
 			try {
 				const response = await fetch(audioSource);
 				return response.ok ? await response.blob() : null;
 			} catch {
 				return null;
 			}
-		}
-
-		function loadPhraseAudio(phraseButton) {
-			return loadAudioSource(phraseButton.dataset.audioSrc);
 		}
 
 		async function speakSentence() {
@@ -1796,6 +2283,10 @@
 			return new Promise((resolve) => {
 				const utterance = new SpeechSynthesisUtterance(text);
 				utterance.lang = "lt-LT";
+				if (document.body.classList.contains("calm")) {
+					utterance.volume = 0.7;
+					utterance.rate = 0.9;
+				}
 				utterance.onend = resolve;
 				utterance.onerror = resolve;
 				window.speechSynthesis.speak(utterance);
@@ -2045,6 +2536,7 @@
 				return;
 			}
 
+			setActiveCategory(null);
 			emotionView.hidden = true;
 			categoriesTitle.hidden = false;
 			categoryList.hidden = false;
@@ -2065,7 +2557,15 @@
 			categoriesPanel.setAttribute("aria-labelledby", "categories-title");
 		}
 
+		function setActiveCategory(categoryRow) {
+			categoryList.querySelectorAll(".category-row").forEach((row) => {
+				row.classList.toggle("is-active", row === categoryRow);
+				row.toggleAttribute("aria-current", row === categoryRow);
+			});
+		}
+
 		function showCategory(categoryRow) {
+			setActiveCategory(categoryRow);
 			const categoryName = categoryRow.querySelectorAll(":scope > span")[1].textContent.trim();
 			const categoryIcon = categoryRow.querySelector(".category-icon img");
 
@@ -2157,6 +2657,7 @@
 		document.getElementById("tab-back").addEventListener("click", goBackToCategories);
 
 		function goHome() {
+			setActiveCategory(null);
 			emotionView.hidden = true;
 			categoriesTitle.hidden = false;
 			categoryList.hidden = false;
@@ -2392,6 +2893,25 @@
 			}
 		}, true);
 
+		const categoryChips = document.querySelector("#category-chips");
+		document.querySelectorAll(".category-row").forEach((categoryRow) => {
+			const chip = document.createElement("button");
+			chip.type = "button";
+			chip.className = "category-chip";
+			chip.textContent = categoryRow.querySelector(".category-label").textContent.trim();
+			chip.addEventListener("click", () => categoryRow.click());
+			categoryChips.append(chip);
+		});
+
+		document.querySelector("#home-tiles").replaceChildren(...Array.from(document.querySelectorAll(".category-row"), (categoryRow) => {
+			const tile = makeNode("button", "home-tile");
+			const icon = categoryRow.querySelector(".category-icon img").cloneNode();
+			icon.alt = "";
+			tile.append(icon, makeNode("span", "home-tile-label", categoryRow.querySelector(".category-label").textContent.trim()));
+			tile.addEventListener("click", () => categoryRow.click());
+			return tile;
+		}));
+
 		document.querySelectorAll(".category-row").forEach((categoryRow) => {
 			categoryRow.addEventListener("click", async () => {
 				if (categoryRow.hasAttribute("data-local-cards")) {
@@ -2480,6 +3000,19 @@
 			});
 		});
 
+		function toggleCardWord(card) {
+			const personalCard = personalCards.find(({ id }) => id === card.dataset.personalCardId);
+			const word = card.querySelector("p")?.textContent.trim();
+			const key = word?.toLocaleLowerCase("lt-LT");
+			const chosen = selectedWords.findLast(({ word: selected }) => selected.toLocaleLowerCase("lt-LT") === key);
+			if (chosen) {
+				selectedWords = selectedWords.filter(({ id }) => id !== chosen.id);
+				renderSelectedWords();
+				return;
+			}
+			addSelectedWord(word, personalCard?.photo || getCardImageSource(word) || null, personalCard?.audio || null, personalCard ? "" : getCardAudioSource(word) || "");
+		}
+
 		emotionGrid.addEventListener("click", (event) => {
 			const card = event.target.closest(".emotion-card");
 			if (!card) {
@@ -2488,21 +3021,21 @@
 			const word = card.querySelector("p")?.textContent.trim();
 			const personalCard = personalCards.find(({ id }) => id === card.dataset.personalCardId);
 			if (event.target.closest(".emotion-audio")) {
-				if (personalCard?.audio instanceof Blob) {
-					playAudioBlob(personalCard.audio).catch(() => speakText(word));
-				} else {
-					const cardAudioSource = getCardAudioSource(word);
-					if (cardAudioSource) {
-						loadAudioSource(cardAudioSource)
+				const audioButton = event.target.closest(".emotion-audio");
+				emotionGrid.querySelectorAll(".emotion-audio.is-playing").forEach((button) => button.classList.remove("is-playing"));
+				audioButton.classList.add("is-playing");
+				const cardAudioSource = getCardAudioSource(word);
+				const playback = personalCard?.audio instanceof Blob
+					? playAudioBlob(personalCard.audio).catch(() => speakText(word))
+					: cardAudioSource
+						? loadAudioSource(cardAudioSource)
 							.then((audioBlob) => audioBlob ? playAudioBlob(audioBlob) : speakText(word))
-							.catch(() => speakText(word));
-					} else {
-						speakText(word);
-					}
-				}
+							.catch(() => speakText(word))
+						: speakText(word);
+				playback.finally(() => audioButton.classList.remove("is-playing"));
 				return;
 			}
-			addSelectedWord(word, personalCard?.photo || getCardImageSource(word) || null, personalCard?.audio || null, personalCard ? "" : getCardAudioSource(word) || "");
+			toggleCardWord(card);
 		});
 
 		emotionGrid.addEventListener("keydown", (event) => {
@@ -2510,18 +3043,7 @@
 				return;
 			}
 			event.preventDefault();
-			const card = event.target;
-			const personalCard = personalCards.find(({ id }) => id === card.dataset.personalCardId);
-			const word = card.querySelector("p")?.textContent.trim();
-			addSelectedWord(word, personalCard?.photo || getCardImageSource(word) || null, personalCard?.audio || null, personalCard ? "" : getCardAudioSource(word) || "");
-		});
-
-		document.querySelector(".quick-phrases").addEventListener("click", async (event) => {
-			const phraseButton = event.target.closest(".phrase-chip");
-			const phrase = phraseButton?.querySelector(".phrase-chip-label")?.textContent;
-			if (phrase) {
-				addSelectedWord(phrase, null, await loadPhraseAudio(phraseButton));
-			}
+			toggleCardWord(event.target);
 		});
 
 		selectedWordsTray.addEventListener("click", (event) => {
@@ -2609,6 +3131,7 @@
 
 			try {
 				await savePersonalCard(personalCard);
+				requestPersistentStorage();
 				personalCards = [personalCard, ...personalCards];
 				personalCardDialog.close();
 				await personalCardsReady;
@@ -2618,7 +3141,1621 @@
 			}
 		});
 
+		const appStorage = {
+			get(key, fallback) {
+				try {
+					const stored = window.localStorage.getItem(`voicer.${key}`);
+					return stored === null ? fallback : JSON.parse(stored);
+				} catch {
+					return fallback;
+				}
+			},
+			set(key, value) {
+				try {
+					window.localStorage.setItem(`voicer.${key}`, JSON.stringify(value));
+				} catch {
+					// Preferences are optional when storage is unavailable.
+				}
+			},
+			remove(key) {
+				try {
+					window.localStorage.removeItem(`voicer.${key}`);
+				} catch {
+					// Nothing to remove when storage is unavailable.
+				}
+			}
+		};
+
+		// Lock screen, backups, and encryption of personal cards.
+		let unlockApp = () => {};
+		const appUnlocked = new Promise((resolve) => {
+			unlockApp = resolve;
+		});
+		const lockScreen = document.querySelector("#lock-screen");
+		const lockForm = document.querySelector("#lock-form");
+		const lockInput = document.querySelector("#lock-input");
+		const lockStatus = document.querySelector("#lock-status");
+		const secretDialog = document.querySelector("#secret-dialog");
+		const secretForm = document.querySelector("#secret-form");
+		const secretTitle = document.querySelector("#secret-title");
+		const secretText = document.querySelector("#secret-text");
+		const secretInput = document.querySelector("#secret-input");
+		const secretConfirm = document.querySelector("#secret-confirm");
+		const secretConfirmField = document.querySelector("#secret-confirm-field");
+		const secretStatus = document.querySelector("#secret-status");
+		const backupFileInput = document.querySelector("#backup-file");
+		let settingsStatus = null;
+
+		const personalCardsReady = appUnlocked.then(loadPersonalCards).then((cards) => {
+			personalCards = cards;
+			return cards;
+		}).catch((error) => {
+			personalCardStorageError = error;
+			return [];
+		});
+
+		const phraseAudioReady = appUnlocked.then(loadAllPhraseAudio).then((loaded) => {
+			phraseAudio = loaded;
+		}).catch(() => {});
+
+		if (appStorage.get("lock", null)) {
+			appShell.inert = true;
+			document.documentElement.classList.add("is-locked");
+			lockInput.focus();
+		} else {
+			document.documentElement.classList.remove("is-locked");
+			unlockApp();
+		}
+
+		requestPersistentStorage();
+
+		async function verifySecret(secret) {
+			const config = appStorage.get("lock", null);
+			if (!config) {
+				return null;
+			}
+			const key = await deriveKey(secret, base64ToBytes(config.salt), config.iterations);
+			try {
+				const check = await decryptBytes(key, base64ToBytes(config.iv), base64ToBytes(config.data));
+				return textDecoder.decode(check) === LOCK_CHECK_TEXT ? key : null;
+			} catch {
+				return null;
+			}
+		}
+
+		lockForm.addEventListener("submit", async (event) => {
+			event.preventDefault();
+			lockStatus.textContent = "";
+			if (!cryptoAvailable) {
+				lockStatus.textContent = "Atrakinti galima tik per saugų (HTTPS) ryšį.";
+				return;
+			}
+			const submitButton = lockForm.querySelector("[type='submit']");
+			submitButton.disabled = true;
+			try {
+				const key = await verifySecret(lockInput.value);
+				if (!key) {
+					lockStatus.textContent = "Neteisingas PIN kodas ar slaptažodis.";
+					lockInput.select();
+					return;
+				}
+				encryptionKey = key;
+				lockInput.value = "";
+				document.documentElement.classList.remove("is-locked");
+				appShell.inert = false;
+				unlockApp();
+			} finally {
+				submitButton.disabled = false;
+			}
+		});
+
+		document.querySelector("#lock-reset").addEventListener("click", async () => {
+			if (!window.confirm("Bus ištrintos visos šiame telefone išsaugotos kortelės, o užraktas pašalintas. Tęsti?")) {
+				return;
+			}
+			await new Promise((resolve) => {
+				try {
+					const request = window.indexedDB.deleteDatabase("voicer-personal-cards");
+					request.onsuccess = request.onerror = request.onblocked = () => resolve();
+				} catch {
+					resolve();
+				}
+			});
+			appStorage.remove("lock");
+			window.location.reload();
+		});
+
+		// Resolves to the entered text, "" when an optional secret is left empty, or null when cancelled.
+		function askSecret({ title, text, confirm = false, optional = false, submitLabel = "Tęsti", validate = null }) {
+			return new Promise((resolve) => {
+				let result = null;
+				secretTitle.textContent = title;
+				secretText.textContent = text;
+				secretInput.value = "";
+				secretConfirm.value = "";
+				secretConfirmField.hidden = !confirm;
+				secretStatus.textContent = "";
+				document.querySelector("#secret-submit").textContent = submitLabel;
+				secretInput.autocomplete = confirm ? "new-password" : "current-password";
+				secretForm.onsubmit = async (event) => {
+					event.preventDefault();
+					const value = secretInput.value;
+					if (confirm && !(optional && value === "")) {
+						if (value.length < 4) {
+							secretStatus.textContent = "Įveskite bent 4 simbolius.";
+							return;
+						}
+						if (value !== secretConfirm.value) {
+							secretStatus.textContent = "Įvesti simboliai nesutampa.";
+							return;
+						}
+					}
+					if (validate) {
+						secretForm.querySelector("#secret-submit").disabled = true;
+						const error = await validate(value);
+						secretForm.querySelector("#secret-submit").disabled = false;
+						if (error) {
+							secretStatus.textContent = error;
+							return;
+						}
+					}
+					result = value;
+					secretDialog.close();
+				};
+				secretDialog.onclose = () => {
+					secretForm.onsubmit = null;
+					secretDialog.onclose = null;
+					secretInput.value = "";
+					secretConfirm.value = "";
+					resolve(result);
+				};
+				document.querySelector("#secret-cancel").onclick = () => secretDialog.close();
+				secretDialog.showModal();
+				secretInput.focus();
+			});
+		}
+
+		function setSettingsStatus(text) {
+			if (settingsStatus) {
+				settingsStatus.textContent = text;
+			}
+		}
+
+		async function enableLock() {
+			const secret = await askSecret({
+				title: "Įjungti užraktą",
+				text: "Sugalvokite PIN kodą arba slaptažodį. Jo atkurti neįmanoma – jei pamiršite, kortelės bus prarastos. Ilgesnis slaptažodis saugesnis nei trumpas PIN.",
+				confirm: true,
+				submitLabel: "Įjungti"
+			});
+			if (!secret) {
+				return false;
+			}
+			await personalCardsReady;
+			const salt = randomBytes(16);
+			const key = await deriveKey(secret, salt, KEY_ITERATIONS);
+			const check = await encryptBytes(key, textEncoder.encode(LOCK_CHECK_TEXT));
+			const records = await Promise.all(personalCards.map((card) => toStoredRecord(card, key)));
+			appStorage.set("lock", {
+				salt: bytesToBase64(salt),
+				iterations: KEY_ITERATIONS,
+				iv: bytesToBase64(check.iv),
+				data: bytesToBase64(check.data)
+			});
+			if (!appStorage.get("lock", null)) {
+				throw new Error("Nepavyko išsaugoti užrakto nustatymų.");
+			}
+			try {
+				await putPersonalCardRecords(records);
+				await phraseAudioReady;
+				await putPhraseAudioRecords(await Promise.all([...phraseAudio].map(([phrase, blob]) => phraseAudioRecord(phrase, blob, key))));
+			} catch (error) {
+				appStorage.remove("lock");
+				throw error;
+			}
+			encryptionKey = key;
+			return true;
+		}
+
+		async function disableLock() {
+			const secret = await askSecret({
+				title: "Išjungti užraktą",
+				text: "Įveskite dabartinį PIN kodą ar slaptažodį. Kortelės nebebus šifruojamos.",
+				submitLabel: "Išjungti",
+				validate: async (value) => (await verifySecret(value)) ? "" : "Neteisingas PIN kodas ar slaptažodis."
+			});
+			if (secret === null) {
+				return false;
+			}
+			await personalCardsReady;
+			await phraseAudioReady;
+			await putPersonalCardRecords(personalCards);
+			await putPhraseAudioRecords(await Promise.all([...phraseAudio].map(([phrase, blob]) => phraseAudioRecord(phrase, blob, null))));
+			encryptionKey = null;
+			appStorage.remove("lock");
+			return true;
+		}
+
+		async function buildBackup(cards, secret, userData = {}) {
+			const packed = await Promise.all(cards.map(packCard));
+			const scenarioBytes = textEncoder.encode(JSON.stringify(userData));
+			const payload = new Uint8Array(4 + packed.reduce((sum, card) => sum + 4 + card.length, 0) + 4 + scenarioBytes.length);
+			const view = new DataView(payload.buffer);
+			view.setUint32(0, packed.length);
+			let offset = 4;
+			packed.forEach((card) => {
+				view.setUint32(offset, card.length);
+				payload.set(card, offset + 4);
+				offset += 4 + card.length;
+			});
+			view.setUint32(offset, scenarioBytes.length);
+			payload.set(scenarioBytes, offset + 4);
+			const magic = textEncoder.encode(BACKUP_MAGIC);
+			if (!secret) {
+				return new Blob([magic, new Uint8Array([1, 0]), payload], { type: "application/octet-stream" });
+			}
+			const salt = randomBytes(16);
+			const key = await deriveKey(secret, salt, KEY_ITERATIONS);
+			const { iv, data } = await encryptBytes(key, payload);
+			const iterations = new Uint8Array(4);
+			new DataView(iterations.buffer).setUint32(0, KEY_ITERATIONS);
+			return new Blob([magic, new Uint8Array([1, 1]), salt, iterations, iv, data], { type: "application/octet-stream" });
+		}
+
+		async function readBackup(file) {
+			const bytes = new Uint8Array(await file.arrayBuffer());
+			if (bytes.length < BACKUP_HEADER_SIZE || textDecoder.decode(bytes.subarray(0, 8)) !== BACKUP_MAGIC || bytes[8] !== 1) {
+				throw new Error("Tai nėra Voicer atsarginės kopijos failas.");
+			}
+			if (bytes[9] === 0) {
+				return { encrypted: false, payload: bytes.subarray(BACKUP_HEADER_SIZE) };
+			}
+			if (bytes.length < BACKUP_HEADER_SIZE + 32) {
+				throw new Error("Atsarginės kopijos failas sugadintas.");
+			}
+			const iterations = new DataView(bytes.buffer, bytes.byteOffset + BACKUP_HEADER_SIZE + 16).getUint32(0);
+			if (iterations < 1 || iterations > MAX_KEY_ITERATIONS) {
+				throw new Error("Atsarginės kopijos failas sugadintas.");
+			}
+			return {
+				encrypted: true,
+				salt: bytes.slice(BACKUP_HEADER_SIZE, BACKUP_HEADER_SIZE + 16),
+				iterations,
+				iv: bytes.slice(BACKUP_HEADER_SIZE + 20, BACKUP_HEADER_SIZE + 32),
+				data: bytes.slice(BACKUP_HEADER_SIZE + 32)
+			};
+		}
+
+		function unpackBackup(payload) {
+			const view = new DataView(payload.buffer, payload.byteOffset, payload.length);
+			const count = view.getUint32(0);
+			const cards = [];
+			let offset = 4;
+			for (let index = 0; index < count; index += 1) {
+				const length = view.getUint32(offset);
+				if (offset + 4 + length > payload.length) {
+					throw new Error("Atsarginės kopijos failas sugadintas.");
+				}
+				cards.push(unpackCard(payload.subarray(offset + 4, offset + 4 + length)));
+				offset += 4 + length;
+			}
+			let userData = { scenarios: [], quick: [], extras: {}, icons: {}, contact: null, audio: [] };
+			if (offset + 4 <= payload.length) {
+				const length = view.getUint32(offset);
+				if (offset + 4 + length > payload.length) {
+					throw new Error("Atsarginės kopijos failas sugadintas.");
+				}
+				const parsed = JSON.parse(textDecoder.decode(payload.subarray(offset + 4, offset + 4 + length)));
+				userData = {
+					scenarios: sanitizeScenarios(parsed?.scenarios),
+					quick: sanitizePhraseList(parsed?.quick, 20),
+					extras: sanitizeExtras(parsed?.extras),
+					icons: sanitizeIcons(parsed?.icons),
+					contact: sanitizeContact(parsed?.contact),
+					audio: (Array.isArray(parsed?.audio) ? parsed.audio : [])
+						.filter((item) => typeof item?.phrase === "string" && typeof item?.data === "string")
+						.slice(0, 200)
+						.map((item) => ({
+							phrase: item.phrase.slice(0, 120),
+							blob: new Blob([base64ToBytes(item.data)], { type: String(item.type || "audio/webm").slice(0, 60) })
+						}))
+				};
+			}
+			return { cards, userData };
+		}
+
+		function downloadBlob(blob, fileName) {
+			const url = URL.createObjectURL(blob);
+			const link = document.createElement("a");
+			link.href = url;
+			link.download = fileName;
+			document.body.append(link);
+			link.click();
+			link.remove();
+			window.setTimeout(() => URL.revokeObjectURL(url), 10000);
+		}
+
+		async function exportBackup() {
+			await personalCardsReady;
+			await phraseAudioReady;
+			const audio = await Promise.all([...phraseAudio].map(async ([phrase, blob]) => ({
+				phrase,
+				type: blob.type,
+				data: bytesToBase64(await blobToBytes(blob))
+			})));
+			const userData = { scenarios: getCustomScenarios(), quick: getCustomQuick(), extras: getScenarioExtras(), icons: getPhraseIcons(), contact: getContact(), audio };
+			const phraseCount = userData.quick.length + Object.values(userData.extras).reduce((sum, list) => sum + list.length, 0);
+			if (personalCards.length === 0 && userData.scenarios.length === 0 && phraseCount === 0 && !userData.contact) {
+				setSettingsStatus("Kortelių, situacijų ar frazių, kuriuos būtų galima išsaugoti, dar nėra.");
+				return;
+			}
+			const locked = Boolean(appStorage.get("lock", null));
+			let secret = "";
+			if (cryptoAvailable) {
+				secret = await askSecret({
+					title: "Atsarginė kopija",
+					text: locked
+						? "Kopija bus užšifruota. Įveskite slaptažodį (gali būti tas pats) – jo reikės kopijai atkurti."
+						: "Slaptažodis neprivalomas. Jei jį įvesite, kopiją bus galima atidaryti tik su juo.",
+					confirm: true,
+					optional: !locked,
+					submitLabel: "Išsaugoti"
+				});
+				if (secret === null) {
+					return;
+				}
+			}
+			setSettingsStatus("Ruošiama kopija...");
+			const backup = await buildBackup(personalCards, secret, userData);
+			downloadBlob(backup, `voicer-kopija-${new Date().toISOString().slice(0, 10)}.voicer`);
+			setSettingsStatus(`Išsaugota kortelių: ${personalCards.length}, situacijų: ${userData.scenarios.length}, frazių: ${phraseCount}. Failą laikykite saugiai.`);
+		}
+
+		async function importBackup(file) {
+			await personalCardsReady;
+			setSettingsStatus("Skaitoma kopija...");
+			const backup = await readBackup(file);
+			let payload = backup.payload;
+			if (backup.encrypted) {
+				if (!cryptoAvailable) {
+					setSettingsStatus("Užšifruotą kopiją galima atkurti tik per saugų (HTTPS) ryšį.");
+					return;
+				}
+				const secret = await askSecret({
+					title: "Užšifruota kopija",
+					text: "Įveskite slaptažodį, kuriuo kopija buvo išsaugota.",
+					submitLabel: "Atkurti",
+					validate: async (value) => {
+						try {
+							const key = await deriveKey(value, backup.salt, backup.iterations);
+							payload = await decryptBytes(key, backup.iv, backup.data);
+							return "";
+						} catch {
+							return "Neteisingas slaptažodis.";
+						}
+					}
+				});
+				if (secret === null) {
+					setSettingsStatus("");
+					return;
+				}
+			}
+			const { cards: imported, userData: importedData } = unpackBackup(payload);
+			await putPersonalCardRecords(await Promise.all(imported.map((card) => toStoredRecord(card))));
+			const importedIds = new Set(imported.map(({ id }) => id));
+			personalCards = [...imported, ...personalCards.filter(({ id }) => !importedIds.has(id))]
+				.sort((left, right) => right.createdAt - left.createdAt);
+			const importedScenarioIds = new Set(importedData.scenarios.map(({ id }) => id));
+			saveCustomScenarios([...getCustomScenarios().filter(({ id }) => !importedScenarioIds.has(id)), ...importedData.scenarios].slice(0, 50));
+			saveCustomQuick(sanitizePhraseList([...getCustomQuick(), ...importedData.quick], 20));
+			const mergedExtras = getScenarioExtras();
+			Object.entries(importedData.extras).forEach(([title, list]) => {
+				mergedExtras[title] = sanitizePhraseList([...(mergedExtras[title] || []), ...list], 30);
+			});
+			saveScenarioExtras(mergedExtras);
+			savePhraseIcons({ ...getPhraseIcons(), ...importedData.icons });
+			for (const { phrase, blob } of importedData.audio) {
+				if (blob.size) {
+					await savePhraseAudio(phrase, blob);
+				}
+			}
+			if (importedData.contact && !getContact()) {
+				saveContact(importedData.contact);
+			}
+			renderQuickSentences();
+			requestPersistentStorage();
+			if (imported.length === 0) {
+				setSettingsStatus(`Atkurta situacijų: ${importedData.scenarios.length}, savų frazių: ${importedData.quick.length}.`);
+				return;
+			}
+			closeSheet();
+			showCategory(document.querySelector("[data-local-cards]"));
+		}
+
+		backupFileInput.addEventListener("change", async () => {
+			const file = backupFileInput.files[0];
+			backupFileInput.value = "";
+			if (!file) {
+				return;
+			}
+			try {
+				await importBackup(file);
+			} catch (error) {
+				console.error(error);
+				setSettingsStatus(error instanceof Error && error.message.startsWith("Tai nėra") ? error.message : "Nepavyko atkurti kopijos. Patikrinkite failą.");
+			}
+		});
+
+		function makeNode(tag, className = "", text = "") {
+			const node = document.createElement(tag);
+			node.className = className;
+			node.textContent = text;
+			if (tag === "button") {
+				node.type = "button";
+			}
+			return node;
+		}
+
+		const timePhrases = [
+			"Dabar.",
+			"5 minutės.",
+			"10 minučių.",
+			"Šiandien.",
+			"Ryte.",
+			"Vakare.",
+			"Rytoj.",
+			"Po savaitgalio."
+		];
+
+		const quickSentences = [
+			"Valgyti.",
+			"Gerti.",
+			"Tualetas.",
+			"Skauda.",
+			"Padėk.",
+			"Pailsėti.",
+			"Namo.",
+			"Šalta.",
+			"Karšta.",
+			"Ačiū."
+		];
+
+		const quickSentenceIcons = {
+			"Valgyti.": "kategorijų iliustracijos/valgyti.png",
+			"Gerti.": "kategorijų iliustracijos/gerti.png",
+			"Tualetas.": "kategorijų iliustracijos/tualetas.png",
+			"Skauda.": "kategorijų iliustracijos/skauda.png",
+			"Padėk.": "kategorijų iliustracijos/bendravimas.png",
+			"Pailsėti.": "kategorijų iliustracijos/POLSIS.png",
+			"Namo.": "kategorijų iliustracijos/NAMAI.png",
+			"Šalta.": "kategorijų iliustracijos/salta.png",
+			"Karšta.": "kategorijų iliustracijos/karsta.png",
+			"Ačiū.": "kategorijų iliustracijos/aciu.png",
+			"Miegoti.": "ikonu-biblioteka/sleeping_face.png",
+			"Ramybė.": "ikonu-biblioteka/shushing_face.png",
+			"Ausinės.": "ikonu-biblioteka/headphone.png",
+			"Filmas.": "ikonu-biblioteka/television.png",
+			"Telefonas.": "ikonu-biblioteka/mobile_phone.png",
+			"Kaina.": "ikonu-biblioteka/coin.png",
+			"Grynais.": "ikonu-biblioteka/money_bag.png",
+			"Kortele.": "ikonu-biblioteka/credit_card.png",
+			"Maišelis.": "ikonu-biblioteka/shopping_bags.png",
+			"Pagalba.": "ikonu-biblioteka/person_raising_hand.png",
+			"Nesuprantu.": "ikonu-biblioteka/person_shrugging.png",
+			"Pertrauka.": "ikonu-biblioteka/hourglass_not_done.png",
+			"Baigiau.": "ikonu-biblioteka/check_mark_button.png",
+			"Svaigsta galva.": "ikonu-biblioteka/face_with_spiral_eyes.png",
+			"Pykina.": "ikonu-biblioteka/nauseated_face.png",
+			"Sunku kvėpuoti.": "ikonu-biblioteka/face_exhaling.png",
+			"Vanduo.": "ikonu-biblioteka/droplet.png",
+			"Galva.": "ikonu-biblioteka/brain.png",
+			"Akis.": "ikonu-biblioteka/eye.png",
+			"Ausis.": "ikonu-biblioteka/ear.png",
+			"Dantis.": "ikonu-biblioteka/tooth.png",
+			"Gerklė.": "ikonu-biblioteka/mouth.png",
+			"Krūtinė.": "ikonu-biblioteka/lungs.png",
+			"Pilvas.": "ikonu-biblioteka/adhesive_bandage.png",
+			"Nugara.": "ikonu-biblioteka/adhesive_bandage.png",
+			"Ranka.": "ikonu-biblioteka/flexed_biceps.png",
+			"Koja.": "ikonu-biblioteka/foot.png",
+			"Visur.": "ikonu-biblioteka/adhesive_bandage.png",
+			"Sąskaita.": "ikonu-biblioteka/memo.png",
+			"Aš autistas.": "ikonu-biblioteka/infinity.png",
+			"Pasiklydau.": "ikonu-biblioteka/world_map.png",
+			"Nekalbu.": "ikonu-biblioteka/muted_speaker.png",
+			"Greitoji.": "ikonu-biblioteka/ambulance.png",
+			"Dabar.": "ikonu-biblioteka/high_voltage.png",
+			"5 minutės.": "ikonu-biblioteka/hourglass_not_done.png",
+			"10 minučių.": "ikonu-biblioteka/alarm_clock.png",
+			"Šiandien.": "ikonu-biblioteka/sun.png",
+			"Ryte.": "ikonu-biblioteka/sunrise.png",
+			"Vakare.": "ikonu-biblioteka/sunset.png",
+			"Rytoj.": "ikonu-biblioteka/calendar.png",
+			"Po savaitgalio.": "ikonu-biblioteka/beach_with_umbrella.png"
+		};
+
+		// Phrases that open a list of more specific sentences.
+		const phraseOptions = {
+			"Skauda.": [
+				"Galva.",
+				"Akis.",
+				"Ausis.",
+				"Dantis.",
+				"Gerklė.",
+				"Krūtinė.",
+				"Pilvas.",
+				"Nugara.",
+				"Ranka.",
+				"Koja.",
+				"Visur."
+			]
+		};
+
+		// Phrases that open a custom panel instead of a fixed list.
+		const phrasePanels = {
+			"Pasiklydau.": () => buildContactPanel()
+		};
+
+		function sanitizeContact(raw) {
+			const clean = (value, max) => String(value ?? "").replace(/\s+/g, " ").trim().slice(0, max);
+			const phone = clean(raw?.phone, 30).replace(/[^\d+()\-\s]/g, "").trim();
+			return phone ? { name: clean(raw?.name, 40), phone, note: clean(raw?.note, 200) } : null;
+		}
+
+		function getContact() {
+			return sanitizeContact(appStorage.get("contact", null));
+		}
+
+		function saveContact(contact) {
+			if (!contact) {
+				appStorage.remove("contact");
+				return true;
+			}
+			appStorage.set("contact", contact);
+			return JSON.stringify(getContact()) === JSON.stringify(contact);
+		}
+
+		function contactSentence(contact) {
+			return contact.name ? `Skambink ${contact.phone} (${contact.name}).` : `Skambink ${contact.phone}.`;
+		}
+
+		function buildContactPanel() {
+			const panel = makeNode("div", "phrase-options");
+			const contact = getContact();
+			if (!contact) {
+				const setup = makeNode("button", "sheet-option sheet-option--create", "+ Įrašyti, kam skambinti");
+				setup.addEventListener("click", openContactDialog);
+				panel.append(
+					makeNode("p", "sheet-note", "Įrašykite artimojo telefoną, kad pasiklydęs galėtumėte jį parodyti ar paskambinti. Informacija saugoma tik šiame telefone."),
+					setup
+				);
+				return panel;
+			}
+			const call = makeNode("a", "sheet-option sheet-link-call", `Skambinti: ${contact.name || contact.phone}`);
+			call.href = `tel:${contact.phone.replace(/[^\d+]/g, "")}`;
+			const show = makeNode("button", "sheet-option", "Rodyti kitam žmogui");
+			show.addEventListener("click", () => {
+				closeSheet();
+				showToOthers([contactSentence(contact), contact.note].filter(Boolean).join(" "));
+			});
+			const edit = makeNode("button", "sheet-option sheet-option--quiet", "Keisti kontaktą");
+			edit.addEventListener("click", openContactDialog);
+			panel.append(...phraseRows([contactSentence(contact)]), call, show, edit);
+			if (contact.note) {
+				panel.append(makeNode("p", "sheet-note", contact.note));
+			}
+			return panel;
+		}
+
+		const contactDialog = document.querySelector("#contact-dialog");
+		const contactForm = document.querySelector("#contact-form");
+		const contactNameInput = document.querySelector("#contact-name");
+		const contactPhoneInput = document.querySelector("#contact-phone");
+		const contactNoteInput = document.querySelector("#contact-note");
+		const contactStatus = document.querySelector("#contact-status");
+		const contactDeleteButton = document.querySelector("#delete-contact");
+
+		function reopenScenarioView() {
+			if (openedScenarioView) {
+				openScenario(openedScenarioView.scenario, openedScenarioView.isCustom);
+				document.querySelector(".sheet-expand[aria-label='Pasirinkti: Pasiklydau.']")?.click();
+			}
+		}
+
+		function openContactDialog() {
+			const contact = getContact();
+			contactNameInput.value = contact?.name || "";
+			contactPhoneInput.value = contact?.phone || "";
+			contactNoteInput.value = contact?.note || "";
+			contactDeleteButton.hidden = !contact;
+			contactStatus.textContent = "";
+			contactDialog.showModal();
+			contactPhoneInput.focus();
+		}
+
+		document.querySelector("#close-contact-dialog").addEventListener("click", () => contactDialog.close());
+		document.querySelector("#cancel-contact").addEventListener("click", () => contactDialog.close());
+
+		contactForm.addEventListener("submit", (event) => {
+			event.preventDefault();
+			const contact = sanitizeContact({ name: contactNameInput.value, phone: contactPhoneInput.value, note: contactNoteInput.value });
+			if (!contact) {
+				contactStatus.textContent = "Įrašykite telefono numerį.";
+				return;
+			}
+			if (!saveContact(contact)) {
+				contactStatus.textContent = "Nepavyko išsaugoti šiame telefone.";
+				return;
+			}
+			contactDialog.close();
+			reopenScenarioView();
+		});
+
+		contactDeleteButton.addEventListener("click", () => {
+			if (!window.confirm("Ištrinti išsaugotą kontaktą?")) {
+				return;
+			}
+			saveContact(null);
+			contactDialog.close();
+			reopenScenarioView();
+		});
+
+		const scenarios = [
+			{
+				title: "Namai",
+				phrases: ["Valgyti.", "Gerti.", "Tualetas.", "Miegoti.", "Ramybė.", "Ausinės.", "Filmas.", "Telefonas."]
+			},
+			{
+				title: "Parduotuvė",
+				phrases: ["Kaina.", "Grynais.", "Kortele.", "Maišelis."]
+			},
+			{
+				title: "Mokykla",
+				phrases: ["Pagalba.", "Nesuprantu.", "Tualetas.", "Pertrauka.", "Ausinės."]
+			},
+			{
+				title: "Darbas",
+				phrases: ["Nesuprantu.", "Pertrauka.", "Baigiau."]
+			},
+			{
+				title: "Ligoninė",
+				phrases: ["Skauda.", "Svaigsta galva.", "Pykina.", "Sunku kvėpuoti.", "Tualetas.", "Vanduo."]
+			},
+			{
+				title: "Kavinėje",
+				phrases: ["Vanduo.", "Sąskaita.", "Kortele.", "Grynais."]
+			},
+			{
+				title: "Pagalba",
+				pinned: true,
+				phrases: ["Aš autistas.", "Skauda.", "Pasiklydau.", "Nekalbu.", "Greitoji."]
+			}
+		];
+
+		function sanitizeScenarios(raw) {
+			if (!Array.isArray(raw)) {
+				return [];
+			}
+			return raw.slice(0, 50).map((item) => ({
+				id: String(item?.id || ""),
+				title: String(item?.title || "").trim().slice(0, 40),
+				phrases: Array.isArray(item?.phrases)
+					? item.phrases.map((phrase) => String(phrase).trim().slice(0, 120)).filter(Boolean).slice(0, 30)
+					: []
+			})).filter((scenario) => scenario.id && scenario.title && scenario.phrases.length);
+		}
+
+		function getCustomScenarios() {
+			return sanitizeScenarios(appStorage.get("customScenarios", []));
+		}
+
+		function saveCustomScenarios(list) {
+			appStorage.set("customScenarios", list);
+			return JSON.stringify(getCustomScenarios()) === JSON.stringify(list);
+		}
+
+		function sanitizePhraseList(raw, max) {
+			if (!Array.isArray(raw)) {
+				return [];
+			}
+			return [...new Set(raw.map((phrase) => String(phrase).trim().slice(0, 120)).filter(Boolean))].slice(0, max);
+		}
+
+		function getCustomQuick() {
+			return sanitizePhraseList(appStorage.get("customQuick", []), 20);
+		}
+
+		function saveCustomQuick(list) {
+			appStorage.set("customQuick", list);
+			return JSON.stringify(getCustomQuick()) === JSON.stringify(list);
+		}
+
+		// Extra phrases the user added to the built-in scenarios, keyed by scenario title.
+		function sanitizeExtras(raw) {
+			const extras = {};
+			if (raw && typeof raw === "object" && !Array.isArray(raw)) {
+				scenarios.forEach(({ title }) => {
+					const phrases = sanitizePhraseList(raw[title], 30);
+					if (phrases.length) {
+						extras[title] = phrases;
+					}
+				});
+			}
+			return extras;
+		}
+
+		function getScenarioExtras() {
+			return sanitizeExtras(appStorage.get("scenarioExtras", {}));
+		}
+
+		function saveScenarioExtras(extras) {
+			const clean = sanitizeExtras(extras);
+			appStorage.set("scenarioExtras", clean);
+			return JSON.stringify(getScenarioExtras()) === JSON.stringify(clean);
+		}
+
+		const ICON_BY_ID = new Map((typeof ICON_LIBRARY === "undefined" ? [] : ICON_LIBRARY).map(([id, label, keywords]) => [id, { id, label, keywords }]));
+
+		function iconSrc(id) {
+			return `ikonu-biblioteka/${id}.png`;
+		}
+
+		// Icons the user picked for their own phrases, keyed by phrase text.
+		function sanitizeIcons(raw) {
+			const icons = {};
+			if (raw && typeof raw === "object" && !Array.isArray(raw)) {
+				Object.entries(raw).slice(0, 300).forEach(([phrase, id]) => {
+					if (typeof id === "string" && ICON_BY_ID.has(id) && phrase.trim() && phrase.length <= 120) {
+						icons[phrase] = id;
+					}
+				});
+			}
+			return icons;
+		}
+
+		function getPhraseIcons() {
+			return sanitizeIcons(appStorage.get("phraseIcons", {}));
+		}
+
+		function savePhraseIcons(icons) {
+			const clean = sanitizeIcons(icons);
+			appStorage.set("phraseIcons", clean);
+			return JSON.stringify(getPhraseIcons()) === JSON.stringify(clean);
+		}
+
+		const sheet = document.querySelector("#sheet");
+		const sheetPanel = sheet.querySelector(".sheet-panel");
+		const sheetTitle = document.querySelector("#sheet-title");
+		const sheetBody = document.querySelector("#sheet-body");
+		const sheetBack = document.querySelector("#sheet-back");
+		const showScreen = document.querySelector("#show-screen");
+		const showText = document.querySelector("#show-text");
+		let sheetBackAction = null;
+		let sheetReturnFocus = null;
+
+		function applyPreferences() {
+			document.body.classList.toggle("calm", appStorage.get("calm", false));
+			document.body.classList.toggle("text-only", appStorage.get("textOnly", false));
+			document.body.classList.toggle("large-view", appStorage.get("largeView", false));
+		}
+
+		function openSheet(title, nodes, layout = "list", backAction = null) {
+			if (sheet.hidden) {
+				sheetReturnFocus = document.activeElement;
+			}
+			sheetTitle.textContent = title;
+			sheetBody.dataset.layout = layout;
+			sheetBody.replaceChildren(...nodes);
+			sheetBackAction = backAction;
+			sheetBack.hidden = !backAction;
+			sheet.hidden = false;
+			sheetPanel.scrollTop = 0;
+			sheetPanel.tabIndex = -1;
+			sheetPanel.focus();
+		}
+
+		function closeSheet() {
+			sheet.hidden = true;
+			sheetReturnFocus?.focus?.();
+			sheetReturnFocus = null;
+		}
+
+		function showToOthers(text) {
+			if (!text) {
+				return;
+			}
+			showText.textContent = text;
+			showScreen.hidden = false;
+			showScreen.focus();
+		}
+
+		function openTimeSheet() {
+			openSheet("Reikia laiko", timePhrases.map((phrase) => {
+				const button = makeNode("button", "sheet-option", phrase);
+				const iconSource = phraseIconSource(phrase);
+				if (iconSource) {
+					button.classList.add("has-icon");
+					button.prepend(makeIconImageFromSource(iconSource, "phrase-row-icon"));
+				}
+				button.addEventListener("click", () => {
+					closeSheet();
+					showToOthers(phrase);
+					sayPhrase(phrase);
+				});
+				return button;
+			}));
+		}
+
+		function openScenarioList() {
+			const scenarioButton = (scenario, isCustom) => {
+				const button = makeNode("button", "sheet-option", scenario.title);
+				button.addEventListener("click", () => openScenario(scenario, isCustom));
+				return button;
+			};
+			const createButton = makeNode("button", "sheet-option sheet-option--create", "+ Sukurti savo situaciją");
+			createButton.addEventListener("click", () => openScenarioEditor(null));
+			const addPhraseButton = makeNode("button", "sheet-option sheet-option--create", "+ Pridėti savo frazę");
+			addPhraseButton.addEventListener("click", () => openPhraseDialog("quick"));
+			const custom = getCustomScenarios();
+			const nodes = [createButton, addPhraseButton];
+			if (custom.length) {
+				nodes.push(makeNode("h3", "sheet-section-title", "Mano situacijos"), ...custom.map((scenario) => scenarioButton(scenario, true)), makeNode("h3", "sheet-section-title", "Paruoštos situacijos"));
+			}
+			openSheet("Situacijos", [...nodes, ...scenarios.filter(({ pinned }) => !pinned).map((scenario) => scenarioButton(scenario, false))]);
+		}
+
+		function phraseIconSource(phrase, icons = getPhraseIcons()) {
+			return icons[phrase] ? iconSrc(icons[phrase]) : quickSentenceIcons[phrase] || "";
+		}
+
+		function makeIconImageFromSource(source, className) {
+			const icon = document.createElement("img");
+			icon.className = className;
+			icon.src = source;
+			icon.alt = "";
+			icon.width = 24;
+			icon.height = 24;
+			return icon;
+		}
+
+		function phraseRows(phrases, onRemove = null) {
+			const icons = getPhraseIcons();
+			return phrases.flatMap((phrase) => {
+				const row = makeNode("div", "sheet-row");
+				const say = makeNode("button", "sheet-option", phrase);
+				const iconSource = phraseIconSource(phrase, icons);
+				if (iconSource) {
+					say.classList.add("has-icon");
+					say.prepend(makeIconImageFromSource(iconSource, "phrase-row-icon"));
+				}
+				say.addEventListener("click", () => sayPhrase(phrase));
+				const add = makeNode("button", "sheet-add", "+");
+				add.setAttribute("aria-label", `Pridėti į sakinį: ${phrase}`);
+				add.addEventListener("click", () => {
+					addSelectedWord(phrase, null, phraseAudio.get(phrase) || null, phraseFileSource(phrase), false);
+					closeSheet();
+				});
+				const options = phraseOptions[phrase];
+				row.append(say);
+				if (options || phrasePanels[phrase]) {
+					const panel = options ? makeNode("div", "phrase-options") : phrasePanels[phrase]();
+					panel.hidden = true;
+					if (options) {
+						panel.append(...phraseRows(options));
+					}
+					const toggle = makeNode("button", "sheet-add sheet-expand");
+					toggle.append(makeNode("span", "", "›"));
+					toggle.setAttribute("aria-label", `Pasirinkti: ${phrase}`);
+					toggle.setAttribute("aria-expanded", "false");
+					toggle.addEventListener("click", () => {
+						panel.hidden = !panel.hidden;
+						toggle.setAttribute("aria-expanded", String(!panel.hidden));
+					});
+					row.append(toggle);
+					row.panel = panel;
+				}
+				row.append(add);
+				if (onRemove) {
+					const remove = makeNode("button", "sheet-add sheet-remove", "×");
+					remove.setAttribute("aria-label", `Pašalinti frazę: ${phrase}`);
+					remove.addEventListener("click", () => onRemove(phrase));
+					row.append(remove);
+				}
+				return row.panel ? [row, row.panel] : [row];
+			});
+		}
+
+		let openedScenarioView = null;
+
+		function openScenario(scenario, isCustom = false) {
+			openedScenarioView = { scenario, isCustom };
+			const extras = isCustom ? [] : getScenarioExtras()[scenario.title] || [];
+			const rows = [...phraseRows(scenario.phrases), ...phraseRows(extras, (phrase) => {
+				const all = getScenarioExtras();
+				all[scenario.title] = (all[scenario.title] || []).filter((item) => item !== phrase);
+				saveScenarioExtras(all);
+				deletePhraseAudio(phrase);
+				openScenario(scenario, isCustom);
+			})];
+			const addButton = makeNode("button", "sheet-option sheet-option--create", "+ Pridėti frazę");
+			addButton.addEventListener("click", () => openPhraseDialog(isCustom ? `custom:${scenario.id}` : `builtin:${scenario.title}`));
+			rows.push(addButton);
+			if (isCustom) {
+				const editButton = makeNode("button", "sheet-option sheet-option--quiet", "Redaguoti situaciją");
+				editButton.addEventListener("click", () => openScenarioEditor(scenario));
+				rows.push(editButton);
+			}
+			openSheet(scenario.title, rows, "list", scenario.pinned ? null : openScenarioList);
+		}
+
+		const QUICK_VISIBLE_COUNT = 5;
+		let quickExpanded = false;
+
+		function renderQuickSentences() {
+			const allSentences = [...getCustomQuick(), ...quickSentences];
+			const icons = getPhraseIcons();
+			const chips = (quickExpanded ? allSentences : allSentences.slice(0, QUICK_VISIBLE_COUNT)).map((sentence) => {
+				const chip = makeNode("button", "category-chip category-chip--quick", sentence.replace(/\.$/, ""));
+				const iconSource = phraseIconSource(sentence, icons);
+				if (iconSource) {
+					chip.prepend(makeIconImageFromSource(iconSource, "quick-chip-icon"));
+				}
+				chip.addEventListener("click", () => addSelectedWord(sentence, null, phraseAudio.get(sentence) || null, phraseFileSource(sentence), false));
+				return chip;
+			});
+			if (quickExpanded) {
+				const addChip = makeNode("button", "category-chip category-chip--quick category-chip--add", "+ Sava frazė");
+				addChip.addEventListener("click", () => openPhraseDialog("quick"));
+				chips.push(addChip);
+			}
+			const moreChip = makeNode("button", "category-chip category-chip--quick category-chip--more");
+			moreChip.append(makeNode("span", "", "›"));
+			moreChip.setAttribute("aria-label", quickExpanded ? "Rodyti mažiau frazių" : "Rodyti daugiau frazių");
+			moreChip.setAttribute("aria-expanded", String(quickExpanded));
+			moreChip.classList.toggle("is-open", quickExpanded);
+			moreChip.addEventListener("click", () => {
+				quickExpanded = !quickExpanded;
+				renderQuickSentences();
+			});
+			document.querySelector("#quick-sentences").replaceChildren(...chips, moreChip);
+		}
+
+		const phraseDialog = document.querySelector("#phrase-dialog");
+		const phraseForm = document.querySelector("#phrase-form");
+		const phraseTextInput = document.querySelector("#phrase-text");
+		const phraseTarget = document.querySelector("#phrase-target");
+		const phraseGroupField = document.querySelector("#phrase-group-field");
+		const phraseGroupInput = document.querySelector("#phrase-group");
+		const phraseMine = document.querySelector("#phrase-mine");
+		const phraseMineList = document.querySelector("#phrase-mine-list");
+		const phraseStatus = document.querySelector("#phrase-status");
+		const phraseIconToggle = document.querySelector("#phrase-icon-toggle");
+		const phraseIconPreview = document.querySelector("#phrase-icon-preview");
+		const phraseIconName = document.querySelector("#phrase-icon-name");
+		const phraseIconPicker = document.querySelector("#phrase-icon-picker");
+		const phraseIconSearch = document.querySelector("#phrase-icon-search");
+		const phraseIconGrid = document.querySelector("#phrase-icon-grid");
+		let phraseIconChoice = "";
+
+		function normalizeSearch(text) {
+			return text.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLocaleLowerCase("lt-LT").trim();
+		}
+
+		function setPhraseIcon(id) {
+			phraseIconChoice = ICON_BY_ID.has(id) ? id : "";
+			phraseIconPreview.replaceChildren();
+			if (phraseIconChoice) {
+				phraseIconPreview.append(makeIconImageFromSource(iconSrc(phraseIconChoice), "phrase-icon-preview-image"));
+			}
+			phraseIconName.textContent = phraseIconChoice ? ICON_BY_ID.get(phraseIconChoice).label : "Be ikonėlės";
+		}
+
+		function renderPhraseIconGrid() {
+			const query = normalizeSearch(phraseIconSearch.value);
+			const matches = [...ICON_BY_ID.values()].filter(({ label, keywords }) => !query || normalizeSearch(`${label} ${keywords}`).includes(query));
+			const noneOption = makeNode("button", "phrase-icon-option phrase-icon-option--none", "Be ikonėlės");
+			noneOption.setAttribute("aria-pressed", String(!phraseIconChoice));
+			noneOption.addEventListener("click", () => chooseIcon(""));
+			const options = matches.map(({ id, label }) => {
+				const option = makeNode("button", "phrase-icon-option");
+				option.title = label;
+				option.setAttribute("aria-label", label);
+				option.setAttribute("aria-pressed", String(id === phraseIconChoice));
+				const image = makeIconImageFromSource(iconSrc(id), "phrase-icon-option-image");
+				image.loading = "lazy";
+				option.append(image);
+				option.addEventListener("click", () => chooseIcon(id));
+				return option;
+			});
+			phraseIconGrid.replaceChildren(noneOption, ...options);
+			if (matches.length === 0) {
+				phraseIconGrid.append(makeNode("p", "phrase-icon-empty", "Nieko nerasta. Pabandykite kitą žodį."));
+			}
+		}
+
+		function chooseIcon(id) {
+			setPhraseIcon(id);
+			phraseIconPicker.hidden = true;
+			phraseIconToggle.setAttribute("aria-expanded", "false");
+			phraseIconToggle.focus();
+		}
+
+		phraseIconToggle.addEventListener("click", () => {
+			const opening = phraseIconPicker.hidden;
+			phraseIconPicker.hidden = !opening;
+			phraseIconToggle.setAttribute("aria-expanded", String(opening));
+			if (opening) {
+				renderPhraseIconGrid();
+				phraseIconSearch.focus();
+			}
+		});
+
+		phraseIconSearch.addEventListener("input", renderPhraseIconGrid);
+
+		const phraseAudioPreview = document.querySelector("#phrase-audio-preview");
+		const phraseAudioFile = document.querySelector("#phrase-audio-file");
+		const phraseRecordButton = document.querySelector("#record-phrase-audio");
+		const phraseStopButton = document.querySelector("#stop-phrase-audio");
+		const phraseClearAudioButton = document.querySelector("#clear-phrase-audio");
+		const MAX_PHRASE_AUDIO_BYTES = 5 * 1024 * 1024;
+		let phraseAudioChoice = null;
+		let phraseAudioPreviewUrl = "";
+		let phraseRecording = null;
+
+		function setPhraseAudioChoice(blob) {
+			phraseAudioChoice = blob;
+			if (phraseAudioPreviewUrl) {
+				URL.revokeObjectURL(phraseAudioPreviewUrl);
+				phraseAudioPreviewUrl = "";
+			}
+			phraseAudioPreview.pause();
+			phraseAudioPreview.removeAttribute("src");
+			phraseAudioPreview.hidden = !blob;
+			phraseClearAudioButton.hidden = !blob;
+			if (blob) {
+				phraseAudioPreviewUrl = URL.createObjectURL(blob);
+				phraseAudioPreview.src = phraseAudioPreviewUrl;
+			}
+		}
+
+		function resetPhraseRecordingControls() {
+			phraseRecordButton.hidden = false;
+			phraseRecordButton.disabled = false;
+			phraseStopButton.hidden = true;
+			phraseStopButton.disabled = false;
+		}
+
+		function cancelPhraseRecording() {
+			if (phraseRecording) {
+				phraseRecording.discard = true;
+				if (phraseRecording.recorder.state === "recording") {
+					phraseRecording.recorder.stop();
+				}
+				phraseRecording.stream.getTracks().forEach((track) => track.stop());
+				phraseRecording = null;
+			}
+			resetPhraseRecordingControls();
+		}
+
+		async function startPhraseRecording() {
+			if (!window.isSecureContext) {
+				phraseStatus.textContent = "Mikrofonui reikia HTTPS arba localhost.";
+				return;
+			}
+			if (!navigator.mediaDevices?.getUserMedia || !window.MediaRecorder) {
+				phraseStatus.textContent = "Ši naršyklė nepalaiko įrašymo per mikrofoną.";
+				return;
+			}
+			phraseRecordButton.disabled = true;
+			phraseStatus.textContent = "Prašoma prieigos prie mikrofono...";
+			try {
+				const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+				if (!phraseDialog.open) {
+					stream.getTracks().forEach((track) => track.stop());
+					resetPhraseRecordingControls();
+					return;
+				}
+				const mimeType = ["audio/webm;codecs=opus", "audio/webm", "audio/mp4"]
+					.find((type) => MediaRecorder.isTypeSupported(type));
+				const recorder = new MediaRecorder(stream, mimeType ? { mimeType } : undefined);
+				const session = { recorder, stream, chunks: [], discard: false };
+				phraseRecording = session;
+				recorder.addEventListener("dataavailable", (event) => {
+					if (event.data.size > 0) {
+						session.chunks.push(event.data);
+					}
+				});
+				recorder.addEventListener("stop", () => {
+					stream.getTracks().forEach((track) => track.stop());
+					if (phraseRecording === session) {
+						phraseRecording = null;
+					}
+					resetPhraseRecordingControls();
+					if (session.discard) {
+						return;
+					}
+					const blob = new Blob(session.chunks, { type: recorder.mimeType || session.chunks[0]?.type || "audio/webm" });
+					if (!blob.size) {
+						phraseStatus.textContent = "Nepavyko įrašyti garso.";
+						return;
+					}
+					setPhraseAudioChoice(blob);
+					phraseStatus.textContent = "Įrašas paruoštas. Galite jį perklausyti.";
+				}, { once: true });
+				recorder.start();
+				phraseRecordButton.hidden = true;
+				phraseStopButton.hidden = false;
+				phraseStatus.textContent = "Įrašoma...";
+			} catch {
+				resetPhraseRecordingControls();
+				phraseStatus.textContent = "Nepavyko pasiekti mikrofono. Patikrinkite naršyklės leidimus.";
+			}
+		}
+
+		phraseRecordButton.addEventListener("click", startPhraseRecording);
+		phraseStopButton.addEventListener("click", () => {
+			if (phraseRecording?.recorder.state === "recording") {
+				phraseStopButton.disabled = true;
+				phraseRecording.recorder.stop();
+			}
+		});
+		phraseClearAudioButton.addEventListener("click", () => {
+			setPhraseAudioChoice(null);
+			phraseStatus.textContent = "";
+		});
+		phraseAudioFile.addEventListener("change", () => {
+			const file = phraseAudioFile.files[0];
+			phraseAudioFile.value = "";
+			if (!file) {
+				return;
+			}
+			if (file.size > MAX_PHRASE_AUDIO_BYTES) {
+				phraseStatus.textContent = "Failas per didelis (iki 5 MB).";
+				return;
+			}
+			setPhraseAudioChoice(file);
+			phraseStatus.textContent = "";
+		});
+		phraseDialog.addEventListener("close", () => {
+			cancelPhraseRecording();
+			setPhraseAudioChoice(null);
+		});
+
+		function makeOption(value, label) {
+			const option = document.createElement("option");
+			option.value = value;
+			option.textContent = label;
+			return option;
+		}
+
+		function makeOptionGroup(label, options) {
+			const group = document.createElement("optgroup");
+			group.label = label;
+			group.append(...options);
+			return group;
+		}
+
+		function renderMineList() {
+			const mine = getCustomQuick();
+			phraseMine.hidden = mine.length === 0;
+			phraseMineList.replaceChildren(...mine.map((phrase) => {
+				const item = makeNode("li", "phrase-mine-item");
+				const iconSource = phraseIconSource(phrase);
+				const label = makeNode("span", "phrase-mine-label", phrase);
+				if (iconSource) {
+					label.prepend(makeIconImageFromSource(iconSource, "phrase-row-icon"));
+				}
+				const remove = makeNode("button", "phrase-mine-remove", "×");
+				remove.setAttribute("aria-label", `Pašalinti: ${phrase}`);
+				remove.addEventListener("click", () => {
+					saveCustomQuick(getCustomQuick().filter((entry) => entry !== phrase));
+					deletePhraseAudio(phrase);
+					renderMineList();
+					renderQuickSentences();
+				});
+				item.append(label, remove);
+				return item;
+			}));
+		}
+
+		function syncPhraseGroupField() {
+			phraseGroupField.hidden = phraseTarget.value !== "new";
+			phraseGroupInput.required = phraseTarget.value === "new";
+		}
+
+		function openPhraseDialog(target = "quick") {
+			const custom = getCustomScenarios();
+			phraseTarget.replaceChildren(
+				makeOption("quick", "Greiti sakiniai (pagrindiniame ekrane)"),
+				...(custom.length ? [makeOptionGroup("Mano situacijos", custom.map(({ id, title }) => makeOption(`custom:${id}`, title)))] : []),
+				makeOptionGroup("Paruoštos situacijos", scenarios.map(({ title }) => makeOption(`builtin:${title}`, title))),
+				makeOption("new", "+ Nauja grupė…")
+			);
+			phraseTarget.value = [...phraseTarget.options].some(({ value }) => value === target) ? target : "quick";
+			phraseTextInput.value = "";
+			phraseGroupInput.value = "";
+			phraseStatus.textContent = "";
+			cancelPhraseRecording();
+			setPhraseAudioChoice(null);
+			setPhraseIcon("");
+			phraseIconPicker.hidden = true;
+			phraseIconToggle.setAttribute("aria-expanded", "false");
+			phraseIconSearch.value = "";
+			syncPhraseGroupField();
+			renderMineList();
+			phraseDialog.showModal();
+			phraseTextInput.focus();
+		}
+
+		phraseTarget.addEventListener("change", syncPhraseGroupField);
+		document.querySelector("#close-phrase-dialog").addEventListener("click", () => phraseDialog.close());
+		document.querySelector("#cancel-phrase").addEventListener("click", () => phraseDialog.close());
+
+		phraseForm.addEventListener("submit", async (event) => {
+			event.preventDefault();
+			const [text] = sanitizePhraseList([phraseTextInput.value], 1);
+			if (!text) {
+				phraseStatus.textContent = "Įrašykite frazę.";
+				return;
+			}
+			if (phraseRecording) {
+				phraseStatus.textContent = "Pirmiausia baikite įrašymą.";
+				return;
+			}
+			const target = phraseTarget.value;
+			let saved = false;
+			let reopen = null;
+			if (target === "quick") {
+				const list = getCustomQuick();
+				if (!list.includes(text) && list.length >= 20) {
+					phraseStatus.textContent = "Galite turėti iki 20 savų greitų sakinių. Pašalinkite nereikalingus.";
+					return;
+				}
+				saved = saveCustomQuick([...new Set([...list, text])]);
+			} else if (target === "new") {
+				const [group] = sanitizeScenarios([{ id: "x", title: phraseGroupInput.value, phrases: [text] }]);
+				const customList = getCustomScenarios();
+				if (!group) {
+					phraseStatus.textContent = "Įrašykite naujos grupės pavadinimą.";
+					return;
+				}
+				if (customList.length >= 50) {
+					phraseStatus.textContent = "Galite turėti iki 50 savų situacijų.";
+					return;
+				}
+				group.id = window.crypto?.randomUUID?.() || `${Date.now()}-${Math.random().toString(16).slice(2)}`;
+				saved = saveCustomScenarios([...customList, group]);
+				reopen = () => openScenario(group, true);
+			} else if (target.startsWith("custom:")) {
+				const customList = getCustomScenarios();
+				const scenario = customList.find(({ id }) => `custom:${id}` === target);
+				if (!scenario) {
+					phraseStatus.textContent = "Šios situacijos nebėra. Pasirinkite kitą vietą.";
+					return;
+				}
+				if (!scenario.phrases.includes(text) && scenario.phrases.length >= 30) {
+					phraseStatus.textContent = "Situacijoje gali būti iki 30 frazių.";
+					return;
+				}
+				scenario.phrases = [...new Set([...scenario.phrases, text])];
+				saved = saveCustomScenarios(customList);
+				reopen = () => openScenario(scenario, true);
+			} else {
+				const title = target.slice("builtin:".length);
+				const builtIn = scenarios.find((scenario) => scenario.title === title);
+				const extras = getScenarioExtras();
+				if (!builtIn) {
+					phraseStatus.textContent = "Šios situacijos nebėra. Pasirinkite kitą vietą.";
+					return;
+				}
+				if (builtIn.phrases.includes(text)) {
+					saved = true;
+				} else if ((extras[title] || []).length >= 30 && !extras[title].includes(text)) {
+					phraseStatus.textContent = "Situacijoje gali būti iki 30 savų frazių.";
+					return;
+				} else {
+					extras[title] = [...new Set([...(extras[title] || []), text])];
+					saved = saveScenarioExtras(extras);
+				}
+				reopen = () => openScenario(builtIn, false);
+			}
+			if (!saved) {
+				phraseStatus.textContent = "Nepavyko išsaugoti frazės šiame telefone.";
+				return;
+			}
+			const phraseIcons = getPhraseIcons();
+			if (phraseIconChoice) {
+				phraseIcons[text] = phraseIconChoice;
+			} else {
+				delete phraseIcons[text];
+			}
+			savePhraseIcons(phraseIcons);
+			if (phraseAudioChoice) {
+				try {
+					await phraseAudioReady;
+					await savePhraseAudio(text, phraseAudioChoice);
+				} catch {
+					phraseStatus.textContent = "Frazė išsaugota, bet garso įrašo išsaugoti nepavyko.";
+					return;
+				}
+			}
+			phraseDialog.close();
+			renderQuickSentences();
+			if (reopen) {
+				reopen();
+			} else if (!sheet.hidden) {
+				closeSheet();
+			}
+		});
+
+		const scenarioDialog = document.querySelector("#scenario-dialog");
+		const scenarioForm = document.querySelector("#scenario-form");
+		const scenarioTitleInput = document.querySelector("#scenario-title");
+		const scenarioPhrasesInput = document.querySelector("#scenario-phrases");
+		const scenarioStatus = document.querySelector("#scenario-status");
+		const scenarioDeleteButton = document.querySelector("#delete-scenario");
+		let editingScenarioId = null;
+
+		function openScenarioEditor(scenario) {
+			editingScenarioId = scenario?.id ?? null;
+			scenarioTitleInput.value = scenario?.title || "";
+			scenarioPhrasesInput.value = scenario ? scenario.phrases.join("\n") : "";
+			scenarioDeleteButton.hidden = !scenario;
+			scenarioStatus.textContent = "";
+			scenarioDialog.showModal();
+			scenarioTitleInput.focus();
+		}
+
+		document.querySelector("#close-scenario-dialog").addEventListener("click", () => scenarioDialog.close());
+		document.querySelector("#cancel-scenario").addEventListener("click", () => scenarioDialog.close());
+
+		scenarioForm.addEventListener("submit", (event) => {
+			event.preventDefault();
+			const [saved] = sanitizeScenarios([{
+				id: editingScenarioId || window.crypto?.randomUUID?.() || `${Date.now()}-${Math.random().toString(16).slice(2)}`,
+				title: scenarioTitleInput.value,
+				phrases: scenarioPhrasesInput.value.split(/\r?\n/)
+			}]);
+			if (!saved) {
+				scenarioStatus.textContent = scenarioTitleInput.value.trim() ? "Įrašykite bent vieną frazę." : "Įrašykite pavadinimą.";
+				return;
+			}
+			const others = getCustomScenarios();
+			const index = others.findIndex(({ id }) => id === saved.id);
+			const next = index === -1 ? [...others, saved] : others.map((scenario) => scenario.id === saved.id ? saved : scenario);
+			if (!saveCustomScenarios(next)) {
+				scenarioStatus.textContent = "Nepavyko išsaugoti situacijos šiame telefone.";
+				return;
+			}
+			scenarioDialog.close();
+			openScenario(saved, true);
+		});
+
+		scenarioDeleteButton.addEventListener("click", () => {
+			const target = getCustomScenarios().find(({ id }) => id === editingScenarioId);
+			if (!target || !window.confirm(`Ištrinti situaciją „${target.title}“?`)) {
+				return;
+			}
+			saveCustomScenarios(getCustomScenarios().filter(({ id }) => id !== editingScenarioId));
+			scenarioDialog.close();
+			openScenarioList();
+		});
+
+		function openSettings(message = "") {
+			const settings = [
+				["calm", "Ramybės režimas", "Mažiau šviesos ir judesio, tylesnis balsas"],
+				["textOnly", "Tik tekstas", "Kortelės be nuotraukų"],
+				["largeView", "Didelis vaizdas", "Didesnės kortelės ir tekstas projektoriui ar lentai", "desktop-only"]
+			];
+			const siteLink = makeNode("a", "sheet-option sheet-link");
+			siteLink.href = "index.html";
+			siteLink.setAttribute("aria-label", "Grįžti į I'm Autistic svetainę");
+			const siteLogo = document.createElement("img");
+			siteLogo.src = "vizualas puslapiui/VOIVER LOGO.png";
+			siteLogo.alt = "";
+			siteLogo.width = 417;
+			siteLogo.height = 184;
+			siteLink.append(siteLogo, makeNode("span", "sheet-link-arrow", "›"));
+
+			const privacyNote = makeNode("div", "sheet-note");
+			const persistenceLine = makeNode("p");
+			privacyNote.append(
+				makeNode("strong", "", "Jūsų duomenys lieka pas jus"),
+				makeNode("p", "", "Kortelės, nuotraukos ir garso įrašai niekur nesiunčiami ir nėra saugomi jokiame serveryje – jie saugomi tik šiame įrenginyje. Pakeitus telefoną ar išvalius naršyklės duomenis jie dings, todėl pasidarykite atsarginę kopiją."),
+				persistenceLine
+			);
+			requestPersistentStorage().then((persistent) => {
+				if (persistent === true) {
+					persistenceLine.textContent = "Naršyklė patvirtino, kad duomenų automatiškai neišvalys.";
+				} else if (persistent === false) {
+					persistenceLine.textContent = "Naršyklė gali išvalyti duomenis, jei telefone trūks vietos – rekomenduojame atsarginę kopiją.";
+				}
+			});
+
+			settingsStatus = makeNode("p", "sheet-note sheet-note--status", message);
+			settingsStatus.setAttribute("role", "status");
+			settingsStatus.setAttribute("aria-live", "polite");
+
+			const actionButton = (label, handler) => {
+				const button = makeNode("button", "sheet-option", label);
+				button.addEventListener("click", async () => {
+					button.disabled = true;
+					try {
+						await handler();
+					} catch (error) {
+						console.error(error);
+						setSettingsStatus("Veiksmo atlikti nepavyko.");
+					} finally {
+						button.disabled = false;
+					}
+				});
+				return button;
+			};
+
+			const locked = Boolean(appStorage.get("lock", null));
+			const lockNodes = [makeNode("h3", "sheet-section-title", "Užraktas")];
+			if (!cryptoAvailable) {
+				lockNodes.push(makeNode("p", "sheet-note", "Užraktas šiame naršyklės režime nepasiekiamas (reikia saugaus HTTPS ryšio)."));
+			} else if (locked) {
+				lockNodes.push(
+					makeNode("p", "sheet-note", "Programėlė užrakinta PIN kodu ar slaptažodžiu, o kortelės šiame telefone užšifruotos."),
+					actionButton("Užrakinti dabar", () => window.location.reload()),
+					actionButton("Išjungti PIN / slaptažodį", async () => {
+						if (await disableLock()) {
+							openSettings("Užraktas išjungtas.");
+						}
+					})
+				);
+			} else {
+				lockNodes.push(
+					makeNode("p", "sheet-note", "Neprivaloma. Užrakina programėlę ir užšifruoja korteles šiame telefone."),
+					actionButton("Nustatyti PIN arba slaptažodį", async () => {
+						if (await enableLock()) {
+							openSettings("Užraktas įjungtas, kortelės užšifruotos.");
+						}
+					})
+				);
+			}
+
+			openSheet("Nustatymai", [...settings.map(([key, title, hint, extraClass = ""]) => {
+				const row = makeNode("div", `sheet-switch-row ${extraClass}`.trim());
+				const text = makeNode("div", "sheet-switch-text");
+				text.append(makeNode("span", "sheet-switch-title", title), makeNode("span", "sheet-switch-hint", hint));
+				const toggle = makeNode("button", "switch");
+				toggle.setAttribute("role", "switch");
+				toggle.setAttribute("aria-label", title);
+				toggle.setAttribute("aria-checked", String(appStorage.get(key, false)));
+				toggle.addEventListener("click", () => {
+					const next = !appStorage.get(key, false);
+					appStorage.set(key, next);
+					toggle.setAttribute("aria-checked", String(next));
+					applyPreferences();
+				});
+				row.append(text, toggle);
+				return row;
+			}),
+			privacyNote,
+			makeNode("h3", "sheet-section-title", "Atsarginė kopija"),
+			makeNode("p", "sheet-note", "Išsaugokite korteles, garso įrašus, savo situacijas ir frazes viename faile, kad galėtumėte atkurti juos naujame telefone."),
+			actionButton("Išsaugoti kopiją į failą", exportBackup),
+			actionButton("Atkurti iš failo", () => backupFileInput.click()),
+			...lockNodes,
+			settingsStatus,
+			siteLink]);
+		}
+
+		const homeActions = makeNode("div", "home-actions");
+		const scenarioBar = makeNode("button", "scenario-bar");
+		scenarioBar.append(makeNode("span", "", "Situacijos"), makeNode("span", "scenario-bar-arrow", "›"));
+		const helpScenario = scenarios.find(({ pinned }) => pinned);
+		const helpButton = makeNode("button", "scenario-bar scenario-bar--help");
+		const helpIcon = makeNode("span", "help-icon", "!");
+		helpIcon.setAttribute("aria-hidden", "true");
+		helpButton.setAttribute("aria-label", helpScenario.title);
+		helpButton.append(helpIcon);
+		scenarioBar.addEventListener("click", openScenarioList);
+		helpButton.addEventListener("click", () => openScenario(helpScenario));
+		homeActions.append(scenarioBar, helpButton);
+		document.querySelector("#quick-sentences").before(homeActions);
+
+		renderQuickSentences();
+
+		const frequentSection = document.querySelector("#frequent");
+		const frequentRow = document.querySelector("#frequent-row");
+
+		function recordUsage(word, photo, audioSource) {
+			const usage = appStorage.get("frequent", {});
+			const key = word.toLocaleLowerCase("lt-LT");
+			const entry = usage[key] || { word, count: 0 };
+			entry.count += 1;
+			entry.photo = typeof photo === "string" ? photo : entry.photo || null;
+			entry.audioSource = audioSource || entry.audioSource || "";
+			usage[key] = entry;
+			const entries = Object.entries(usage);
+			if (entries.length > 60) {
+				entries.sort((a, b) => b[1].count - a[1].count);
+				appStorage.set("frequent", Object.fromEntries(entries.slice(0, 40)));
+				return;
+			}
+			appStorage.set("frequent", usage);
+		}
+
+		function renderFrequent() {
+			const top = Object.values(appStorage.get("frequent", {}))
+				.filter(({ count }) => count >= 2)
+				.sort((a, b) => b.count - a.count)
+				.slice(0, 6);
+			frequentSection.hidden = top.length === 0;
+			frequentRow.replaceChildren(...top.map((entry) => {
+				const chip = makeNode("button", "frequent-chip");
+				if (entry.photo) {
+					const image = document.createElement("img");
+					image.src = entry.photo;
+					image.alt = "";
+					chip.append(image);
+				}
+				chip.append(entry.word);
+				chip.addEventListener("click", () => addSelectedWord(entry.word, entry.photo, null, entry.audioSource));
+				return chip;
+			}));
+		}
+
+		document.querySelectorAll("#need-time-button, #desktop-need-time").forEach((button) => button.addEventListener("click", openTimeSheet));
+		document.querySelectorAll("#open-settings, #desktop-settings").forEach((button) => button.addEventListener("click", () => openSettings()));
+		document.querySelector("#sentence-show").addEventListener("click", () => showToOthers(composeSentence()));
+		sheetBack.addEventListener("click", () => sheetBackAction?.());
+		sheet.addEventListener("click", (event) => {
+			if (event.target.closest("[data-sheet-close]")) {
+				closeSheet();
+			}
+		});
+		showScreen.addEventListener("click", () => {
+			showScreen.hidden = true;
+		});
+		document.addEventListener("keydown", (event) => {
+			if ((event.ctrlKey || event.metaKey) && event.key === "Enter") {
+				event.preventDefault();
+				speakSentence();
+				return;
+			}
+			if (event.key === "/" && !event.target.closest("input, textarea, dialog")) {
+				event.preventDefault();
+				searchInput.focus();
+				return;
+			}
+			if (event.key !== "Escape" || document.querySelector("dialog[open]")) {
+				return;
+			}
+			if (!showScreen.hidden) {
+				showScreen.hidden = true;
+			} else if (!sheet.hidden) {
+				closeSheet();
+			}
+		});
+
+		applyPreferences();
+		renderFrequent();
+
+		const homeOnlyNavButtons = [document.querySelector("#nav-back"), document.querySelector("#nav-home")];
+
+		function syncNavState() {
+			const atHome = !appShell.classList.contains("is-emotion-view") && !appShell.classList.contains("is-search-results");
+			homeOnlyNavButtons.forEach((button) => {
+				button.disabled = atHome;
+			});
+		}
+
+		new MutationObserver(syncNavState).observe(appShell, { attributes: true, attributeFilter: ["class"] });
+		syncNavState();
+
 		if ("serviceWorker" in navigator && window.isSecureContext) {
+			const hadController = Boolean(navigator.serviceWorker.controller);
+			navigator.serviceWorker.addEventListener("controllerchange", () => {
+				// A new version took over: reload to show it, unless the user is in the middle of something.
+				if (hadController && !document.querySelector("dialog[open]") && selectedWords.length === 0) {
+					window.location.reload();
+				}
+			});
 			navigator.serviceWorker.register("./service-worker.js").catch((error) => {
 				console.error("Nepavyko įjungti Voicer veikimo be interneto:", error);
 			});

@@ -1,0 +1,61 @@
+Čia dėkite savo įrašytas frazes (.mp3).
+Failo pavadinimas = frazė mažosiomis raidėmis, be taško ir kitų skyrybos ženklų, pvz. "Valgyti." -> valgyti.mp3
+Jei failo nėra, frazę ištaria sintezatorius.
+
+valgyti.mp3
+gerti.mp3
+tualetas.mp3
+skauda.mp3
+padėk.mp3
+pailsėti.mp3
+namo.mp3
+šalta.mp3
+karšta.mp3
+ačiū.mp3
+
+Laikas:
+dabar.mp3
+5 minutės.mp3
+10 minučių.mp3
+šiandien.mp3
+ryte.mp3
+vakare.mp3
+rytoj.mp3
+po savaitgalio.mp3
+
+Situacijos:
+miegoti.mp3
+ramybė.mp3
+ausinės.mp3
+filmas.mp3
+telefonas.mp3
+kaina.mp3
+grynais.mp3
+kortele.mp3
+maišelis.mp3
+pagalba.mp3
+nesuprantu.mp3
+pertrauka.mp3
+baigiau.mp3
+svaigsta galva.mp3
+pykina.mp3
+sunku kvėpuoti.mp3
+vanduo.mp3
+sąskaita.mp3
+aš autistas.mp3
+pasiklydau.mp3
+nekalbu.mp3
+greitoji.mp3
+
+Kur skauda:
+galva.mp3
+akis.mp3
+ausis.mp3
+dantis.mp3
+gerklė.mp3
+krūtinė.mp3
+pilvas.mp3
+nugara.mp3
+ranka.mp3
+koja.mp3
+visur.mp3

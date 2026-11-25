@@ -1,11 +1,16 @@
-const CACHE_NAME = "voicer-pwa-v405";
+const CACHE_NAME = "voicer-pwa-v488";
 const APP_SHELL = [
 	"./",
 	"./index.html",
 	"./voicer.html",
 	"./apie.html",
 	"./app.html",
-	"./website.css?v=87",
+	"./icon-library.js",
+	"./website.css?v=98",
+	"./vizualas puslapiui/voicer-app.png",
+	"./kategorijų iliustracijos/PRID4TI.png",
+	"./kategorijų iliustracijos/SOC.ERDVĖS.png",
+	"./kategorijų iliustracijos/žmonės.png",
 	"./website.js?v=7",
 	"./manifest.webmanifest",
 	"./logo/app-icon-192.png",
@@ -29,38 +34,53 @@ const APP_SHELL = [
 	"./vizualas puslapiui/Suprasti tikrus poreikius, bei unikalų bendravimo būdą..jpg",
 	"./vizualas puslapiui/Palengvinti galimybę būti savarankiškiem.jpg",
 	"./vizualas puslapiui/PALAIKYK I’M AUTISTIC AUGIMĄ.jpg",
-	"./vizualas puslapiui/kor.png",
+	"./vizualas puslapiui/voicer-kortelės-kortelės.png",
+	"./vizualas puslapiui/voicer-kortelės-kortelės-telefonas.png",
 	"./vizualas puslapiui/Greitai atsiras naujiena.jpg",
-	"./style.css?v=482",
+	"./style.css?v=574",
 	"./NAVIGACIJOA IKONOS/ATGAL.svg",
 	"./NAVIGACIJOA IKONOS/PRADŽIA.svg",
-	"./veiksmai ikonos/eiti.png",
-	"./veiksmai ikonos/gerti.png",
-	"./veiksmai ikonos/ne.png",
-	"./veiksmai ikonos/noriu.png",
-	"./veiksmai ikonos/padėk.png",
-	"./veiksmai ikonos/taip.png",
-	"./veiksmai ikonos/valgyti.png",
-	"./veiksmai ikonos/važiuoti.png",
-	"./veiksmai ikonos/veiksmai.png",
+	"./kategorijų iliustracijos/mano korteles.png",
 	"./kategorijų iliustracijos/valgyti.png",
 	"./kategorijų iliustracijos/gerti.png",
 	"./kategorijų iliustracijos/tualetas.png",
 	"./kategorijų iliustracijos/bendravimas.png",
 	"./kategorijų iliustracijos/skauda.png",
 	"./kategorijų iliustracijos/namų ruoša.png",
-	"./kategorijų iliustracijos/poilsis.png",
-	"./kategorijų iliustracijos/vietos.png",
+	"./kategorijų iliustracijos/POLSIS.png",
+	"./kategorijų iliustracijos/NAMAI.png",
+	"./kategorijų iliustracijos/salta.png",
+	"./kategorijų iliustracijos/karsta.png",
+	"./kategorijų iliustracijos/aciu.png",
+	"./kategorijų iliustracijos/vieta.png",
 	"./kategorijų iliustracijos/gaminti.png",
 	"./kategorijų iliustracijos/sportas.png",
 	"./kategorijų iliustracijos/daiktai.png",
 	"./kategorijų iliustracijos/apranga.png",
 	"./kategorijų iliustracijos/higiena.png",
-	"./kategorijų iliustracijos/skaičiai.png",
+	"./kategorijų iliustracijos/kikis.png",
 	"./kategorijų iliustracijos/spalvos.png",
-	"./kategorijų iliustracijos/maisto produktai.png",
-	"./kategorijų iliustracijos/gaminimo procesas.png",
-	"./kategorijų iliustracijos/indai.png",
+	"./kategorijų iliustracijos/patiekalai.png",
+	"./kategorijų iliustracijos/kepiniai.png",
+	"./kategorijų iliustracijos/užkandžiai.png",
+	"./kategorijų iliustracijos/saldumynai.png",
+	"./kategorijų iliustracijos/PRODUKTAI.png",
+	"./kategorijų iliustracijos/GAMIIMO PROCESAS.png",
+	"./kategorijų iliustracijos/SERVIRAVIMAS.png",
+	"./kategorijų iliustracijos/VAISIAI.png",
+	"./kategorijų iliustracijos/UOGOS.png",
+	"./kategorijų iliustracijos/DARŽOBĖS.png",
+	"./kategorijų iliustracijos/DUONA.png",
+	"./kategorijų iliustracijos/KIAUŠINIAI.png",
+	"./kategorijų iliustracijos/PIENAS.png",
+	"./kategorijų iliustracijos/MĖSA.png",
+	"./kategorijų iliustracijos/ŽUVIS.png",
+	"./kategorijų iliustracijos/Makaronai.png",
+	"./kategorijų iliustracijos/padažai.png",
+	"./kategorijų iliustracijos/kruopos.png",
+	"./kategorijų iliustracijos/prieskoniai.png",
+	"./kategorijų iliustracijos/GAMINIAI.png",
+	"./kategoriju-ikonos/pridėti kortelę.png",
 	"./LABAS KA NORĖTUM PASASKYT.png",
 	"./garsai/noriu.mp3",
 	"./garsai/eiti.mp3",
@@ -710,7 +730,8 @@ const APP_SHELL = [
 	"./IKONOS POGRUPIAI/DEŠRELĖS.svg",
 	"./NAVIGACIJOA IKONOS/emocijjos.svg",
 	"./NAVIGACIJOA IKONOS/megstamiausi.svg?v=2",
-	"./NAVIGACIJOA IKONOS/SpeakerSimpleHigh.svg?v=3"
+	"./NAVIGACIJOA IKONOS/SpeakerSimpleHigh.svg?v=3",
+	"./NAVIGACIJOA IKONOS/SpeakerSimpleHigh-bold.svg?v=2"
 ];
 
 self.addEventListener("install", (event) => {
@@ -755,6 +776,15 @@ self.addEventListener("fetch", (event) => {
 						: requestUrl.pathname === voicerPath ? "./voicer.html"
 							: requestUrl.pathname === aboutPath ? "./apie.html" : "./index.html";
 					return caches.match(fallback);
+				});
+			}
+			if (requestUrl.pathname.includes("/ikonu-biblioteka/") || decodeURIComponent(requestUrl.pathname).includes("/garsai frazėms/") || decodeURIComponent(requestUrl.pathname).includes("/situacijų garsai/")) {
+				return fetch(event.request).then((response) => {
+					if (response.ok) {
+						const copy = response.clone();
+						caches.open(CACHE_NAME).then((cache) => cache.put(event.request, copy));
+					}
+					return response;
 				});
 			}
 			return fetch(event.request);

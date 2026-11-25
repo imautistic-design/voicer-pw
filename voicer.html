@@ -4,14 +4,27 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="theme-color" content="#FBFCFD">
-	<meta name="description" content="Voicer – kalbinis AAC redaktorius, padedantis lengviau bendrauti.">
-	<title>Voicer – išreikšk save lengviau</title>
+	<meta name="description" content="Voicer – kalbinis AAC redaktorius: pasirink kortelę su nuotrauka, sudėk sakinį ir leisk programėlei jį ištarti. Veikia telefone ir kompiuteryje, tinka ir mokyklai.">
+	<title>Voicer – AAC bendravimo kortelės autistiškiems žmonėms</title>
+	<link rel="canonical" href="https://imautistic.org/voicer.html">
+	<meta property="og:type" content="website">
+	<meta property="og:locale" content="lt_LT">
+	<meta property="og:site_name" content="I'm Autistic">
+	<meta property="og:title" content="Voicer – išreikšk save lengviau">
+	<meta property="og:description" content="Pasirink kortelę, sudėk sakinį ir leisk Voicer jį ištarti. Veikia telefone ir kompiuteryje.">
+	<meta property="og:url" content="https://imautistic.org/voicer.html">
+	<meta property="og:image" content="https://imautistic.org/logo/og-image.png">
+	<meta property="og:image:width" content="1200">
+	<meta property="og:image:height" content="630">
+	<meta property="og:image:alt" content="Voicer bendravimo kortelės su nuotraukomis">
+	<meta name="twitter:card" content="summary_large_image">
+	<script type="application/ld+json">{"@context":"https://schema.org","@type":"SoftwareApplication","name":"Voicer","applicationCategory":"CommunicationApplication","operatingSystem":"Web, Android, iOS, Windows, macOS","inLanguage":"lt","url":"https://imautistic.org/voicer.html","description":"Kalbinis AAC redaktorius su nuotraukų kortelėmis, padedantis lengviau bendrauti.","image":"https://imautistic.org/logo/og-image.png","publisher":{"@type":"Organization","name":"I'm Autistic","url":"https://imautistic.org/"}}</script>
 	<link rel="manifest" href="manifest.webmanifest">
 	<link rel="apple-touch-icon" href="logo/app-icon-192.png">
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-	<link rel="stylesheet" href="website.css?v=87">
+	<link rel="stylesheet" href="website.css?v=98">
 	<script src="website.js?v=7" defer></script>
 </head>
 <body class="voicer-page">
@@ -41,9 +54,33 @@
 				<h1 id="voicer-title">VOICER</h1>
 				<h2>Išreikšk save lengviau</h2>
 				<p>Kalbinis redaktorius – tai tavo asmeninis pagalbininkas, kai sudėtinga išreikšti žodžius, sakinio prasmę. Padėk kitiems tave suprasti.</p>
+								<p class="voicer-page-note">Veikia telefone ir kompiuteryje: didelis ekranas patogus mokykloje, per multimediją ir kai norisi matyti daugiau kortelių iš karto.</p>
 				<a class="primary-button voicer-page-button" href="app.html" data-open-app>Atidaryti Voicer</a>
 			</div>
-			<img class="voicer-page-image" src="vizualas puslapiui/kor.png" alt="Voicer kortelės su vandeniu, obuoliu ir duona">
+			<picture class="voicer-page-picture">
+				<source media="(max-width: 700px)" srcset="vizualas%20puslapiui/voicer-kortel%C4%97s-kortel%C4%97s-telefonas.png" width="592" height="806">
+				<img class="voicer-page-image" src="vizualas puslapiui/voicer-kortelės-kortelės.png" alt="Voicer kortelės su nuotraukomis: Vanduo ir Limonadas pasirinkti" width="909" height="806">
+			</picture>
+		</section>
+
+		<section class="voicer-how content-width" aria-labelledby="how-title">
+			<h2 id="how-title">Kaip tai veikia</h2>
+			<ol class="voicer-steps">
+				<li><h3>Pasirink kortelę</h3><p>Rask kategoriją arba naudok paiešką. Kiekviena kortelė turi nuotrauką ir garsą.</p></li>
+				<li><h3>Sudėk sakinį</h3><p>Pasirinktos kortelės sudeda sakinį. Dar kartą bakstelėjus kortelę, žodis pašalinamas.</p></li>
+				<li><h3>Pasakyk arba parodyk</h3><p>Paspausk garsiakalbį, kad Voicer ištartų sakinį, arba parodyk jį kitam dideliu tekstu per visą ekraną.</p></li>
+			</ol>
+			<h2>Ką dar gali Voicer</h2>
+			<ul class="voicer-features">
+				<li><h3>Aš dabar…</h3><p>Greitai pasakyk, kaip jautiesi ar ko tau reikia.</p></li>
+				<li><h3>Greiti sakiniai ir dažniausios kortelės</h3><p>Dažnai naudojami sakiniai ir žodžiai atsiranda pirmi, todėl jų nereikia ieškoti.</p></li>
+				<li><h3>Situacijos</h3><p>Paruoštos frazės parduotuvei, vizitui pas gydytoją ar kavinei.</p></li>
+				<li><h3>Reikia laiko</h3><p>Mandagiai paprašyk palaukti, kol surasi žodžius.</p></li>
+				<li><h3>Ramus vaizdas</h3><p>Ramesnės spalvos arba tik tekstas, kai norisi mažiau dirgiklių.</p></li>
+				<li><h3>Savos kortelės</h3><p>Pridėk savo nuotrauką ir įrašyk savo balsą ar žodį.</p></li>
+				<li><h3>Telefone ir kompiuteryje</h3><p>Dideliame ekrane matosi daugiau kortelių, o „Didelis vaizdas“ tinka mokykloje ar rodant per multimediją.</p></li>
+				<li><h3>Įsidiegia ir veikia be interneto</h3><p>Pridėk Voicer prie pagrindinio ekrano. Tavo kortelės saugomos tik tavo įrenginyje.</p></li>
+			</ul>
 		</section>
 
 		<section class="voicer-news" aria-labelledby="news-title">
