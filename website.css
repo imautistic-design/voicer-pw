@@ -133,6 +133,7 @@ button { cursor: pointer; }
 .voicer-page-copy .voicer-page-note { margin-top: -12px; font-size: 15px; color: #7C89A6; }
 .voicer-page-button { min-width: 245px; }
 .voicer-page-picture { display: contents; }
+.voicer-page-picture source { display: none; }
 .voicer-page-image { display: block; width: 100%; height: auto; aspect-ratio: 909 / 806; border-radius: 30px; box-shadow: 0 24px 50px rgb(63 82 124 / 14%); object-fit: cover; object-position: top; }
 .voicer-how { padding: 0 0 90px; }
 .voicer-how h2 { margin: 0 0 28px; font-size: 28px; font-weight: 800; }
