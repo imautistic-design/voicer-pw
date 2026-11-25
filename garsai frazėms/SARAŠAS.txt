@@ -21,7 +21,6 @@ dabar.mp3
 ryte.mp3
 vakare.mp3
 rytoj.mp3
-po savaitgalio.mp3
 
 Situacijos:
 miegoti.mp3
