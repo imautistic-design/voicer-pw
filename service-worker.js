@@ -1,4 +1,4 @@
-const CACHE_NAME = "voicer-pwa-v491";
+const CACHE_NAME = "voicer-pwa-v492";
 const APP_SHELL = [
 	"./",
 	"./index.html",

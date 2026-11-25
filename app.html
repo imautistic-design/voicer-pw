@@ -4658,8 +4658,19 @@
 
 		renderQuickSentences();
 
-		const frequentSection = document.querySelector("#frequent");
-		const frequentRow = document.querySelector("#frequent-row");
+		// Load phrase recordings ahead of time: phones only allow playback right after a tap, so waiting for a download can make them fall back to the synthesizer.
+		async function preloadPhraseFiles() {
+			const phrases = new Set([...quickSentences, ...timePhrases]);
+			scenarios.forEach((scenario) => scenario.phrases.forEach((phrase) => phrases.add(phrase)));
+			Object.values(phraseOptions).forEach((list) => list.forEach((phrase) => phrases.add(phrase)));
+			for (const phrase of phrases) {
+				await loadPhraseFile(phrase);
+			}
+		}
+
+		window.setTimeout(preloadPhraseFiles, 1500);
+
+		const frequentSection = document.querySelector("#frequent");		const frequentRow = document.querySelector("#frequent-row");
 
 		function recordUsage(word, photo, audioSource) {
 			const usage = appStorage.get("frequent", {});
