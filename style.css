@@ -1556,8 +1556,8 @@ button {
 	color: inherit;
 	background-color: currentColor;
 	font-size: 0;
-	-webkit-mask: url("NAVIGACIJOA IKONOS/SpeakerSimpleHigh-bold.svg?v=2") center / contain no-repeat;
-	mask: url("NAVIGACIJOA IKONOS/SpeakerSimpleHigh-bold.svg?v=2") center / contain no-repeat;
+	-webkit-mask: url("assets/icons/navigacija/SpeakerSimpleHigh-bold.svg?v=2") center / contain no-repeat;
+	mask: url("assets/icons/navigacija/SpeakerSimpleHigh-bold.svg?v=2") center / contain no-repeat;
 }
 
 .emotion-audio:hover > span,
@@ -1899,32 +1899,32 @@ button {
 
 .category-row--local-cards {
 	--category-color: #DDE4F0;
-	--category-icon-mask: url("NAVIGACIJOA IKONOS/megstamiausi.svg?v=2");
+	--category-icon-mask: url("assets/icons/navigacija/megstamiausi.svg?v=2");
 }
 
 .category-row--food {
 	--category-color: #EAF1E6;
-	--category-icon-mask: url("kategoriju-ikonos/VALGYTI.svg");
+	--category-icon-mask: url("assets/icons/kategorijos/VALGYTI.svg");
 }
 
 .category-row--drink {
 	--category-color: #DDE4F0;
-	--category-icon-mask: url("kategoriju-ikonos/GERTI.svg");
+	--category-icon-mask: url("assets/icons/kategorijos/GERTI.svg");
 }
 
 .category-row--toilet {
 	--category-color: #D4CCB4;
-	--category-icon-mask: url("kategoriju-ikonos/TUALETAS.svg");
+	--category-icon-mask: url("assets/icons/kategorijos/TUALETAS.svg");
 }
 
 .category-row--communication {
 	--category-color: #B4AFCF;
-	--category-icon-mask: url("kategoriju-ikonos/BENDRAUKIME.svg");
+	--category-icon-mask: url("assets/icons/kategorijos/BENDRAUKIME.svg");
 }
 
 .category-row--pain {
 	--category-color: #D98989;
-	--category-icon-mask: url("kategoriju-ikonos/SKAUDA.svg");
+	--category-icon-mask: url("assets/icons/kategorijos/SKAUDA.svg");
 }
 
 .category-row--chores,
@@ -1933,161 +1933,161 @@ button {
 }
 
 .category-row--chores {
-	--category-icon-mask: url("IKONOS POGRUPIAI/NAM%C5%B2%20RUO%C5%A0A.svg");
+	--category-icon-mask: url("assets/icons/pogrupiai/NAM%C5%B2%20RUO%C5%A0A.svg");
 }
 
 .category-row--rest {
-	--category-icon-mask: url("IKONOS POGRUPIAI/POILSIS.svg");
+	--category-icon-mask: url("assets/icons/pogrupiai/POILSIS.svg");
 }
 
 .category-row--locations {
 	--category-color: #98BE9D;
-	--category-icon-mask: url("kategoriju-ikonos/VIETOS.svg");
+	--category-icon-mask: url("assets/icons/kategorijos/VIETOS.svg");
 }
 
 .category-row--cooking {
 	--category-color: #D4B199;
-	--category-icon-mask: url("kategoriju-ikonos/GAMINTI.svg");
+	--category-icon-mask: url("assets/icons/kategorijos/GAMINTI.svg");
 }
 
 .category-row--sport {
 	--category-color: #E7E6B6;
-	--category-icon-mask: url("kategoriju-ikonos/SPORTAS.svg");
+	--category-icon-mask: url("assets/icons/kategorijos/SPORTAS.svg");
 }
 
 .category-row--personal-items {
 	--category-color: #B0BBA4;
-	--category-icon-mask: url("kategoriju-ikonos/DAIKTAI.svg");
+	--category-icon-mask: url("assets/icons/kategorijos/DAIKTAI.svg");
 }
 
 .category-row--colors {
 	--category-color: #A2B8BA;
-	--category-icon-mask: url("kategoriju-ikonos/SPALVOS.svg");
+	--category-icon-mask: url("assets/icons/kategorijos/SPALVOS.svg");
 }
 
 .category-row--numbers {
 	--category-color: #CCB9B9;
-	--category-icon-mask: url("kategoriju-ikonos/SKAI%C4%8CIAI.svg");
+	--category-icon-mask: url("assets/icons/kategorijos/SKAI%C4%8CIAI.svg");
 }
 
 .category-row--hygiene {
 	--category-color: #BBD2D7;
-	--category-icon-mask: url("IKONOS POGRUPIAI/HIGIENA.svg");
+	--category-icon-mask: url("assets/icons/pogrupiai/HIGIENA.svg");
 }
 
 .category-row--clothing {
 	--category-color: #C57890;
-	--category-icon-mask: url("IKONOS POGRUPIAI/APRANGA.svg");
+	--category-icon-mask: url("assets/icons/pogrupiai/APRANGA.svg");
 }
 
 .subcategory-row--meals {
-	--category-icon-mask: url("IKONOS POGRUPIAI/PATIEKLAI.svg");
+	--category-icon-mask: url("assets/icons/pogrupiai/PATIEKLAI.svg");
 }
 
 .subcategory-row--pastries {
-	--category-icon-mask: url("IKONOS POGRUPIAI/KEPINIAI.svg");
+	--category-icon-mask: url("assets/icons/pogrupiai/KEPINIAI.svg");
 }
 
 .subcategory-row--snacks {
-	--category-icon-mask: url("IKONOS POGRUPIAI/U%C5%BDKAND%C5%BDIAI.svg");
+	--category-icon-mask: url("assets/icons/pogrupiai/U%C5%BDKAND%C5%BDIAI.svg");
 }
 
 .subcategory-row--sweets {
-	--category-icon-mask: url("IKONOS POGRUPIAI/SALDUMYNAI.svg");
+	--category-icon-mask: url("assets/icons/pogrupiai/SALDUMYNAI.svg");
 }
 
 .subcategory-row--ingredients {
-	--category-icon-mask: url("IKONOS POGRUPIAI/MAISTO PRODUKTAI.svg");
+	--category-icon-mask: url("assets/icons/pogrupiai/MAISTO PRODUKTAI.svg");
 }
 
 .subcategory-row--cooking-process {
-	--category-icon-mask: url("IKONOS POGRUPIAI/GAMINIMO PROCESAS.svg");
+	--category-icon-mask: url("assets/icons/pogrupiai/GAMINIMO PROCESAS.svg");
 }
 
 .subcategory-row--utensils {
-	--category-icon-mask: url("IKONOS POGRUPIAI/INDAI.svg");
+	--category-icon-mask: url("assets/icons/pogrupiai/INDAI.svg");
 }
 
 .subcategory-row--fruit {
-	--category-icon-mask: url("IKONOS POGRUPIAI/VAISIAI.svg");
+	--category-icon-mask: url("assets/icons/pogrupiai/VAISIAI.svg");
 }
 
 .subcategory-row--berries {
-	--category-icon-mask: url("IKONOS POGRUPIAI/UOGOS.svg");
+	--category-icon-mask: url("assets/icons/pogrupiai/UOGOS.svg");
 }
 
 .subcategory-row--vegetables {
-	--category-icon-mask: url("IKONOS POGRUPIAI/DAR%C5%BDOV%C4%96S.svg");
+	--category-icon-mask: url("assets/icons/pogrupiai/DAR%C5%BDOV%C4%96S.svg");
 }
 
 .subcategory-row--bread {
-	--category-icon-mask: url("IKONOS POGRUPIAI/DUONA.svg");
+	--category-icon-mask: url("assets/icons/pogrupiai/DUONA.svg");
 }
 
 .subcategory-row--eggs {
-	--category-icon-mask: url("IKONOS POGRUPIAI/KIAU%C5%A0INIAI.svg");
+	--category-icon-mask: url("assets/icons/pogrupiai/KIAU%C5%A0INIAI.svg");
 }
 
 .subcategory-row--dairy {
-	--category-icon-mask: url("IKONOS POGRUPIAI/PIENAS.svg");
+	--category-icon-mask: url("assets/icons/pogrupiai/PIENAS.svg");
 }
 
 .subcategory-row--meat {
-	--category-icon-mask: url("IKONOS POGRUPIAI/M%C4%96SA.svg");
+	--category-icon-mask: url("assets/icons/pogrupiai/M%C4%96SA.svg");
 }
 
 .subcategory-row--fish {
-	--category-icon-mask: url("IKONOS POGRUPIAI/%C5%BDUVIS.svg");
+	--category-icon-mask: url("assets/icons/pogrupiai/%C5%BDUVIS.svg");
 }
 
 .subcategory-row--pasta {
-	--category-icon-mask: url("IKONOS POGRUPIAI/MAKARONAI.svg");
+	--category-icon-mask: url("assets/icons/pogrupiai/MAKARONAI.svg");
 }
 
 .subcategory-row--sauces {
-	--category-icon-mask: url("IKONOS POGRUPIAI/PADA%C5%BDAI.svg");
+	--category-icon-mask: url("assets/icons/pogrupiai/PADA%C5%BDAI.svg");
 }
 
 .subcategory-row--grains {
-	--category-icon-mask: url("IKONOS POGRUPIAI/KRUOPOS.svg");
+	--category-icon-mask: url("assets/icons/pogrupiai/KRUOPOS.svg");
 }
 
 .subcategory-row--spices {
-	--category-icon-mask: url("IKONOS POGRUPIAI/PRIESKONIAI.svg");
+	--category-icon-mask: url("assets/icons/pogrupiai/PRIESKONIAI.svg");
 }
 
 .subcategory-row--prepared-foods {
-	--category-icon-mask: url("IKONOS POGRUPIAI/DE%C5%A0REL%C4%96S.svg");
+	--category-icon-mask: url("assets/icons/pogrupiai/DE%C5%A0REL%C4%96S.svg");
 }
 
 .emotion-view {
 	--category-color: #DDE4F0;
-	--category-icon-mask: url("kategoriju-ikonos/DAIKTAI.svg");
+	--category-icon-mask: url("assets/icons/kategorijos/DAIKTAI.svg");
 }
 
 .emotion-view--food {
 	--category-color: #EAF1E6;
-	--category-icon-mask: url("kategoriju-ikonos/VALGYTI.svg");
+	--category-icon-mask: url("assets/icons/kategorijos/VALGYTI.svg");
 }
 
 .emotion-view--drink {
 	--category-color: #DDE4F0;
-	--category-icon-mask: url("kategoriju-ikonos/GERTI.svg");
+	--category-icon-mask: url("assets/icons/kategorijos/GERTI.svg");
 }
 
 .emotion-view--toilet {
 	--category-color: #D4CCB4;
-	--category-icon-mask: url("kategoriju-ikonos/TUALETAS.svg");
+	--category-icon-mask: url("assets/icons/kategorijos/TUALETAS.svg");
 }
 
 .emotion-view--communication {
 	--category-color: #B4AFCF;
-	--category-icon-mask: url("kategoriju-ikonos/BENDRAUKIME.svg");
+	--category-icon-mask: url("assets/icons/kategorijos/BENDRAUKIME.svg");
 }
 
 .emotion-view--pain {
 	--category-color: #D98989;
-	--category-icon-mask: url("kategoriju-ikonos/SKAUDA.svg");
+	--category-icon-mask: url("assets/icons/kategorijos/SKAUDA.svg");
 }
 
 .emotion-view--chores,
@@ -2096,51 +2096,51 @@ button {
 }
 
 .emotion-view--chores {
-	--category-icon-mask: url("IKONOS POGRUPIAI/NAM%C5%B2%20RUO%C5%A0A.svg");
+	--category-icon-mask: url("assets/icons/pogrupiai/NAM%C5%B2%20RUO%C5%A0A.svg");
 }
 
 .emotion-view--rest {
-	--category-icon-mask: url("IKONOS POGRUPIAI/POILSIS.svg");
+	--category-icon-mask: url("assets/icons/pogrupiai/POILSIS.svg");
 }
 
 .emotion-view--locations {
 	--category-color: #98BE9D;
-	--category-icon-mask: url("kategoriju-ikonos/VIETOS.svg");
+	--category-icon-mask: url("assets/icons/kategorijos/VIETOS.svg");
 }
 
 .emotion-view--cooking {
 	--category-color: #D4B199;
-	--category-icon-mask: url("kategoriju-ikonos/GAMINTI.svg");
+	--category-icon-mask: url("assets/icons/kategorijos/GAMINTI.svg");
 }
 
 .emotion-view--sport {
 	--category-color: #E7E6B6;
-	--category-icon-mask: url("kategoriju-ikonos/SPORTAS.svg");
+	--category-icon-mask: url("assets/icons/kategorijos/SPORTAS.svg");
 }
 
 .emotion-view--personal-items {
 	--category-color: #B0BBA4;
-	--category-icon-mask: url("kategoriju-ikonos/DAIKTAI.svg");
+	--category-icon-mask: url("assets/icons/kategorijos/DAIKTAI.svg");
 }
 
 .emotion-view--colors {
 	--category-color: #A2B8BA;
-	--category-icon-mask: url("kategoriju-ikonos/SPALVOS.svg");
+	--category-icon-mask: url("assets/icons/kategorijos/SPALVOS.svg");
 }
 
 .emotion-view--numbers {
 	--category-color: #CCB9B9;
-	--category-icon-mask: url("kategoriju-ikonos/SKAI%C4%8CIAI.svg");
+	--category-icon-mask: url("assets/icons/kategorijos/SKAI%C4%8CIAI.svg");
 }
 
 .emotion-view--hygiene {
 	--category-color: #BBD2D7;
-	--category-icon-mask: url("IKONOS POGRUPIAI/HIGIENA.svg");
+	--category-icon-mask: url("assets/icons/pogrupiai/HIGIENA.svg");
 }
 
 .emotion-view--clothing {
 	--category-color: #C57890;
-	--category-icon-mask: url("IKONOS POGRUPIAI/APRANGA.svg");
+	--category-icon-mask: url("assets/icons/pogrupiai/APRANGA.svg");
 }
 
 .emotion-card {
@@ -4907,11 +4907,11 @@ button:active {
 	}
 
 	.app-shell .bottom-nav .nav-back-icon {
-		--nav-icon: url("NAVIGACIJOA IKONOS/ATGAL.svg");
+		--nav-icon: url("assets/icons/navigacija/ATGAL.svg");
 	}
 
 	.app-shell .bottom-nav .nav-home-icon {
-		--nav-icon: url("NAVIGACIJOA IKONOS/PRADŽIA.svg");
+		--nav-icon: url("assets/icons/navigacija/PRADŽIA.svg");
 	}
 
 	.app-shell .bottom-nav .nav-back-icon img,
@@ -6005,7 +6005,7 @@ button:active {
 		height: 72px;
 		flex-basis: 72px;
 		border-radius: 20px;
-		background: rgb(136 167 201 / 10%) url("kategoriju-ikonos/pridėti kortelę.png") center / 36px no-repeat;
+		background: rgb(136 167 201 / 10%) url("assets/icons/kategorijos/pridėti kortelę.png") center / 36px no-repeat;
 	}
 
 	.card-audio-controls {
