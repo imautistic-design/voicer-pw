@@ -26,8 +26,8 @@ if (heroWord) {
 				wordIndex = (wordIndex + 1) % words.length;
 				heroWord.textContent = words[wordIndex];
 				heroWord.classList.remove("is-changing");
-			}, 400);
-		}, 5000);
+			}, 300);
+		}, 3000);
 	}
 
 	reducedMotion.addEventListener("change", updateWordAnimation);
@@ -96,6 +96,74 @@ if (installDialog) {
 		} catch (error) {
 			console.error("Nepavyko atidaryti įdiegimo lango:", error);
 			installInstructions.textContent = "Nepavyko atidaryti įdiegimo lango. Programėlę gali atidaryti naršyklėje.";
+		}
+	});
+}
+
+const supportDialog = document.querySelector("#support-dialog");
+if (supportDialog) {
+	document.querySelectorAll("[data-open-support]").forEach((button) => {
+		button.addEventListener("click", (event) => {
+			event.preventDefault();
+			supportDialog.showModal();
+		});
+	});
+	supportDialog.querySelector("[data-close-support]").addEventListener("click", () => supportDialog.close());
+	supportDialog.addEventListener("click", (event) => {
+		if (event.target === supportDialog) {
+			supportDialog.close();
+		}
+	});
+}
+
+const shareDialog = document.querySelector("#share-dialog");
+if (shareDialog) {
+	document.querySelectorAll("[data-open-share]").forEach((button) => {
+		button.addEventListener("click", () => shareDialog.showModal());
+	});
+	shareDialog.querySelector("[data-close-share]").addEventListener("click", () => shareDialog.close());
+	shareDialog.addEventListener("click", (event) => {
+		if (event.target === shareDialog) {
+			shareDialog.close();
+		}
+	});
+}
+
+const ideaDialog = document.querySelector("#idea-dialog");
+if (ideaDialog) {
+	const ideaForm = ideaDialog.querySelector("#idea-form");
+	const ideaSubmit = ideaDialog.querySelector("#idea-submit");
+	const ideaStatus = ideaDialog.querySelector("#idea-status");
+
+	document.querySelectorAll("[data-open-idea]").forEach((button) => {
+		button.addEventListener("click", () => {
+			ideaStatus.textContent = "";
+			ideaDialog.showModal();
+		});
+	});
+	ideaDialog.querySelector("[data-close-idea]").addEventListener("click", () => ideaDialog.close());
+	ideaDialog.addEventListener("click", (event) => {
+		if (event.target === ideaDialog) {
+			ideaDialog.close();
+		}
+	});
+
+	ideaForm.addEventListener("submit", async (event) => {
+		event.preventDefault();
+		ideaSubmit.disabled = true;
+		ideaStatus.textContent = "";
+		try {
+			const response = await fetch(ideaForm.action, { method: "POST", body: new FormData(ideaForm) });
+			const result = await response.json();
+			ideaStatus.textContent = result.message;
+			if (result.ok) {
+				ideaForm.reset();
+			}
+		} catch (error) {
+			console.error("Nepavyko išsiųsti idėjos:", error);
+			ideaStatus.textContent = "Nepavyko išsiųsti. Bandyk vėliau.";
+		} finally {
+			ideaSubmit.disabled = false;
 		}
 	});
 }

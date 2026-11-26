@@ -24,8 +24,8 @@
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-	<link rel="stylesheet" href="website.css?v=99">
-	<script src="website.js?v=7" defer></script>
+	<link rel="stylesheet" href="website.css?v=112">
+	<script src="website.js?v=12" defer></script>
 </head>
 <body>
 	<header class="site-header">
@@ -34,15 +34,15 @@
 			<nav aria-label="Pagrindinė navigacija">
 				<a href="apie.html">Apie mus</a>
 				<a href="voicer.html">Voicer</a>
-				<a href="#prisidek">Prisidėk</a>
+				<a href="kontaktai.html">Kontaktai</a>
 			</nav>
-			<a class="header-button" href="#prisidek">Paremk</a>
+			<a class="header-button" href="#prisidek" data-open-support>Paremk</a>
 			<details class="mobile-menu">
 				<summary aria-label="Meniu"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16" /></svg></summary>
 				<nav aria-label="Telefono navigacija">
 					<a href="apie.html">Apie mus</a>
 					<a href="voicer.html">Voicer</a>
-					<a href="#prisidek">Prisidėk</a>
+					<a href="kontaktai.html">Kontaktai</a>
 				</nav>
 			</details>
 		</div>
@@ -51,25 +51,30 @@
 	<main id="pradzia">
 		<section class="hero" aria-labelledby="hero-title">
 			<div class="hero-content">
-				<h1 id="hero-title">I’M AUTISTIC?</h1>
+				<h1 id="hero-title">I’M AUTISTIC</h1>
 				<div class="hero-intro"><span>Erdvė autistiškiems asmenims</span><span class="hero-pill" role="group" aria-label="Augti, Bendrauti, Kurti"><span class="hero-dot" aria-hidden="true"></span><span class="hero-word" aria-hidden="true">Augti</span></span></div>
-				<p>Kad kasdienybė būtų lengvesnė</p>
 			</div>
 			<div class="qualities" role="region" aria-label="Mūsų vertybės" tabindex="0" title="Užvesk pelę arba pasirink klaviatūra, kad juosta sustotų">
 				<div class="qualities-track">
 					<div class="qualities-group">
-						<span><img src="assets/images/svetaine/mielas.svg" alt="" width="24" height="21">mielas</span>
-						<span><img src="assets/images/svetaine/komunikabilus.svg" alt="" width="24" height="24">komunikabilus</span>
-						<span><img src="assets/images/svetaine/draugiškas.svg" alt="" width="24" height="24">draugiškas</span>
-						<span><img src="assets/images/svetaine/kūrybiškas.svg" alt="" width="24" height="24">kūrybiškas</span>
-						<span><img src="assets/images/svetaine/lankstus.svg" alt="" width="24" height="24">lankstus</span>
+						<span>mielas</span>
+						<span>komunikabilus</span>
+						<span>draugiškas</span>
+						<span>kūrybiškas</span>
+						<span>lankstus</span>
+						<span>nuoširdus</span>
+						<span>drąsus</span>
+						<span>atviras</span>
 					</div>
 					<div class="qualities-group" aria-hidden="true">
-						<span><img src="assets/images/svetaine/mielas.svg" alt="" width="24" height="21">mielas</span>
-						<span><img src="assets/images/svetaine/komunikabilus.svg" alt="" width="24" height="24">komunikabilus</span>
-						<span><img src="assets/images/svetaine/draugiškas.svg" alt="" width="24" height="24">draugiškas</span>
-						<span><img src="assets/images/svetaine/kūrybiškas.svg" alt="" width="24" height="24">kūrybiškas</span>
-						<span><img src="assets/images/svetaine/lankstus.svg" alt="" width="24" height="24">lankstus</span>
+						<span>mielas</span>
+						<span>komunikabilus</span>
+						<span>draugiškas</span>
+						<span>kūrybiškas</span>
+						<span>lankstus</span>
+						<span>nuoširdus</span>
+						<span>drąsus</span>
+						<span>atviras</span>
 					</div>
 				</div>
 			</div>
@@ -87,8 +92,8 @@
 						<h2>Voicer</h2>
 						<h3>Kalbinis AAC redaktorius</h3>
 						<p>Kalbinis AAC redaktorius, sukurtas tam, kad kasdienis bendravimas taptų paprastesnis ir aiškesnis</p>
-						<a class="primary-button voicer-button" href="voicer.html">Apie Voicer</a>
-						<a class="secondary-button voicer-open" href="app.html">Atidaryti Voicer</a>
+						<a class="primary-button voicer-button" href="app.html">Atidaryti Voicer</a>
+						<a class="secondary-button voicer-secondary" href="voicer.html">Apie Voicer</a>
 					</div>
 					<div class="voicer-image voicer-showcase"><img src="assets/images/svetaine/voicer-app.png" alt="Voicer programėlė: kategorijos ir greiti sakiniai" width="390" height="844" loading="lazy"></div>
 				</div>
@@ -105,9 +110,9 @@
 			<div class="content-width">
 				<h2>Kaip gali padėti<br>I'm Autistic?</h2>
 				<div class="help-grid">
-					<article class="help-card" id="remk"><img class="help-image" src="assets/images/svetaine/paremk.png" alt="" width="352" height="579"><div class="help-copy"><h3>Paremk</h3><p>Kiekvienas indėlis padeda tobulėti „I'm Autistic“ projektui ir kurti jį dar geresnį.</p><button class="primary-button" type="button" disabled title="Netrukus">Paremk</button></div></article>
-					<article class="help-card" id="ikelk-ideja"><img class="help-image" src="assets/images/svetaine/ikelk savo idėja.png" alt="" width="352" height="500"><div class="help-copy"><h3>Įkelk savo idėją</h3><p>Turi idėją, kaip galėtų projektas prisidėti prie tavo kokybiškesnio gyvenimo.</p><button class="primary-button" type="button" disabled title="Netrukus">Įkelk idėją</button></div></article>
-					<article class="help-card"><img class="help-image" src="assets/images/svetaine/pasidalink.png" alt="" width="352" height="500"><div class="help-copy"><h3>Pasidalink</h3><p>Papasakok apie „I'm Autistic“, kad apie jį sužinotų tie, kam to reikia.</p><button class="primary-button" id="share-site" type="button">Pasidalink</button><p class="share-status" id="share-status" role="status"></p></div></article>
+					<article class="help-card" id="remk"><img class="help-image" src="assets/images/svetaine/paremk.png" alt="" width="352" height="579"><div class="help-copy"><h3>Paremk</h3><p>Kiekvienas indėlis padeda tobulėti „I'm Autistic“ projektui ir kurti jį dar geresnį.</p><button class="primary-button" type="button" data-open-support>Paremk</button></div></article>
+					<article class="help-card" id="ikelk-ideja"><img class="help-image" src="assets/images/svetaine/ikelk savo idėja.png" alt="" width="352" height="500"><div class="help-copy"><h3>Įkelk savo idėją</h3><p>Turi idėją, kaip galėtų projektas prisidėti prie tavo kokybiškesnio gyvenimo.</p><button class="primary-button" type="button" data-open-idea>Įkelk idėją</button></div></article>
+					<article class="help-card"><img class="help-image" src="assets/images/svetaine/pasidalink.png" alt="" width="352" height="500"><div class="help-copy"><h3>Pasidalink</h3><p>Papasakok apie „I'm Autistic“, kad apie jį sužinotų tie, kam to reikia.</p><button class="primary-button" type="button" data-open-share>Pasidalink</button></div></article>
 				</div>
 			</div>
 		</section>
@@ -115,8 +120,8 @@
 	<footer class="site-footer">
 		<div class="content-width footer-inner footer-mobile">
 			<a class="brand" href="#pradzia"><img src="assets/images/svetaine/VOIVER LOGO.png" alt="I'm Autistic" width="417" height="184"></a>
-			<nav class="footer-links" aria-label="Prisidėk"><a href="#remk">Paremk</a><a href="#ikelk-ideja">Įkelk idėją</a><div><button class="footer-share" data-footer-share type="button">Pasidalink</button><p class="share-status" role="status"></p></div></nav>
-			<nav class="footer-links" aria-label="Svetainės nuorodos"><a href="apie.html">Apie mus</a><a href="voicer.html">Voicer</a><button type="button" disabled title="Netrukus">Kontaktai</button></nav>
+			<nav class="footer-links" aria-label="Prisidėk"><a href="#remk">Paremk</a><a href="#ikelk-ideja">Įkelk idėją</a><div><button class="footer-share" data-open-share type="button">Pasidalink</button><p class="share-status" role="status"></p></div></nav>
+			<nav class="footer-links" aria-label="Svetainės nuorodos"><a href="apie.html">Apie mus</a><a href="voicer.html">Voicer</a><a href="kontaktai.html">Kontaktai</a></nav>
 			<div class="footer-social">
 				<a href="https://www.facebook.com/profile.php?id=61583617341747&amp;locale=lt_LT" target="_blank" rel="noopener noreferrer" aria-label="Facebook (atsidaro naujame skirtuke)"><img src="assets/images/svetaine/facebook.svg" alt="" width="24" height="24"></a>
 				<a href="https://www.instagram.com/imauthistic/" target="_blank" rel="noopener noreferrer" aria-label="Instagram (atsidaro naujame skirtuke)"><img src="assets/images/svetaine/instagram.svg" alt="" width="24" height="24"></a>
@@ -134,10 +139,44 @@
 					<a href="https://www.patreon.com/cw/imauthistic" target="_blank" rel="noopener noreferrer" aria-label="Patreon (atsidaro naujame skirtuke)"><img src="assets/images/svetaine/patreon.svg" alt="" width="21" height="24"></a>
 				</div>
 			</div>
-			<nav class="footer-links" aria-label="Svetainės nuorodos"><a href="apie.html">Apie mus</a><a href="voicer.html">Voicer</a><button type="button" disabled title="Netrukus">Kontaktai</button></nav>
-			<nav class="footer-links" aria-label="Prisidėk"><a href="#remk">Paremk</a><a href="#ikelk-ideja">Įkelk idėją</a><div><button class="footer-share" data-footer-share type="button">Pasidalink</button><p class="share-status" role="status"></p></div></nav>
+			<nav class="footer-links" aria-label="Svetainės nuorodos"><a href="apie.html">Apie mus</a><a href="voicer.html">Voicer</a><a href="kontaktai.html">Kontaktai</a></nav>
+			<nav class="footer-links" aria-label="Prisidėk"><a href="#remk">Paremk</a><a href="#ikelk-ideja">Įkelk idėją</a><div><button class="footer-share" data-open-share type="button">Pasidalink</button><p class="share-status" role="status"></p></div></nav>
 		</div>
 	</footer>
 
+	<dialog class="install-dialog share-dialog" id="share-dialog" aria-labelledby="share-title" aria-describedby="share-description">
+		<div class="install-dialog-content">
+			<button class="dialog-close" type="button" aria-label="Uždaryti" data-close-share>×</button>
+			<h2 id="share-title">Pasidalink</h2>
+			<p id="share-description">Papasakok apie „I'm Autistic“, kad apie jį sužinotų tie, kam to reikia.</p>
+			<div class="dialog-social">
+				<a href="https://www.facebook.com/profile.php?id=61583617341747&amp;locale=lt_LT" target="_blank" rel="noopener noreferrer" aria-label="Facebook (atsidaro naujame skirtuke)"><img src="assets/images/svetaine/facebook.svg" alt="" width="24" height="24"></a>
+				<a href="https://www.instagram.com/imauthistic/" target="_blank" rel="noopener noreferrer" aria-label="Instagram (atsidaro naujame skirtuke)"><img src="assets/images/svetaine/instagram.svg" alt="" width="24" height="24"></a>
+				<a href="https://www.patreon.com/cw/imauthistic" target="_blank" rel="noopener noreferrer" aria-label="Patreon (atsidaro naujame skirtuke)"><img src="assets/images/svetaine/patreon.svg" alt="" width="21" height="24"></a>
+			</div>
+		</div>
+	</dialog>
+
+	<dialog class="install-dialog idea-dialog" id="idea-dialog" aria-labelledby="idea-title" aria-describedby="idea-description">
+		<form class="install-dialog-content" id="idea-form" action="idea.php" method="post">
+			<button class="dialog-close" type="button" aria-label="Uždaryti" data-close-idea>×</button>
+			<h2 id="idea-title">Tavo idėja</h2>
+			<p id="idea-description">Palik savo idėją, gal žinai gero sumuštinio receptą, o gal norėtum išmokti kokį namų ruošos darbą. Laukiu tavo idėjų</p>
+			<label class="sr-only" for="idea-text">Tavo idėja</label>
+			<textarea id="idea-text" name="idea" rows="4" maxlength="1000" placeholder="Parašyk savo idėją čia" required></textarea>
+			<input class="idea-trap" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
+			<button class="primary-button" id="idea-submit" type="submit">Pateikti</button>
+			<p class="share-status" id="idea-status" role="status"></p>
+		</form>
+	</dialog>
+
+	<dialog class="install-dialog support-dialog" id="support-dialog" aria-labelledby="support-title" aria-describedby="support-description">
+		<div class="install-dialog-content">
+			<button class="dialog-close" type="button" aria-label="Uždaryti" data-close-support>×</button>
+			<h2 id="support-title">Paremk</h2>
+			<p id="support-description">Kiekvienas indėlis padeda tobulėti „I'm Autistic“ projektui ir kurti jį dar geresnį.</p>
+			<a class="primary-button" href="https://www.patreon.com/c/imauthistic/membership" target="_blank" rel="noopener noreferrer">Paremk per Patreon</a>
+		</div>
+	</dialog>
 </body>
 </html>
